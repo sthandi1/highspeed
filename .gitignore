@@ -1,0 +1,14 @@
+Thumbs.db
+__pycache__
+edge_results.csv
+edges_results_200.csv
+edges_results_512.csv
+edges_results_840.csv
+example.mraw
+fourier_tut.py
+highspeed.py
+jet_8bit.tif
+mraw_v2.py
+normal.png
+thresholded_edges.png
+thresholded.png
