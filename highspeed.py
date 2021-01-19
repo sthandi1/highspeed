@@ -12,17 +12,13 @@ from mraw_v2 import mraw
 import csv
 from scipy.fft import fft, fftfreq
 
-# SET THRESHOLD HERE
-# assign the threshold value to a parameter from previous function testing
-# with trackbar
-thresh = 1425
 
 def nothing(x):
     # this function is used by the trackbars
     print(x)
 
 
-def single_image_thresh_value(inputFile):
+def single_image_thresh_value(inputFile, thresh):
     """
     This function is used to determine the threshold value to be used in the
     processing
@@ -167,7 +163,7 @@ def single_image_thresh_data(inputFile, thresh):
     fig1.savefig(fname='thresholded_edges.png', format='png')
     fig2.savefig(fname='thresholded.png', format='png')
 
-def multi_image(y_loc, inputFile):
+def multi_image(y_loc, inputFile, thresh):
     """
     This is the main code. It runs through all the photos in the file to
     determine edge locations and then it saves it in a csv file to be 
