@@ -57,7 +57,7 @@ def single_image_thresh_value(inputFile, thresh):
 
 
 
-def single_image_thresh_data(inputFile, thresh):
+def single_image_thresh_data(inputFile, thresh, y_location):
     """
     This function gets the data for a single image and plots it on a graph
     it compares the normal image and thresholded image
@@ -86,75 +86,32 @@ def single_image_thresh_data(inputFile, thresh):
     # LEFT EDGES
     for pixel in range(width):
         # for loop goes through the threshold array at the given
-        # downstream 'y' position (loc1) and then cycles across in the 'x'
+        # downstream 'y' position (y_location) and then cycles across in the 'x'
         # direction until it finds a zero. This zero indicate the edge of
         # the jet.
-        if th1[loc1, pixel] == 0:
+        if th1[y_location, pixel] == 0:
             # assign the iterator to a variable
-            loc1_left_edge = pixel
+            left_edge = pixel
             # exit the for loop once edge has been found
             break
 
-    for pixel in range(width):
-        # This for loop finds the left edge at loc2
-        if th1[loc2, pixel] == 0:
-            # assign the pixel to a variable
-            loc2_left_edge = pixel
-            # exit the for loop once edge has been found
-            break
-
-    for pixel in range(width):
-        # This for loop finds the left edge at loc3
-        if th1[loc3, pixel] == 0:
-            # assign the pixel to a variable
-            loc3_left_edge = pixel
-            # exit the for loop once edge has been found
-            break
 
     # RIGHT EDGES
     for pixel in range(width):
         # invert the loop so it counts down instead of up
         inv = width - pixel - 1
-        # This for loop finds the rihgt edge at loc1 and assings it to a
+        # This for loop finds the rihgt edge at y_location and assings it to a
         # variable
-        if th1[loc1, inv] == 0:
+        if th1[y_location, inv] == 0:
             # assigning the pixel to a variable
-            loc1_right_edge = inv
-            # exit the for loop once edge has been found
-            break
-    
-    for pixel in range(width):
-        # invert the loop so it counts down instead of up
-        inv = width - pixel - 1
-        # This for loop finds the right edge at loc2 and assigns it to a
-        # variable
-        if th1[loc2, inv] == 0:
-            # assigning the pixel to a variable
-            loc2_right_edge = inv
-        # exit the for loop once edge has been found
-            break
-
-    for pixel in range(width):
-        # invert the loop so it counts down instead of up
-        inv = width - pixel - 1
-        # This for loop finds the right edge at loc3 and assigns it to a
-        # variable
-        if th1[loc3, inv] == 0:
-            # assigning the pixel to a variable
-            loc3_right_edge = inv
+            right_edge = inv
             # exit the for loop once edge has been found
             break
     
     # plot the left edges point on the thresholded image
-    ax1.plot(loc1_left_edge, loc1, linestyle='none', marker='x', markersize=12)
-    ax1.plot(loc2_left_edge, loc2, linestyle='none', marker='x', markersize=12)
-    ax1.plot(loc3_left_edge, loc3, linestyle='none', marker='x', markersize=12)
+    ax1.plot(left_edge, y_location, linestyle='none', marker='x', markersize=12)
     # plt the right edges point on the thresholded image
-    ax1.plot(loc1_right_edge, loc1, linestyle='none', marker='x',
-             markersize=12)
-    ax1.plot(loc2_right_edge, loc2, linestyle='none', marker='x',
-             markersize=12)
-    ax1.plot(loc3_right_edge, loc3, linestyle='none', marker='x',
+    ax1.plot(right_edge, y_location, linestyle='none', marker='x',
              markersize=12)
     fig.set_size_inches(4, 8)
     fig1.set_size_inches(4, 8)
