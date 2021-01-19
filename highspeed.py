@@ -242,7 +242,7 @@ def multi_image(y_loc, inputFile, thresh):
     np.savetxt(filename, edges, fmt='%d', delimiter=',')
 
 
-def plotting():
+def fft_testing(filename):
     """
     Plotting the csv results from the previous function    
 
@@ -252,29 +252,12 @@ def plotting():
 
     """
 
-    loc1_csv = 'edges_results_200.csv'
-    loc2_csv = 'edges_results_512.csv'
-    loc3_csv = 'edges_results_840.csv'
-
-    # setting up storage arrays
-    loc1_frames = []
-    loc1_left_edges = []
-    loc1_right_edges = []
-
-    loc2_frames = []
-    loc2_left_edges = []
-    loc2_right_edges = []
-
-    loc3_frames = []
-    loc3_left_edges = []
-    loc3_right_edges = []
-
     # open csv file loc1
-    with open(loc1_csv) as csvfile_loc1:
+    with open(filename) as csvfile:
         # read csv file
-        readCSV_loc1 = csv.reader(csvfile_loc1, delimiter=',')
+        readCSV = csv.reader(csvfile, delimiter=',')
         # iterate along rows
-        for row in readCSV_loc1:
+        for row in readCSV:
             # assign row values to a local operator
             # frame number is first column
             frame = int(row[0])
@@ -289,45 +272,6 @@ def plotting():
             # append local right edge to global list
             loc1_right_edges.append(right_edge)
 
-    # open csv file loc2
-    with open(loc2_csv) as csvfile_loc2:
-        # read csv file
-        readCSV_loc2 = csv.reader(csvfile_loc2, delimiter=',')
-        # iterate along rows
-        for row in readCSV_loc2:
-            # assign row values to a local operator
-            # frame number is first column
-            frame = int(row[0])
-            # left edge is second column
-            left_edge = int(row[1])
-            # right edge is third column
-            right_edge = int(row[2])
-            # append local frame to global list
-            loc2_frames.append(frame)
-            # append local left edge to global list
-            loc2_left_edges.append(left_edge)
-            # append local right edge to global list
-            loc2_right_edges.append(right_edge)
-   
-    # open csv file loc3
-    with open(loc3_csv) as csvfile_loc3:
-        # read csv file
-        readCSV_loc3 = csv.reader(csvfile_loc3, delimiter=',')
-        # iterate along rows
-        for row in readCSV_loc3:
-            # assign row values to a local operator
-            # frame number is first column
-            frame = int(row[0])
-            # left edge is second column
-            left_edge = int(row[1])
-            # right edge is third column
-            right_edge = int(row[2])
-            # append local frame to global list
-            loc3_frames.append(frame)
-            # append local left edge to global list
-            loc3_left_edges.append(left_edge)
-            # append local right edge to global list
-            loc3_right_edges.append(right_edge)
             
     # converting frames into real time
     
