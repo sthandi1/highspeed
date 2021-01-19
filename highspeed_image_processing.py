@@ -208,6 +208,9 @@ def fft_testing(filename):
     None.
 
     """
+    frames = []
+    left_edges = []
+    right_edges = []
 
     # open csv file loc1
     with open(filename) as csvfile:
@@ -223,100 +226,53 @@ def fft_testing(filename):
             # right edge is third column
             right_edge = int(row[2])
             # append local frame to global list
-            loc1_frames.append(frame)
+            frames.append(frame)
             # append local left edge to global list
-            loc1_left_edges.append(left_edge)
+            left_edges.append(left_edge)
             # append local right edge to global list
-            loc1_right_edges.append(right_edge)
+            right_edges.append(right_edge)
 
             
     # converting frames into real time
     
-    loc1_time = []
-    loc2_time = []
-    loc3_time = []
+    time = []
     
-    for frame in loc1_frames:
-        loc1_time.append(loc1_frames[frame]/27000)
-
-    for frame in loc2_frames:
-        loc2_time.append(loc2_frames[frame]/27000)
-
-    for frame in loc3_frames:
-        loc3_time.append(loc3_frames[frame]/27000)
+    for frame in frames:
+        time.append(frames[frame]/27000)
         
     # converting pixels to mm edges
     
-    loc1_mm_left_edge = []
-    loc2_mm_left_edge = []
-    loc3_mm_left_edge = []
+    mm_left_edge = []
+    mm_right_edge = []
+ 
     
-    loc1_mm_right_edge = []
-    loc2_mm_right_edge = []
-    loc3_mm_right_edge = []
+    for edge in left_edges:
+        mm_left_edge.append(left_edges[edge]*0.02)
     
-    for edge in loc1_left_edges:
-        loc1_mm_left_edge.append(loc1_left_edges[edge]*0.02)
-    
-    for edge in loc2_left_edges:
-        loc2_mm_left_edge.append(loc2_left_edges[edge]*0.02)
-
-    for edge in loc3_left_edges:
-        loc3_mm_left_edge.append(loc3_left_edges[edge]*0.02)
-        
-    for edge in loc1_right_edges:
-        loc1_mm_right_edge.append(loc1_right_edges[edge]*0.02)
-        
-    for edge in loc2_right_edges:
-        loc2_mm_right_edge.append(loc2_right_edges[edge]*0.02)
-
-    for edge in loc3_right_edges:
-        loc3_mm_right_edge.append(loc3_right_edges[edge]*0.02)
+    for edge in right_edges:
+        mm_right_edge.append(right_edges[edge]*0.02)
                         
     # jet diameter
-    loc1_jet_diameter = []
-    loc2_jet_diameter = []
-    loc3_jet_diameter = []
+    jet_diameter = []
     
-    for i in loc1_frames:
-        loc1_jet_diameter.append(0.02*(loc1_right_edges[i]-loc1_left_edges[i]))
-    
-    for i in loc2_frames:
-        loc2_jet_diameter.append(0.02*(loc2_right_edges[i]-loc2_left_edges[i]))
-
-    for i in loc3_frames:
-        loc3_jet_diameter.append(0.02*(loc3_right_edges[i]-loc3_left_edges[i]))
+    for i in frames:
+        jet_diameter.append(0.02*(right_edges[i]-left_edges[i]))
     
     # setting up plots for left and right edges
     fig, ax = plt.subplots()
     # plotting left edge
-    ax.plot(loc1_time, loc1_left_edges)
+    ax.plot(time, left_edges)
     # plotting right edge
-    ax.plot(loc1_time, loc1_right_edges, '.')
-    ax.set_title('4mm downstream left and right edges')
+    ax.plot(time, right_edges, '.')
     ax.set_xlabel('Time (seconds)')
     ax.set_ylabel('Pixels')
 
-
+    # plotting jet diameter
     fig1, ax1 = plt.subplots()
-    ax1.plot(loc1_time, loc1_jet_diameter)
-    ax1.set_title('Jet diameter 4mm downstream')
+    ax1.plot(time, jet_diameter)
     ax1.set_xlabel('Time (seconds)')
     ax1.set_ylabel('Jet diameter (mm)')
-    
-    fig2, ax2 = plt.subplots()
-    ax2.plot(loc2_time, loc2_jet_diameter)
-    ax2.set_title('Jet diameter 13mm downstream')
-    ax2.set_xlabel('Time (seconds)')
-    ax2.set_ylabel('Jet diameter (mm)')
-    
-    fig3, ax3 = plt.subplots()
-    ax3.plot(loc2_time, loc2_left_edges)
-    ax3.plot(loc2_time, loc2_right_edges)
-    ax3.set_title('13mm downstream left and right edges')
-    ax3.set_xlabel('Time (seconds)')
-    ax3.set_ylabel('Pixels')
-    
+
     sample_rate = len(loc1_time)/loc1_time[-1]
     print('Sample rate:',sample_rate)
     print('Final value:',loc1_time[-1])
