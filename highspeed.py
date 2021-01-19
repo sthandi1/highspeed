@@ -12,26 +12,17 @@ from mraw_v2 import mraw
 import csv
 from scipy.fft import fft, fftfreq
 
-# set input file here
-inputFile = 'E:/0_cowl/Re_1551/We_5_22/0_cowl_1551_522.cihx'
-
 # SET THRESHOLD HERE
 # assign the threshold value to a parameter from previous function testing
 # with trackbar
 thresh = 1425
-
-# SET Y locations to for the edge locations to be determined
-
-loc1 = 200
-loc2 = 512
-loc3 = 840
 
 def nothing(x):
     # this function is used by the trackbars
     print(x)
 
 
-def single_image_thresh_value():
+def single_image_thresh_value(inputFile):
     """
     This function is used to determine the threshold value to be used in the
     processing
@@ -70,7 +61,7 @@ def single_image_thresh_value():
 
 
 
-def single_image_thresh_data():
+def single_image_thresh_data(inputFile, thresh):
     """
     This function gets the data for a single image and plots it on a graph
     it compares the normal image and thresholded image
@@ -176,7 +167,7 @@ def single_image_thresh_data():
     fig1.savefig(fname='thresholded_edges.png', format='png')
     fig2.savefig(fname='thresholded.png', format='png')
 
-def multi_image(y_loc):
+def multi_image(y_loc, inputFile):
     """
     This is the main code. It runs through all the photos in the file to
     determine edge locations and then it saves it in a csv file to be 
@@ -488,7 +479,3 @@ def fft_test_2():
     fig1, ax1 = plt.subplots()
     ax1.stem(freqs, fourier)
     ax1.set_xlim(-20,20)
-    
-    
-    
-print("hello")
