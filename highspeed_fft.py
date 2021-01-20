@@ -121,7 +121,7 @@ def fft_testing(filename):
     ax4.set_xlabel('Frequencies')
     ax4.set_ylabel('Amplitude')
 
-    # trying normalisation
+    # trying normalisation for jet diameter
     normalised_jet_diameter = []
     jet_diameter_mean = mean(jet_diameter)
     for diameter in jet_diameter:
@@ -132,4 +132,44 @@ def fft_testing(filename):
     ax5.set_xlabel('Time (seconds)')
     ax5.set_ylabel('Normalised jet diameter (mm)')
 
+    # normalisation fft for jet diameter
     
+    normalised_jet_diameter_fft = rfft(normalised_jet_diameter)
+    normalised_jet_diameter_freqs = rfftfreq(len(normalised_jet_diameter), 1/27000)
+    fig6, ax6 = plt.subplots()
+    ax6.stem(normalised_jet_diameter_freqs, np.abs(normalised_jet_diameter_fft))
+    ax6.set_title('Normalised jet diameter FFT')
+    ax6.set_xlabel('Frequencies')
+    ax6.set_ylabel('Amplitude')
+
+    # trying normalisation for jet centroid
+    normalised_jet_centroid = []
+    jet_centroid_mean = mean(jet_centroid)
+    for centroid in jet_centroid:
+        normalised_jet_centroid.append(centroid - jet_centroid_mean)
+    fig7, ax7 = plt.subplots()
+    ax7.plot(time, normalised_jet_centroid)
+    ax7.set_title("Normalised jet centroid")
+    ax7.set_xlabel('Time (seconds)')
+    ax7.set_ylabel('Normalised jet centroid (mm)')
+
+    # normalisation fft for jet centroid
+    
+    normalised_jet_centroid_fft = rfft(normalised_jet_centroid)
+    normalised_jet_centroid_freqs = rfftfreq(len(normalised_jet_centroid), 1/27000)
+    fig8, ax8 = plt.subplots()
+    ax8.stem(normalised_jet_centroid_freqs, np.abs(normalised_jet_centroid_fft))
+    ax8.set_title('Normalised jet centroid FFT')
+    ax8.set_xlabel('Frequencies')
+    ax8.set_ylabel('Amplitude')
+    ax8.set_xlim(0, 250)
+
+    # identifying peak frequencies
+    # jet diameter
+
+    for i in range(len(np.abs(normalised_jet_diameter_fft))):
+        if np.abs(normalised_jet_diameter_fft)[i] > 100:
+            print("Amplitudes:",np.abs(normalised_jet_diameter_fft)[i])
+            print("Frequencies:", normalised_jet_centroid_freqs[i])
+
+
