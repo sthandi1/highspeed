@@ -11,19 +11,6 @@ import matplotlib.pyplot as plt
 from scipy.fft import fft, fftfreq
 
 
-def synthetic():
-    t = np.linspace(0, 2*np.pi, 100)
-    a0 = 100
-    w = 55.6
-    f = 5
-    a = a0*np.exp(w*t)
-    upper = a*np.sin(f*t)+2
-    lower = -a*np.sin(f*t)-2
-    fig, ax = plt.subplots()
-    ax.plot(t, upper)
-    ax.plot(t, lower)
-
-
 def fft_test():
     f = 10  # Frequency, in cycles per second, or Hertz
     f_s = 100  # Sampling rate, or number of measurements per second
