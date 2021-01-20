@@ -8,44 +8,10 @@ Created on Tue Jan 19 19:08:38 2021
 
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.fft import fft, fftfreq
+from scipy.fft import fft, fftfreq, rfft, rfftfreq
+import csv
+from statistics import mean
 
-
-def fft_test():
-    f = 10  # Frequency, in cycles per second, or Hertz
-    f_s = 100  # Sampling rate, or number of measurements per second
-    t = np.linspace(0, 2, 2 * f_s, endpoint=False)
-    x = np.sin(f * 2 * np.pi * t)
-
-    fig, ax = plt.subplots()
-    ax.plot(t, x)
-    ax.set_xlabel('Time [s]')
-    ax.set_ylabel('Signal amplitude');
-    
-    transform = fft(x)
-    freqs = fftfreq(len(x)) * f_s
-    
-    fig1, ax1 = plt.subplots()
-
-    ax1.stem(freqs, np.abs(transform))
-    ax1.set_xlabel('Frequency in Hertz [Hz]')
-    ax1.set_ylabel('Frequency Domain (Spectrum) Magnitude')
-    ax1.set_xlim(-f_s / 2, f_s / 2)
-    ax1.set_ylim(-5, 110)
-
-
-def fft_test_2():
-    x = np.linspace(0, 2*np.pi, 1000)
-    f = 10
-    y = np.sin(f*x)
-    
-    fourier = fft(y)
-    freqs = fftfreq(len(y), 1/len(y))
-    fig, ax = plt.subplots()
-    ax.plot(x,y)
-    fig1, ax1 = plt.subplots()
-    ax1.stem(freqs, fourier)
-    ax1.set_xlim(-20,20)
 
 def fft_testing(filename):
     """
@@ -106,6 +72,11 @@ def fft_testing(filename):
     for i in frames:
         jet_diameter.append(0.02*(right_edges[i]-left_edges[i]))
     
+    # jet centroid
+    jet_centroid = []
+    for i in frames:
+        jet_centroid.append(0.02*0.5*(right_edges[i]+left_edges[i]))    
+    
     # setting up plots for left and right edges
     fig, ax = plt.subplots()
     # plotting left edge
@@ -114,20 +85,51 @@ def fft_testing(filename):
     ax.plot(time, right_edges, '.')
     ax.set_xlabel('Time (seconds)')
     ax.set_ylabel('Pixels')
+    ax.set_title('Edges plot')
 
     # plotting jet diameter
     fig1, ax1 = plt.subplots()
     ax1.plot(time, jet_diameter)
     ax1.set_xlabel('Time (seconds)')
     ax1.set_ylabel('Jet diameter (mm)')
+    ax1.set_title('Jet diameter plot')
 
-    sample_rate = len(loc1_time)/loc1_time[-1]
-    print('Sample rate:',sample_rate)
-    print('Final value:',loc1_time[-1])
-    loc1_diameter_fft = fft(loc1_jet_diameter*10000)
-    loc1_diameter_freqs = fftfreq(len(loc1_jet_diameter), 27000)
+    # plotting jet centroid
+    fig2, ax2 = plt.subplots()
+    ax2.plot(time, jet_centroid)
+    ax2.set_xlabel('Time (seconds)')
+    ax2.set_ylabel('Jet centroid location (mm)')
+    ax2.set_title('Jet centroid plot')
+
+    # fft of jet centroid
+    centroid_fft = rfft(jet_centroid)
+    centroid_freqs = rfftfreq(len(jet_centroid), 1/27000)
+    fig3, ax3 = plt.subplots()
+    ax3.stem(centroid_freqs, np.abs(centroid_fft))
+    ax3.set_title("centroid fft")
+    ax3.set_xlabel('Frequencies')
+    ax3.set_ylabel('Amplitude')
+
+    # fft of jet diameter
+    loc1_diameter_fft = rfft(jet_diameter)
+    loc1_diameter_freqs = rfftfreq(len(jet_diameter), 1/27000)
     fig4, ax4 = plt.subplots()
     ax4.stem(loc1_diameter_freqs, np.abs(loc1_diameter_fft))
-    
+    ax4.set_xlim(2, 500)
+    ax4.set_ylim(0, 150)
+    ax4.set_title('Jet diameter change frequencies')
+    ax4.set_xlabel('Frequencies')
+    ax4.set_ylabel('Amplitude')
+
+    # trying normalisation
+    normalised_jet_diameter = []
+    jet_diameter_mean = mean(jet_diameter)
+    for diameter in jet_diameter:
+        normalised_jet_diameter.append(diameter - jet_diameter_mean)
     fig5, ax5 = plt.subplots()
-    ax5.plot(loc1_time[:100], loc1_left_edges[:100], linestyle='none', marker='.')
+    ax5.plot(time, normalised_jet_diameter)
+    ax5.set_title("Normalised jet diameter")
+    ax5.set_xlabel('Time (seconds)')
+    ax5.set_ylabel('Normalised jet diameter (mm)')
+
+    
