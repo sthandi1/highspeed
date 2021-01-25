@@ -14,7 +14,7 @@ import csv
 
 def change(x):
     # this function is used by the trackbars
-    pass
+    print(x)
 
 
 def single_image_thresh_value(inputFile):
@@ -142,7 +142,16 @@ def multi_image(z_locations, inputFile, thresh):
     # of images in the movie (frames) and 3 columns. First column is the frame
     # number, second column is the left edge, third column is the right edge
 
-    edges = np.zeros((frames, 3))
+    edges_zloc0 = np.zeros((frames,3))
+    edges_zloc1 = np.zeros((frames,3))
+    edges_zloc2 = np.zeros((frames,3))
+    edges_zloc3 = np.zeros((frames,3))
+    edges_zloc4 = np.zeros((frames,3))
+    edges_zloc5 = np.zeros((frames,3))
+    edges_zloc6 = np.zeros((frames,3))
+    edges_zloc7 = np.zeros((frames,3))
+    edges_zloc8 = np.zeros((frames,3))
+    edges_zloc9 = np.zeros((frames,3))
 
     # Now looping over individual frames in the file
     for frame in range(frames):
@@ -159,54 +168,404 @@ def multi_image(z_locations, inputFile, thresh):
         # is given the value of the frame. Therefore the array of zeros
         # becomes an array where the first column counts up from 0 to
         # the number of frames in the video.
-        edges[frame, 0] = frame
+        edges_zloc0[frame, 0] = frame
+        edges_zloc1[frame, 0] = frame
+        edges_zloc2[frame, 0] = frame
+        edges_zloc3[frame, 0] = frame
+        edges_zloc4[frame, 0] = frame
+        edges_zloc5[frame, 0] = frame
+        edges_zloc6[frame, 0] = frame
+        edges_zloc7[frame, 0] = frame
+        edges_zloc8[frame, 0] = frame
+        edges_zloc9[frame, 0] = frame
 
         # apply binary threshold where below threshold is zero and above is
         # 4096 which is 2^12 since the image is a 12 bit image
         _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
+        
+        ###############################################################################
+        """
+        .##........#######...######.......#####..
+        .##.......##.....##.##....##.....##...##.
+        .##.......##.....##.##..........##.....##
+        .##.......##.....##.##..........##.....##
+        .##.......##.....##.##..........##.....##
+        .##.......##.....##.##....##.....##...##.
+        .########..#######...######.......#####..
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
 
-        edges_zloc0 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc1 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc2 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc3 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc4 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc5 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc6 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc7 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc8 = edge_detector(edges, z_loc[0], frame, th1, width)
-        edges_zloc9 = edge_detector(edges, z_loc[0], frame, th1, width)
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[0], pixel] == 0:
+                edges_zloc0[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[0], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc0[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+    
+        ###############################################################################
+        """
+        .##........#######...######........##..
+        .##.......##.....##.##....##.....####..
+        .##.......##.....##.##.............##..
+        .##.......##.....##.##.............##..
+        .##.......##.....##.##.............##..
+        .##.......##.....##.##....##.......##..
+        .########..#######...######......######
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
 
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[1], pixel] == 0:
+                edges_zloc1[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[1], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc1[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+        
+        ###############################################################################
+        """
+        .##........#######...######......#######.
+        .##.......##.....##.##....##....##.....##
+        .##.......##.....##.##.................##
+        .##.......##.....##.##...........#######.
+        .##.......##.....##.##..........##.......
+        .##.......##.....##.##....##....##.......
+        .########..#######...######.....#########
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[2], pixel] == 0:
+                edges_zloc2[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[2], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc2[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+        ###############################################################################
+        """
+        .##........#######...######......#######.
+        .##.......##.....##.##....##....##.....##
+        .##.......##.....##.##.................##
+        .##.......##.....##.##...........#######.
+        .##.......##.....##.##.................##
+        .##.......##.....##.##....##....##.....##
+        .########..#######...######......#######.
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[3], pixel] == 0:
+                edges_zloc3[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[3], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc3[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+        
+        ###############################################################################
+        """
+        .##........#######...######.....##.......
+        .##.......##.....##.##....##....##....##.
+        .##.......##.....##.##..........##....##.
+        .##.......##.....##.##..........##....##.
+        .##.......##.....##.##..........#########
+        .##.......##.....##.##....##..........##.
+        .########..#######...######...........##.
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[4], pixel] == 0:
+                edges_zloc4[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[4], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc4[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+
+        ###############################################################################
+        """
+        .##........#######...######.....########
+        .##.......##.....##.##....##....##......
+        .##.......##.....##.##..........##......
+        .##.......##.....##.##..........#######.
+        .##.......##.....##.##................##
+        .##.......##.....##.##....##....##....##
+        .########..#######...######......######.
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[5], pixel] == 0:
+                edges_zloc5[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[5], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc5[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+        ###############################################################################
+        """
+        .##........#######...######......#######.
+        .##.......##.....##.##....##....##.....##
+        .##.......##.....##.##..........##.......
+        .##.......##.....##.##..........########.
+        .##.......##.....##.##..........##.....##
+        .##.......##.....##.##....##....##.....##
+        .########..#######...######......#######.
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[6], pixel] == 0:
+                edges_zloc6[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[6], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc6[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+
+        ###############################################################################
+        """
+        .##........#######...######.....########
+        .##.......##.....##.##....##....##....##
+        .##.......##.....##.##..............##..
+        .##.......##.....##.##.............##...
+        .##.......##.....##.##............##....
+        .##.......##.....##.##....##......##....
+        .########..#######...######.......##....
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[7], pixel] == 0:
+                edges_zloc7[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[7], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc7[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+
+        ###############################################################################
+        """
+        .##........#######...######......#######.
+        .##.......##.....##.##....##....##.....##
+        .##.......##.....##.##..........##.....##
+        .##.......##.....##.##...........#######.
+        .##.......##.....##.##..........##.....##
+        .##.......##.....##.##....##....##.....##
+        .########..#######...######......#######.
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[8], pixel] == 0:
+                edges_zloc8[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[8], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc8[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+        ###############################################################################
+        """
+        .##........#######...######......#######.
+        .##.......##.....##.##....##....##.....##
+        .##.......##.....##.##..........##.....##
+        .##.......##.....##.##...........########
+        .##.......##.....##.##.................##
+        .##.......##.....##.##....##....##.....##
+        .########..#######...######......#######.
+        """
+        ###############################################################################
+        # LEFT EDGES
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_loc) and then cycles across in the 'x'
+            # direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+
+            # This for loop finds the left edge at z_loc and assigns it to the
+            # second column, which is indexed as 1
+            if th1[z_locations[9], pixel] == 0:
+                edges_zloc9[frame, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+    
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_loc and assigns it to the
+            # third column, which is indexed as 2
+            if th1[z_locations[9], inv] == 0:
+                # assigning the pixel to the storage array for the given frame
+                edges_zloc9[frame, 2] = inv
+                # exit the for loop once edge has been found
+                break
+
+    output_filename = []
     for z_loc in z_locations:
         output_filename = 'edges_results_' + str(z_loc) + '.csv'
-        # save the edges storage matrix into a text file
-        np.savetxt(output_filename, edges, fmt='%d', delimiter=',')
+    
+    # save the edges storage matrix into a text file
+    np.savetxt(output_filename[0], edges_zloc0, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[1], edges_zloc1, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[2], edges_zloc2, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[3], edges_zloc3, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[4], edges_zloc4, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[5], edges_zloc5, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[6], edges_zloc6, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[7], edges_zloc7, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[8], edges_zloc8, fmt='%d', delimiter=',')
+    np.savetxt(output_filename[9], edges_zloc9, fmt='%d', delimiter=',')
 
-
-def edge_detector(edges, z_loc, frame, th1, width):
-    for pixel in range(width):
-        # for loop goes through the threshold array at the given
-        # downstream 'z' position (z_loc) and then cycles across in the 'x'
-        # direction until it finds a zero. This zero indicate the edge of
-        # the jet.
-
-        # This for loop finds the left edge at z_loc and assigns it to the
-        # second column, which is indexed as 1
-        if th1[z_loc, pixel] == 0:
-            edges[frame, 1] = pixel
-            # exit the for loop once edge has been found
-            break
-
-    # RIGHT EDGES
-    for pixel in range(width):
-        # invert the loop so it counts down instead of up
-        inv = width - pixel - 1
-        # This for loop finds the right edge at z_loc and assigns it to the
-        # third column, which is indexed as 2
-        if th1[z_loc, inv] == 0:
-            # assigning the pixel to the storage array for the given frame
-            edges[frame, 2] = inv
-            # exit the for loop once edge has been found
-            break
-    return edges
-
-single_image_thresh_value("/Volumes/My Passport/Experiments/2020-02 High speed camera experiments/0_cowl/Re_1551/We_5_22/0_cowl_1551_522.cihx")
+def file_id(filename):
+    dirs = filename.split('/')
+    print(dirs)
