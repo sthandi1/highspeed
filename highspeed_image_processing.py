@@ -9,7 +9,6 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 from mraw_v2 import mraw
-import csv
 
 
 def change(x):
@@ -52,8 +51,6 @@ def single_image_thresh_value(inputFile):
             break
         # stops crashes and destroys windows
     cv2.destroyAllWindows()
-
-
 
 
 def single_image_thresh_data(inputFile, thresh, z_location):
@@ -575,6 +572,7 @@ def multi_image(z_locations, inputFile, thresh):
     np.savetxt(output_filename[9], edges_zloc9, fmt='%d', delimiter=',')
 
     file_id(inputFile)
+
 
 def file_id(filename):
     dirs = filename.split('/')
