@@ -142,16 +142,18 @@ def multi_image(z_locations, inputFile, thresh):
     # of images in the movie (frames) and 3 columns. First column is the frame
     # number, second column is the left edge, third column is the right edge
 
-    edges_zloc0 = np.zeros((frames,3))
-    edges_zloc1 = np.zeros((frames,3))
-    edges_zloc2 = np.zeros((frames,3))
-    edges_zloc3 = np.zeros((frames,3))
-    edges_zloc4 = np.zeros((frames,3))
-    edges_zloc5 = np.zeros((frames,3))
-    edges_zloc6 = np.zeros((frames,3))
-    edges_zloc7 = np.zeros((frames,3))
-    edges_zloc8 = np.zeros((frames,3))
-    edges_zloc9 = np.zeros((frames,3))
+    file_id(inputFile)
+
+    edges_zloc0 = np.zeros((frames, 3))
+    edges_zloc1 = np.zeros((frames, 3))
+    edges_zloc2 = np.zeros((frames, 3))
+    edges_zloc3 = np.zeros((frames, 3))
+    edges_zloc4 = np.zeros((frames, 3))
+    edges_zloc5 = np.zeros((frames, 3))
+    edges_zloc6 = np.zeros((frames, 3))
+    edges_zloc7 = np.zeros((frames, 3))
+    edges_zloc8 = np.zeros((frames, 3))
+    edges_zloc9 = np.zeros((frames, 3))
 
     # Now looping over individual frames in the file
     for frame in range(frames):
@@ -183,7 +185,7 @@ def multi_image(z_locations, inputFile, thresh):
         # 4096 which is 2^12 since the image is a 12 bit image
         _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
         
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######.......#####..
         .##.......##.....##.##....##.....##...##.
@@ -193,7 +195,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##.....##...##.
         .########..#######...######.......#####..
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -220,7 +222,7 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
     
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######........##..
         .##.......##.....##.##....##.....####..
@@ -230,7 +232,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##.......##..
         .########..#######...######......######
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -257,7 +259,7 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
         
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######......#######.
         .##.......##.....##.##....##....##.....##
@@ -267,7 +269,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##....##.......
         .########..#######...######.....#########
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -293,7 +295,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc2[frame, 2] = inv
                 # exit the for loop once edge has been found
                 break
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######......#######.
         .##.......##.....##.##....##....##.....##
@@ -303,7 +305,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##....##.....##
         .########..#######...######......#######.
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -330,7 +332,7 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
         
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######.....##.......
         .##.......##.....##.##....##....##....##.
@@ -340,7 +342,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##..........##.
         .########..#######...######...........##.
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -367,7 +369,7 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
 
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######.....########
         .##.......##.....##.##....##....##......
@@ -377,7 +379,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##....##....##
         .########..#######...######......######.
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -403,7 +405,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc5[frame, 2] = inv
                 # exit the for loop once edge has been found
                 break
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######......#######.
         .##.......##.....##.##....##....##.....##
@@ -413,7 +415,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##....##.....##
         .########..#######...######......#######.
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -440,7 +442,7 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
 
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######.....########
         .##.......##.....##.##....##....##....##
@@ -450,7 +452,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##......##....
         .########..#######...######.......##....
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -477,7 +479,7 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
 
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######......#######.
         .##.......##.....##.##....##....##.....##
@@ -487,7 +489,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##....##.....##
         .########..#######...######......#######.
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -513,7 +515,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc8[frame, 2] = inv
                 # exit the for loop once edge has been found
                 break
-        ###############################################################################
+        #######################################################################
         """
         .##........#######...######......#######.
         .##.......##.....##.##....##....##.....##
@@ -523,7 +525,7 @@ def multi_image(z_locations, inputFile, thresh):
         .##.......##.....##.##....##....##.....##
         .########..#######...######......#######.
         """
-        ###############################################################################
+        #######################################################################
         # LEFT EDGES
         for pixel in range(width):
             # for loop goes through the threshold array at the given
@@ -550,10 +552,16 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
 
+    dirs = inputFile.split('/')
+    experiment = dirs[-1]
+    casename = experiment.split('.')[0]
+
     output_filename = []
     for z_loc in z_locations:
-        output_filename = 'edges_results_' + str(z_loc) + '.csv'
+        output = str(casename) + '_' + 'results_' + str(z_loc) + '.csv'
+        output_filename.append(output)
     
+    print('Saving data...')
     # save the edges storage matrix into a text file
     np.savetxt(output_filename[0], edges_zloc0, fmt='%d', delimiter=',')
     np.savetxt(output_filename[1], edges_zloc1, fmt='%d', delimiter=',')
@@ -566,6 +574,18 @@ def multi_image(z_locations, inputFile, thresh):
     np.savetxt(output_filename[8], edges_zloc8, fmt='%d', delimiter=',')
     np.savetxt(output_filename[9], edges_zloc9, fmt='%d', delimiter=',')
 
+    file_id(inputFile)
+
 def file_id(filename):
     dirs = filename.split('/')
-    print(dirs)
+    experiment = dirs[-1]
+    casename = experiment.split('.')[0]
+    params = experiment.split('_')
+    recess = params[0]
+    Re = params[2]
+    We = params[3] + '.' + params[4].split('.')[0]
+    print('Recess length is: ', recess)
+    print('Reynolds number is: ', Re)
+    print('Weber number is:', We)
+    print('The casename is:', casename)
+    

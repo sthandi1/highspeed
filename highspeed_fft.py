@@ -175,3 +175,16 @@ def fft_testing(filename):
     #     if np.abs(normalised_jet_diameter_fft)[i] > 100:
     #         print("Amplitudes:",np.abs(normalised_jet_diameter_fft)[i])
     #         print("Frequencies:", normalised_jet_centroid_freqs[i])
+
+
+def data_check(filename):
+    """This function will check the file and ensure reasonable data has
+    been capture
+
+    Args:
+        filename (str): file to be analysed
+    """
+    frames, left_edges, right_edges = np.loadtxt(filename, unpack=True)
+    print(frames)
+    print(left_edges)
+    print(right_edges)

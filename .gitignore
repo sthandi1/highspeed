@@ -13,3 +13,5 @@ normal.png
 thresholded_edges.png
 thresholded.png
 .vscode/launch.json
+*.csv
+.vscode/settings.json
