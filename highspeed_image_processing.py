@@ -28,7 +28,7 @@ def single_image_thresh_value(inputFile):
     """
     # make a new window called thresholded image
     cv2.namedWindow('threshold trackbar')
-    # make a trackbar which will govern the threshold 
+    # make a trackbar which will govern the threshold
     # first argument is the name of the trackbar
     # second argument is the window name that the trackbar should be in
     # third argument is the starting value
@@ -181,7 +181,7 @@ def multi_image(z_locations, inputFile, thresh):
         # apply binary threshold where below threshold is zero and above is
         # 4096 which is 2^12 since the image is a 12 bit image
         _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
-        
+
         #######################################################################
         """
         .##........#######...######.......#####..
@@ -206,7 +206,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc0[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -218,7 +218,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc0[frame, 2] = inv
                 # exit the for loop once edge has been found
                 break
-    
+
         #######################################################################
         """
         .##........#######...######........##..
@@ -243,7 +243,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc1[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -255,7 +255,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc1[frame, 2] = inv
                 # exit the for loop once edge has been found
                 break
-        
+
         #######################################################################
         """
         .##........#######...######......#######.
@@ -280,7 +280,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc2[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -316,7 +316,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc3[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -328,7 +328,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc3[frame, 2] = inv
                 # exit the for loop once edge has been found
                 break
-        
+
         #######################################################################
         """
         .##........#######...######.....##.......
@@ -353,7 +353,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc4[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -390,7 +390,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc5[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -426,7 +426,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc6[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -463,7 +463,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc7[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -500,7 +500,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc8[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -536,7 +536,7 @@ def multi_image(z_locations, inputFile, thresh):
                 edges_zloc9[frame, 1] = pixel
                 # exit the for loop once edge has been found
                 break
-    
+
         # RIGHT EDGES
         for pixel in range(width):
             # invert the loop so it counts down instead of up
@@ -557,7 +557,7 @@ def multi_image(z_locations, inputFile, thresh):
     for z_loc in z_locations:
         output = str(casename) + '_' + 'results_' + str(z_loc) + '.csv'
         output_filename.append(output)
-    
+
     print('Saving data...')
     # save the edges storage matrix into a text file
     np.savetxt(output_filename[0], edges_zloc0, fmt='%d', delimiter=',')
@@ -586,4 +586,3 @@ def file_id(filename):
     print('Reynolds number is: ', Re)
     print('Weber number is:', We)
     print('The casename is:', casename)
-    
