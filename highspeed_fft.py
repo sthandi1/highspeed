@@ -151,13 +151,13 @@ def fft_output(filename):
     shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
     # shifted jet centroid
     shifted_jet_centroid = jet_centroid - np.mean(jet_centroid)
-    
+
     # calculating frequencies
     freqs = rfftfreq(len(shifted_jet_centroid), 1/27000)
-    
+
     # shifted jet diameter fft
     shifted_jet_diameter_fft = rfft(shifted_jet_diameter)
-    
+
     # shifted jet centroid fft
     shifted_jet_centroid_fft = rfft(shifted_jet_centroid)
 
