@@ -195,17 +195,45 @@ def growth_rate(filenames):
 
     # calculating ffts
 
-    freqs, loc0_diameter_fft, loc0_centroid_fft = fft_output(filenames[0])
-    _, loc1_diameter_fft, loc1_centroid_fft = fft_output(filenames[1])
-    _, loc2_diameter_fft, loc2_centroid_fft = fft_output(filenames[2])
-    _, loc3_diameter_fft, loc3_centroid_fft = fft_output(filenames[3])
-    _, loc4_diameter_fft, loc4_centroid_fft = fft_output(filenames[4])
-    _, loc5_diameter_fft, loc5_centroid_fft = fft_output(filenames[5])
-    _, loc6_diameter_fft, loc6_centroid_fft = fft_output(filenames[6])
-    _, loc7_diameter_fft, loc7_centroid_fft = fft_output(filenames[7])
-    _, loc8_diameter_fft, loc8_centroid_fft = fft_output(filenames[8])
-    _, loc9_diameter_fft, loc9_centroid_fft = fft_output(filenames[9])
+    t, freqs, loc0_diameter_fft, loc0_centroid_fft = fft_output(filenames[0])
+    t, freqs, loc1_diameter_fft, loc1_centroid_fft = fft_output(filenames[1])
+    t, freqs, loc2_diameter_fft, loc2_centroid_fft = fft_output(filenames[2])
+    t, freqs, loc3_diameter_fft, loc3_centroid_fft = fft_output(filenames[3])
+    t, freqs, loc4_diameter_fft, loc4_centroid_fft = fft_output(filenames[4])
+    t, freqs, loc5_diameter_fft, loc5_centroid_fft = fft_output(filenames[5])
+    t, freqs, loc6_diameter_fft, loc6_centroid_fft = fft_output(filenames[6])
+    t, freqs, loc7_diameter_fft, loc7_centroid_fft = fft_output(filenames[7])
+    t, freqs, loc8_diameter_fft, loc8_centroid_fft = fft_output(filenames[8])
+    t, freqs, loc9_diameter_fft, loc9_centroid_fft = fft_output(filenames[9])
 
     # real amplitudes from morozumi equation
 
+    loc0_diameter_amp = np.sqrt((4/t)*loc0_diameter_fft)
+    loc0_centroid_amp = np.sqrt((4/t)*loc0_centroid_fft)
 
+    loc1_diameter_amp = np.sqrt((4/t)*loc1_diameter_fft)
+    loc1_centroid_amp = np.sqrt((4/t)*loc1_centroid_fft)
+
+    loc2_diameter_amp = np.sqrt((4/t)*loc2_diameter_fft)
+    loc2_centroid_amp = np.sqrt((4/t)*loc2_centroid_fft)
+
+    loc3_diameter_amp = np.sqrt((4/t)*loc3_diameter_fft)
+    loc3_centroid_amp = np.sqrt((4/t)*loc3_centroid_fft)
+
+    loc4_diameter_amp = np.sqrt((4/t)*loc4_diameter_fft)
+    loc4_centroid_amp = np.sqrt((4/t)*loc4_centroid_fft)
+
+    loc5_diameter_amp = np.sqrt((4/t)*loc5_diameter_fft)
+    loc5_centroid_amp = np.sqrt((4/t)*loc5_centroid_fft)
+
+    loc6_diameter_amp = np.sqrt((4/t)*loc6_diameter_fft)
+    loc6_centroid_amp = np.sqrt((4/t)*loc6_centroid_fft)
+
+    loc7_diameter_amp = np.sqrt((4/t)*loc7_diameter_fft)
+    loc7_centroid_amp = np.sqrt((4/t)*loc7_centroid_fft)
+
+    loc8_diameter_amp = np.sqrt((4/t)*loc8_diameter_fft)
+    loc8_centroid_amp = np.sqrt((4/t)*loc8_centroid_fft)
+
+    loc9_diameter_amp = np.sqrt((4/t)*loc9_diameter_fft)
+    loc9_centroid_amp = np.sqrt((4/t)*loc9_centroid_fft)
