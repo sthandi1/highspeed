@@ -137,14 +137,11 @@ def fft_output(filename):
         filename (str): csv file to be processed
     """
     # print out experimental parameters and store the case name
-    casename = file_id(filename)
+    file_id(filename)
 
     # load the data into three numpy arrays
     frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
                                                  unpack=True)
-    # create a new numpy array which converts the frames into time by using
-    # the frame rate
-    time = frames/27000
     # calculating the jet diameter (numpy array)
     jet_diameter = 0.02*(right_edges-left_edges)
     # calculating the jet centroid (numpy array)
@@ -152,15 +149,23 @@ def fft_output(filename):
 
     # Shifted jet diameter
     shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
-    # shifted jet diameter fft
-    shifted_jet_diameter_fft = rfft(shifted_jet_diameter)
-    shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
-
     # shifted jet centroid
     shifted_jet_centroid = jet_centroid - np.mean(jet_centroid)
-    # shifted jet centroid fft  
+    
+    # calculating frequencies
+    freqs = rfftfreq(len(shifted_jet_centroid), 1/27000)
+    
+    # shifted jet diameter fft
+    shifted_jet_diameter_fft = rfft(shifted_jet_diameter)
+    
+    # shifted jet centroid fft
     shifted_jet_centroid_fft = rfft(shifted_jet_centroid)
-    shifted_jet_centroid_freqs = rfftfreq(len(shifted_jet_centroid), 1/27000)
+
+    # finding the modulus of the fft to allow the amplitude to be real
+    abs_jet_diameter_fft = np.abs(shifted_jet_diameter_fft)
+    abs_jet_centroid_fft = np.abs(shifted_jet_centroid_fft)
+
+    return freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
 
 
 def file_id(filename):
