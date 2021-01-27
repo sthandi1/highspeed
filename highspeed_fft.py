@@ -180,17 +180,32 @@ def fft_output(filename):
     abs_jet_diameter_fft = np.abs(shifted_jet_diameter_fft)
     abs_jet_centroid_fft = np.abs(shifted_jet_centroid_fft)
 
-    return freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
+    # total time
+    time = len(shifted_jet_centroid)/27000
+
+    return time, freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
 
 
 def growth_rate(filenames):
     """Main growth rate calculator
 
     Args:
-        filenames ([type]): [description]
+        filenames (str): 10 csv files to be analysed
     """
 
-    # extract case name
-    casename = file_id(filenames[0])
+    # calculating ffts
+
+    freqs, loc0_diameter_fft, loc0_centroid_fft = fft_output(filenames[0])
+    _, loc1_diameter_fft, loc1_centroid_fft = fft_output(filenames[1])
+    _, loc2_diameter_fft, loc2_centroid_fft = fft_output(filenames[2])
+    _, loc3_diameter_fft, loc3_centroid_fft = fft_output(filenames[3])
+    _, loc4_diameter_fft, loc4_centroid_fft = fft_output(filenames[4])
+    _, loc5_diameter_fft, loc5_centroid_fft = fft_output(filenames[5])
+    _, loc6_diameter_fft, loc6_centroid_fft = fft_output(filenames[6])
+    _, loc7_diameter_fft, loc7_centroid_fft = fft_output(filenames[7])
+    _, loc8_diameter_fft, loc8_centroid_fft = fft_output(filenames[8])
+    _, loc9_diameter_fft, loc9_centroid_fft = fft_output(filenames[9])
+
+    # real amplitudes from morozumi equation
 
 
