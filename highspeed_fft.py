@@ -289,6 +289,9 @@ def fft_processing(filename):
     jet_centroid_results = np.stack([shifted_jet_centroid_freqs,
                                      abs_jet_centroid_fft])
 
+    print(len(shifted_jet_centroid_freqs))
+    print(len(shifted_jet_diameter))
+    print(len(shifted_jet_centroid_fft))
 
 def file_id(filename):
     dirs = filename.split('/')
