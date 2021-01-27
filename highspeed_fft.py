@@ -13,6 +13,21 @@ import csv
 from statistics import mean
 
 
+def file_id(filename):
+    dirs = filename.split('/')
+    experiment = dirs[-1]
+    casename = experiment.split('.')[0]
+    params = experiment.split('_')
+    recess = params[0]
+    Re = params[2]
+    We = params[3] + '.' + params[4].split('.')[0]
+    print('Recess length is: ', recess)
+    print('Reynolds number is: ', Re)
+    print('Weber number is:', We)
+    print('The casename is:', casename)
+    return casename
+
+
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
     been captured and produce fft graphs to be checked. 
@@ -168,16 +183,14 @@ def fft_output(filename):
     return freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
 
 
-def file_id(filename):
-    dirs = filename.split('/')
-    experiment = dirs[-1]
-    casename = experiment.split('.')[0]
-    params = experiment.split('_')
-    recess = params[0]
-    Re = params[2]
-    We = params[3] + '.' + params[4].split('.')[0]
-    print('Recess length is: ', recess)
-    print('Reynolds number is: ', Re)
-    print('Weber number is:', We)
-    print('The casename is:', casename)
-    return casename
+def growth_rate(filenames):
+    """Main growth rate calculator
+
+    Args:
+        filenames ([type]): [description]
+    """
+
+    # extract case name
+    casename = file_id(filenames[0])
+
+
