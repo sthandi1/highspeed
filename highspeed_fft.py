@@ -238,12 +238,20 @@ def growth_rate(filenames):
     loc9_diameter_amp = np.sqrt((4/t)*loc9_diameter_fft)
     loc9_centroid_amp = np.sqrt((4/t)*loc9_centroid_fft)
 
-    amps = [loc0_diameter_amp[1000], loc1_diameter_amp[1000], loc2_diameter_amp[1000],
-            loc3_diameter_amp[1000], loc4_diameter_amp[1000], loc5_diameter_amp[1000],
-            loc6_diameter_amp[1000], loc7_diameter_amp[1000], loc8_diameter_amp[1000],
-            loc9_diameter_amp[1000]]
+    amps = [loc0_diameter_amp[600], loc1_diameter_amp[600], loc2_diameter_amp[600],
+            loc3_diameter_amp[600], loc4_diameter_amp[600], loc5_diameter_amp[600],
+            loc6_diameter_amp[600], loc7_diameter_amp[600], loc8_diameter_amp[600],
+            loc9_diameter_amp[600]]
 
     ind = np.arange(0, 10, 1)
 
     fig, ax = plt.subplots()
     ax.plot(ind, amps)
+
+    fig1, ax1 = plt.subplots()
+    ax1.plot(freqs, loc1_diameter_fft)
+
+    for i in range(len(loc1_diameter_fft)):
+        if loc1_diameter_fft[i] > 115:
+            print(freqs[i])
+            print(i)
