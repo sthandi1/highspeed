@@ -375,8 +375,9 @@ def growth_rate(filenames):
     tic = time.perf_counter()
 
     for i in range(len(loc0_diameter_amp)):
+        # progress calculator
         if (i % 1000) == 0:
-            print("Progress: {:.1f}%".format(i*100/i))
+            print("Progress: {:.1f}%".format(i*100/len(loc0_diameter_amp)))
         local_amps = np.array((loc0_diameter_amp[i], loc1_diameter_amp[i],
                               loc2_diameter_amp[i], loc3_diameter_amp[i],
                               loc4_diameter_amp[i], loc5_diameter_amp[i],
