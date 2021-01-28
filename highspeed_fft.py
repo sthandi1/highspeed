@@ -282,20 +282,6 @@ def model_growth_rate(t, a_0, omega):
     return a
 
 
-def value_generator():
-    t = np.linspace(0, 0.1, num=10)
-    a = 0.01*np.exp(50*t)
-    return a
-
-
-def model_testing(t, a):
-    fig, ax = plt.subplots()
-    ax.plot(t, a, 'o')
-    ts = np.linspace(0, 0.1, num=1000)
-    amp_mod = 0.011512579631563732*np.exp(48.54196352659044*ts)
-    ax.plot(ts, amp_mod)
-
-
 def param_extractor(ts, amps):
     """Works out a_0 and omega from the model
 
@@ -316,6 +302,20 @@ def param_extractor(ts, amps):
 
 
 def velocity_calculator(Re):
+    """
+
+
+    Parameters
+    ----------
+    Re : int
+        Reynolds number
+
+    Returns
+    -------
+    u : float
+        velocity.
+
+    """
     mu = 8.9e-4
     rho = 1000
     d = 2/1000
