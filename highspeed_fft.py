@@ -269,10 +269,15 @@ def growth_rate(filenames):
         z_loc = underscore_split[-1].split('.')[0]
         z_locations[i] = int(z_loc)
 
-   # calculating velocity 
+    # calculating velocity
     u = velocity_calculator(int(Re))
-    print(u)
+    
+    # converting z_locations into real distances
+    zs_metres = 0.02*z_locations/1000
 
+    # time model
+    t = morozumi_time(u, zs_metres)
+    print(t)
     
 
 def model_growth_rate(t, a_0, omega):
@@ -328,3 +333,9 @@ def velocity_calculator(Re):
     d = 2/1000
     u = Re*mu/(rho*d)
     return u
+
+
+def morozumi_time(u, z_locations):
+    g = 9.81
+    t = (-u+np.sqrt(u**2+2*g*z_locations))/g
+    return t
