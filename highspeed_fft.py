@@ -251,7 +251,3 @@ def growth_rate(filenames):
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, loc1_diameter_fft)
 
-    for i in range(len(loc1_diameter_fft)):
-        if loc1_diameter_fft[i] > 115:
-            print(freqs[i])
-            print(i)
