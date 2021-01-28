@@ -238,10 +238,10 @@ def growth_rate(filenames):
     loc9_diameter_amp = np.sqrt((4/t)*loc9_diameter_fft)
     loc9_centroid_amp = np.sqrt((4/t)*loc9_centroid_fft)
 
-    amps = [loc0_diameter_amp[600], loc1_diameter_amp[600], loc2_diameter_amp[600],
-            loc3_diameter_amp[600], loc4_diameter_amp[600], loc5_diameter_amp[600],
-            loc6_diameter_amp[600], loc7_diameter_amp[600], loc8_diameter_amp[600],
-            loc9_diameter_amp[600]]
+    amps = [loc0_diameter_amp[700], loc1_diameter_amp[700], loc2_diameter_amp[700],
+            loc3_diameter_amp[700], loc4_diameter_amp[700], loc5_diameter_amp[700],
+            loc6_diameter_amp[700], loc7_diameter_amp[700], loc8_diameter_amp[700],
+            loc9_diameter_amp[700]]
 
     ind = np.arange(0, 10, 1)
 
@@ -251,3 +251,22 @@ def growth_rate(filenames):
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, loc1_diameter_fft)
 
+def model_growth_rate(t, a_0, omega):
+    """This is the growth rate model
+
+    Args:
+        t (list): this corresponds to the z positions
+        a_0 (float): initial disturbance
+        omega (float): [description]
+
+    Returns:
+        float: amplitude
+    """
+    a = a_0 * np.exp(omega * t)
+    return a
+
+
+def value_generator():
+    t = np.linspace(0, 0.1, num=10)
+    a = 0.01*np.linspace(5*t)
+    return a
