@@ -268,5 +268,5 @@ def model_growth_rate(t, a_0, omega):
 
 def value_generator():
     t = np.linspace(0, 0.1, num=10)
-    a = 0.01*np.linspace(5*t)
+    a = 0.01*np.exp(5*t)
     return a
