@@ -275,9 +275,9 @@ def growth_rate(filenames):
     # converting z_locations into real distances
     zs_metres = 0.02*z_locations/1000
 
-    # time model
+    # time model can be changed as needed
     t = morozumi_time(u, zs_metres)
-    print(t)
+    
     
 
 def model_growth_rate(t, a_0, omega):
@@ -336,6 +336,22 @@ def velocity_calculator(Re):
 
 
 def morozumi_time(u, z_locations):
+    """
+    
+
+    Parameters
+    ----------
+    u : TYPE
+        DESCRIPTION.
+    z_locations : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    t : TYPE
+        DESCRIPTION.
+
+    """
     g = 9.81
     t = (-u+np.sqrt(u**2+2*g*z_locations))/g
     return t
