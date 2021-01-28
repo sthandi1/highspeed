@@ -449,7 +449,7 @@ def growth_rate(filenames):
     ax4.set_xlabel('Frequencies')
     ax4.set_ylabel('Growth rate')
 
-    # ax.plot(freqs, mov_avg)
+    ax.plot(freqs, mov_avg, label='moving average')
 
     w = savgol_filter(diameter_growth_rates, 1001, 2)
     fig5, ax5 = plt.subplots()
@@ -459,9 +459,14 @@ def growth_rate(filenames):
     ax5.set_xlabel('Frequencies')
     ax5.set_ylabel('Growth rate')
 
-    ax.plot(freqs, w)
-
+    ax.plot(freqs, w, label='Savitzky-Golay')
+    ax.legend()
+    
     fig6, ax6 = plt.subplots()
     ax6.plot(freqs,w, label='Savitzky-Golay')
     ax6.plot(freqs,mov_avg, label='Moving average')
     ax6.legend()
+    ax6.set_xlim(0, 2000)
+    ax6.set_title("Moving average vs Savitzky-Golay")
+    ax6.set_xlabel("Frequency")
+    ax6.set_ylabel("Growth rate")
