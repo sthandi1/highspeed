@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
+from scipy.signal import savgol_filter
 import time
 
 
@@ -336,13 +337,6 @@ def growth_rate(filenames):
     loc9_diameter_amp = np.sqrt((4/t)*loc9_diameter_fft)
     loc9_centroid_amp = np.sqrt((4/t)*loc9_centroid_fft)
 
-
-    figfft, axfft = plt.subplots()
-    axfft.stem(freqs, loc1_diameter_fft)
-    axfft.set_title("FFT data for loc1")
-    axfft.set_xlabel("Frequencies")
-    axfft.set_ylabel("Amplitude")
-
     # setting up storage array for the z_locations
     z_locations = np.zeros(10)
 
@@ -390,6 +384,13 @@ def growth_rate(filenames):
     
     print('diameter growth rate calculation complete')
 
+
+    figfft, axfft = plt.subplots()
+    axfft.stem(freqs, loc1_diameter_fft)
+    axfft.set_title("FFT data for loc1")
+    axfft.set_xlabel("Frequencies")
+    axfft.set_ylabel("Amplitude")
+
     fig, ax = plt.subplots()
     ax.plot(freqs, diameter_growth_rates, '.')
     ax.set_xlim(0, 5000)
@@ -423,10 +424,12 @@ def growth_rate(filenames):
     ax1.set_ylabel("amplitude (m)?")
     ax1.set_title("An example plot")
 
-
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, diameter_errs, '.')
     ax2.set_xlim(0, 1000)
+    ax2.set_title('Errors')
+    ax2.set_xlabel("Frequencies")
+    ax2.set_ylabel("Standard deviation of curve fit")
 
     freqs_1000 = freqs[4315]
     
@@ -437,10 +440,28 @@ def growth_rate(filenames):
 
     print(freqs[600])
 
-    mov_avg = movingaverage(diameter_growth_rates, 100)
+    mov_avg = movingaverage(diameter_growth_rates, 1000)
 
     fig4, ax4 = plt.subplots()
     ax4.plot(freqs, mov_avg)
     ax4.set_xlim(0, 5000)
+    ax4.set_title('Moving average')
+    ax4.set_xlabel('Frequencies')
+    ax4.set_ylabel('Growth rate')
 
-    ax.plot(freqs, mov_avg)
+    # ax.plot(freqs, mov_avg)
+
+    w = savgol_filter(diameter_growth_rates, 1001, 2)
+    fig5, ax5 = plt.subplots()
+    ax5.plot(freqs, w)
+    ax5.set_title('Savitzky-Golay filter')
+    ax5.set_xlim(0, 5000)
+    ax5.set_xlabel('Frequencies')
+    ax5.set_ylabel('Growth rate')
+
+    ax.plot(freqs, w)
+
+    fig6, ax6 = plt.subplots()
+    ax6.plot(freqs,w, label='Savitzky-Golay')
+    ax6.plot(freqs,mov_avg, label='Moving average')
+    ax6.legend()
