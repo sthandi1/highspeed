@@ -341,15 +341,15 @@ def morozumi_time(u, z_locations):
 
     Parameters
     ----------
-    u : TYPE
-        DESCRIPTION.
-    z_locations : TYPE
-        DESCRIPTION.
+    u : float   
+        velocity
+    z_locations : array
+        z locations in metres
 
     Returns
     -------
-    t : TYPE
-        DESCRIPTION.
+    t : array
+        time values using the morozumi model
 
     """
     g = 9.81
