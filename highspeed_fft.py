@@ -26,7 +26,7 @@ def file_id(filename):
     print('Reynolds number is: ', Re)
     print('Weber number is:', We)
     print('The casename is:', casename)
-    return casename
+    return casename, Re
 
 
 def fft_checking(filename):
@@ -37,7 +37,7 @@ def fft_checking(filename):
         filename (str): file to be analysed
     """
     # print out experimental parameters and store the case name
-    casename = file_id(filename)
+    casename, Re = file_id(filename)
 
     # load the data into three numpy arrays
     frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
@@ -193,7 +193,12 @@ def growth_rate(filenames):
     Args:
         filenames (str): 10 csv files to be analysed
     """
+    # file ID
 
+    print("storing casename and Reynolds number")
+    casename, Re = file_id(filenames[0])
+
+    print("Now calculating FFTs")
     # calculating ffts
 
     t, freqs, loc0_diameter_fft, loc0_centroid_fft = fft_output(filenames[0])
@@ -264,6 +269,7 @@ def growth_rate(filenames):
         z_loc = underscore_split[-1].split('.')[0]
         z_locations[i] = int(z_loc)
 
+    print(Re)
 
     
 
@@ -303,7 +309,6 @@ def param_extractor(ts, amps):
 
 def velocity_calculator(Re):
     """
-
 
     Parameters
     ----------
