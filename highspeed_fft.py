@@ -115,6 +115,10 @@ def morozumi_time(u, z_locations):
 def moving_average(x, w):
     return np.convolve(x, np.ones(w), 'valid') / w
 
+def movingaverage(interval, window_size):
+    window= np.ones(int(window_size))/float(window_size)
+    return np.convolve(interval, window, 'same')
+
 
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
@@ -333,8 +337,11 @@ def growth_rate(filenames):
     loc9_centroid_amp = np.sqrt((4/t)*loc9_centroid_fft)
 
 
-    fig, ax = plt.subplots()
-    ax.plot(freqs, loc1_diameter_fft)
+    figfft, axfft = plt.subplots()
+    axfft.stem(freqs, loc1_diameter_fft)
+    axfft.set_title("FFT data for loc1")
+    axfft.set_xlabel("Frequencies")
+    axfft.set_ylabel("Amplitude")
 
     # setting up storage array for the z_locations
     z_locations = np.zeros(10)
@@ -385,8 +392,11 @@ def growth_rate(filenames):
 
     fig, ax = plt.subplots()
     ax.plot(freqs, diameter_growth_rates, '.')
-    ax.set_xlim(0, 400)
+    ax.set_xlim(0, 5000)
     ax.set_ylim(0, 90)
+    ax.set_title("Growth rates vs frequencies")
+    ax.set_xlabel("Frequencies")
+    ax.set_ylabel("Growth rates")
 
     print("minimum error is:", diameter_errs.min())
 
@@ -394,23 +404,24 @@ def growth_rate(filenames):
     print(minimum_location)
     print("minimum error frequency:", freqs[minimum_location])
 
-    amps = [loc0_diameter_amp[1253], loc1_diameter_amp[1253],
-        loc2_diameter_amp[1253], loc3_diameter_amp[1253],
-        loc4_diameter_amp[1253], loc5_diameter_amp[1253],
-        loc6_diameter_amp[1253], loc7_diameter_amp[1253],
-        loc8_diameter_amp[1253], loc9_diameter_amp[1253]]
+    # 1253 is the location of 290.04 Hz
+    amps = [loc0_diameter_amp[600], loc1_diameter_amp[600],
+        loc2_diameter_amp[600], loc3_diameter_amp[600],
+        loc4_diameter_amp[600], loc5_diameter_amp[600],
+        loc6_diameter_amp[600], loc7_diameter_amp[600],
+        loc8_diameter_amp[600], loc9_diameter_amp[600]]
 
     fig1, ax1 = plt.subplots()
     ax1.plot(z_times, amps, 'o')
 
     modelling_ts = np.linspace(0, 0.02, 1000)
-    modelling_amps = model_growth_rate(modelling_ts, diameter_a0[1253],
-                                       diameter_growth_rates[1253])
+    modelling_amps = model_growth_rate(modelling_ts, diameter_a0[600],
+                                       diameter_growth_rates[600])
 
     ax1.plot(modelling_ts, modelling_amps)
     ax1.set_xlabel("z time (seconds)")
-    ax1.set_ylabel("amplitude (mm)?")
-    ax1.set_title("An example plot for the freqency 290.4 Hz")
+    ax1.set_ylabel("amplitude (m)?")
+    ax1.set_title("An example plot")
 
 
     fig2, ax2 = plt.subplots()
@@ -423,3 +434,13 @@ def growth_rate(filenames):
  
     fig3, ax3 = plt.subplots()
     ax3.plot(freqs, loc0_diameter_amp)
+
+    print(freqs[600])
+
+    mov_avg = movingaverage(diameter_growth_rates, 100)
+
+    fig4, ax4 = plt.subplots()
+    ax4.plot(freqs, mov_avg)
+    ax4.set_xlim(0, 5000)
+
+    ax.plot(freqs, mov_avg)
