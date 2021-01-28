@@ -57,9 +57,10 @@ def param_extractor(ts, amps):
     # using scipy's curve fit model, p_cov is accuracy
     p, pcov = curve_fit(model_growth_rate, ts, amps)
     a_0, omega = p
-    print("Fitted values a_0={}, omega={}".format(a_0, omega))
-    print("Accuracy=",pcov)
-    return a_0, omega, pcov
+    # calculates the standard deviation and returns an array
+    # first value is the error of a_0, second value is error of omega
+    perr = np.sqrt(np.diag(pcov))
+    return a_0, omega, perr
 
 
 def velocity_calculator(Re):
@@ -357,14 +358,9 @@ def growth_rate(filenames):
     zs_metres = 0.02*z_locations/1000
 
     # time model can be changed as needed
-    t = morozumi_time(u, zs_metres)
+    z_times = morozumi_time(u, zs_metres)
 
-    t, loc0_diameter_amp
 
-    test_array = np.array((loc0_diameter_amp, loc1_diameter_amp,
-                           loc2_diameter_amp, loc3_diameter_amp,
-                           loc4_diameter_amp, loc5_diameter_amp,
-                           loc6_diameter_amp, loc7_diameter_amp,
-                           loc8_diameter_amp, loc9_diameter_amp))
 
-    print(test_array)
+
+  
