@@ -9,6 +9,7 @@ Created on Tue Jan 19 19:08:38 2021
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
+from scipy.optimize import curve_fit
 import csv
 from statistics import mean
 
@@ -268,5 +269,15 @@ def model_growth_rate(t, a_0, omega):
 
 def value_generator():
     t = np.linspace(0, 0.1, num=10)
-    a = 0.01*np.exp(5*t)
+    a = 0.01*np.exp(50*t)
     return a
+
+
+def model_testing(t, a):
+    fig, ax = plt.subplots()
+    ax.plot(t, a, 'o')
+    ts = np.linspace(0, 0.1, num=1000)
+    amp_mod = 0.01*np.exp(50*ts)
+    ax.plot(ts, amp_mod)
+
+def param_extractor(ts, amps):
