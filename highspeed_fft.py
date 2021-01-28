@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
+import time
 
 
 def file_id(filename):
@@ -52,7 +53,7 @@ def param_extractor(ts, amps):
     Returns:
         a_0: initial disturbance
         omega: growth rate
-        pcov: convergence
+        omega_err: error in growth rate
     """
     # using scipy's curve fit model, p_cov is accuracy
     p, pcov = curve_fit(model_growth_rate, ts, amps)
@@ -60,7 +61,8 @@ def param_extractor(ts, amps):
     # calculates the standard deviation and returns an array
     # first value is the error of a_0, second value is error of omega
     perr = np.sqrt(np.diag(pcov))
-    return a_0, omega, perr
+    omega_err = perr[1]
+    return a_0, omega, omega_err
 
 
 def velocity_calculator(Re):
@@ -108,6 +110,7 @@ def morozumi_time(u, z_locations):
     g = 9.81
     t = (-u+np.sqrt(u**2+2*g*z_locations))/g
     return t
+
 
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
@@ -360,7 +363,32 @@ def growth_rate(filenames):
     # time model can be changed as needed
     z_times = morozumi_time(u, zs_metres)
 
+    # initialising storage arrays for growth rates
+    diameter_growth_rates = np.zeros((len(loc0_diameter_amp)))
+    diameter_a0 = np.zeros((len(loc0_diameter_amp)))
+    diameter_errs = np.zeros((len(loc0_diameter_amp)))
 
+    centroid_growth_rates = np.zeros((len(loc0_centroid_amp)))
+    centroid_a0 = np.zeros((len(loc0_centroid_amp)))
+    centroid_errs = np.zeros((len(loc0_centroid_amp)))
 
+    tic = time.perf_counter()
 
+    for i in range(len(loc0_diameter_amp)):
+        if (i % 1000) == 0:
+            print("Progress: {:.1f}%".format(i*100/i))
+        local_amps = np.array((loc0_diameter_amp[i], loc1_diameter_amp[i],
+                              loc2_diameter_amp[i], loc3_diameter_amp[i],
+                              loc4_diameter_amp[i], loc5_diameter_amp[i],
+                              loc6_diameter_amp[i], loc7_diameter_amp[i],
+                              loc8_diameter_amp[i], loc9_diameter_amp[i]))
+        loc_a_0, loc_omega, loc_err = param_extractor(z_times, local_amps)
+        diameter_a0[i] = loc_a_0
+        diameter_growth_rates[i] = loc_omega
+        diameter_errs[i] = loc_err
+    
+    toc = time.perf_counter()
+
+    dur = toc - tic
+    print("For loop time:", dur)
   
