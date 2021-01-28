@@ -252,9 +252,20 @@ def growth_rate(filenames):
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, loc1_diameter_fft)
 
-    underscore_split = filenames[0].split('_')
-    z_loc = underscore_split[-1].split('.')[0]
-    print(z_loc)
+    # setting up storage array for the z_locations
+    z_locations = np.zeros(10)
+
+    # using filenames to ID z locations
+    for i in range(len(filenames)):
+        # separate into the paramaters
+        underscore_split = filenames[i].split('_')
+        # identify the last parameter, split by the . and then take the first
+        # value as this will be the z_location
+        z_loc = underscore_split[-1].split('.')[0]
+        z_locations[i] = int(z_loc)
+
+
+    
 
 def model_growth_rate(t, a_0, omega):
     """This is the growth rate model
