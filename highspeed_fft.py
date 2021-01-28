@@ -313,3 +313,11 @@ def param_extractor(ts, amps):
     print("Fitted values a_0={}, omega={}".format(a_0, omega))
     print("Accuracy=",pcov)
     return a_0, omega, pcov
+
+
+def velocity_calculator(Re):
+    mu = 8.9e-4
+    rho = 1000
+    d = 2/1000
+    u = Re*mu/(rho*d)
+    return u
