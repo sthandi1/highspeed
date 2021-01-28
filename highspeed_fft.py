@@ -252,6 +252,8 @@ def growth_rate(filenames):
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, loc1_diameter_fft)
 
+    print(filenames[0])
+
 def model_growth_rate(t, a_0, omega):
     """This is the growth rate model
 
@@ -277,7 +279,24 @@ def model_testing(t, a):
     fig, ax = plt.subplots()
     ax.plot(t, a, 'o')
     ts = np.linspace(0, 0.1, num=1000)
-    amp_mod = 0.01*np.exp(50*ts)
+    amp_mod = 0.011512579631563732*np.exp(48.54196352659044*ts)
     ax.plot(ts, amp_mod)
 
+
 def param_extractor(ts, amps):
+    """Works out a_0 and omega from the model
+
+    Args:
+        ts (array): array of the time values
+        amps (array): amplitude values
+
+    Returns:
+        a_0: initial disturbance
+        omega: growth rate
+        pcov: convergence
+    """
+    p, pcov = curve_fit(model_growth_rate, ts, amps)
+    a_0, omega = p
+    print("Fitted values a_0={}, omega={}".format(a_0, omega))
+    print("Accuracy=",pcov)
+    return a_0, omega, pcov
