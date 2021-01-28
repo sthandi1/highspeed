@@ -195,10 +195,10 @@ def growth_rate(filenames):
     """
     # file ID
 
-    print("storing casename and Reynolds number")
+    print("storing casename and Reynolds number\n\n")
     casename, Re = file_id(filenames[0])
 
-    print("Now calculating FFTs")
+    print("\nNow calculating FFTs\n\n")
     # calculating ffts
 
     t, freqs, loc0_diameter_fft, loc0_centroid_fft = fft_output(filenames[0])
@@ -269,7 +269,9 @@ def growth_rate(filenames):
         z_loc = underscore_split[-1].split('.')[0]
         z_locations[i] = int(z_loc)
 
-    print(Re)
+   # calculating velocity 
+    u = velocity_calculator(int(Re))
+    print(u)
 
     
 
