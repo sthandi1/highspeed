@@ -252,7 +252,9 @@ def growth_rate(filenames):
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, loc1_diameter_fft)
 
-    print(filenames[0])
+    underscore_split = filenames[0].split('_')
+    z_loc = underscore_split[-1].split('.')[0]
+    print(z_loc)
 
 def model_growth_rate(t, a_0, omega):
     """This is the growth rate model
