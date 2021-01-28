@@ -112,6 +112,10 @@ def morozumi_time(u, z_locations):
     return t
 
 
+def moving_average(x, w):
+    return np.convolve(x, np.ones(w), 'valid') / w
+
+
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
     been captured and produce fft graphs to be checked.
@@ -242,9 +246,9 @@ def fft_output(filename):
     # load the data into three numpy arrays
     frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
                                                  unpack=True)
-    # calculating the jet diameter (numpy array)
+    # calculating the jet diameter (numpy array) in mm
     jet_diameter = 0.02*(right_edges-left_edges)
-    # calculating the jet centroid (numpy array)
+    # calculating the jet centroid (numpy array) in mm
     jet_centroid = 0.02*0.5*(right_edges+left_edges)
 
     # Shifted jet diameter
@@ -381,7 +385,8 @@ def growth_rate(filenames):
 
     fig, ax = plt.subplots()
     ax.plot(freqs, diameter_growth_rates, '.')
-    ax.set_xlim(0, 1000)
+    ax.set_xlim(0, 400)
+    ax.set_ylim(0, 90)
 
     print("minimum error is:", diameter_errs.min())
 
@@ -403,11 +408,18 @@ def growth_rate(filenames):
                                        diameter_growth_rates[1253])
 
     ax1.plot(modelling_ts, modelling_amps)
+    ax1.set_xlabel("z time (seconds)")
+    ax1.set_ylabel("amplitude (mm)?")
+    ax1.set_title("An example plot for the freqency 290.4 Hz")
 
 
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, diameter_errs, '.')
     ax2.set_xlim(0, 1000)
-    ax2.set_ylim(0, 5)
 
-
+    freqs_1000 = freqs[4315]
+    
+    avg_err_1000 = diameter_errs[0:4315].mean()
+ 
+    fig3, ax3 = plt.subplots()
+    ax3.plot(freqs, loc0_diameter_amp)
