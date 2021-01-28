@@ -10,8 +10,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
-import csv
-from statistics import mean
 
 
 def file_id(filename):
@@ -31,7 +29,7 @@ def file_id(filename):
 
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
-    been captured and produce fft graphs to be checked. 
+    been captured and produce fft graphs to be checked.
 
     Args:
         filename (str): file to be analysed
@@ -147,7 +145,8 @@ def fft_checking(filename):
 
 
 def fft_output(filename):
-    """This is a backend function which produces the fft data for the given filename
+    """This is a backend function which produces the fft data for the given
+    filename
 
     Args:
         filename (str): csv file to be processed
@@ -244,10 +243,11 @@ def growth_rate(filenames):
     loc9_diameter_amp = np.sqrt((4/t)*loc9_diameter_fft)
     loc9_centroid_amp = np.sqrt((4/t)*loc9_centroid_fft)
 
-    amps = [loc0_diameter_amp[700], loc1_diameter_amp[700], loc2_diameter_amp[700],
-            loc3_diameter_amp[700], loc4_diameter_amp[700], loc5_diameter_amp[700],
-            loc6_diameter_amp[700], loc7_diameter_amp[700], loc8_diameter_amp[700],
-            loc9_diameter_amp[700]]
+    amps = [loc0_diameter_amp[700], loc1_diameter_amp[700],
+            loc2_diameter_amp[700], loc3_diameter_amp[700],
+            loc4_diameter_amp[700], loc5_diameter_amp[700],
+            loc6_diameter_amp[700], loc7_diameter_amp[700],
+            loc8_diameter_amp[700], loc9_diameter_amp[700]]
 
     ind = np.arange(0, 10, 1)
 
@@ -271,14 +271,14 @@ def growth_rate(filenames):
 
     # calculating velocity
     u = velocity_calculator(int(Re))
-    
+
     # converting z_locations into real distances
     zs_metres = 0.02*z_locations/1000
 
     # time model can be changed as needed
     t = morozumi_time(u, zs_metres)
-    
-    
+
+
 
 def model_growth_rate(t, a_0, omega):
     """This is the growth rate model
@@ -307,6 +307,7 @@ def param_extractor(ts, amps):
         omega: growth rate
         pcov: convergence
     """
+    # using scipy's curve fit model, p_cov is accuracy
     p, pcov = curve_fit(model_growth_rate, ts, amps)
     a_0, omega = p
     print("Fitted values a_0={}, omega={}".format(a_0, omega))
@@ -328,20 +329,24 @@ def velocity_calculator(Re):
         velocity.
 
     """
+    # viscosity
     mu = 8.9e-4
+    # density
     rho = 1000
+    # diameter
     d = 2/1000
+    # reynolds number standard equation
     u = Re*mu/(rho*d)
     return u
 
 
 def morozumi_time(u, z_locations):
     """
-    
+
 
     Parameters
     ----------
-    u : float   
+    u : float
         velocity
     z_locations : array
         z locations in metres
