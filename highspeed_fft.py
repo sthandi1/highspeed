@@ -27,6 +27,87 @@ def file_id(filename):
     return casename, Re
 
 
+def model_growth_rate(t, a_0, omega):
+    """This is the growth rate model
+
+    Args:
+        t (list): this corresponds to the z positions
+        a_0 (float): initial disturbance
+        omega (float): [description]
+
+    Returns:
+        float: amplitude
+    """
+    a = a_0 * np.exp(omega * t)
+    return a
+
+
+def param_extractor(ts, amps):
+    """Works out a_0 and omega from the model
+
+    Args:
+        ts (array): array of the time values
+        amps (array): amplitude values
+
+    Returns:
+        a_0: initial disturbance
+        omega: growth rate
+        pcov: convergence
+    """
+    # using scipy's curve fit model, p_cov is accuracy
+    p, pcov = curve_fit(model_growth_rate, ts, amps)
+    a_0, omega = p
+    print("Fitted values a_0={}, omega={}".format(a_0, omega))
+    print("Accuracy=",pcov)
+    return a_0, omega, pcov
+
+
+def velocity_calculator(Re):
+    """
+
+    Parameters
+    ----------
+    Re : int
+        Reynolds number
+
+    Returns
+    -------
+    u : float
+        velocity.
+
+    """
+    # viscosity
+    mu = 8.9e-4
+    # density
+    rho = 1000
+    # diameter
+    d = 2/1000
+    # reynolds number standard equation
+    u = Re*mu/(rho*d)
+    return u
+
+
+def morozumi_time(u, z_locations):
+    """
+
+
+    Parameters
+    ----------
+    u : float
+        velocity
+    z_locations : array
+        z locations in metres
+
+    Returns
+    -------
+    t : array
+        time values using the morozumi model
+
+    """
+    g = 9.81
+    t = (-u+np.sqrt(u**2+2*g*z_locations))/g
+    return t
+
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
     been captured and produce fft graphs to be checked.
@@ -278,85 +359,6 @@ def growth_rate(filenames):
     # time model can be changed as needed
     t = morozumi_time(u, zs_metres)
 
+    t, loc0_diameter_amp
 
 
-def model_growth_rate(t, a_0, omega):
-    """This is the growth rate model
-
-    Args:
-        t (list): this corresponds to the z positions
-        a_0 (float): initial disturbance
-        omega (float): [description]
-
-    Returns:
-        float: amplitude
-    """
-    a = a_0 * np.exp(omega * t)
-    return a
-
-
-def param_extractor(ts, amps):
-    """Works out a_0 and omega from the model
-
-    Args:
-        ts (array): array of the time values
-        amps (array): amplitude values
-
-    Returns:
-        a_0: initial disturbance
-        omega: growth rate
-        pcov: convergence
-    """
-    # using scipy's curve fit model, p_cov is accuracy
-    p, pcov = curve_fit(model_growth_rate, ts, amps)
-    a_0, omega = p
-    print("Fitted values a_0={}, omega={}".format(a_0, omega))
-    print("Accuracy=",pcov)
-    return a_0, omega, pcov
-
-
-def velocity_calculator(Re):
-    """
-
-    Parameters
-    ----------
-    Re : int
-        Reynolds number
-
-    Returns
-    -------
-    u : float
-        velocity.
-
-    """
-    # viscosity
-    mu = 8.9e-4
-    # density
-    rho = 1000
-    # diameter
-    d = 2/1000
-    # reynolds number standard equation
-    u = Re*mu/(rho*d)
-    return u
-
-
-def morozumi_time(u, z_locations):
-    """
-
-
-    Parameters
-    ----------
-    u : float
-        velocity
-    z_locations : array
-        z locations in metres
-
-    Returns
-    -------
-    t : array
-        time values using the morozumi model
-
-    """
-    g = 9.81
-    t = (-u+np.sqrt(u**2+2*g*z_locations))/g
-    return t
