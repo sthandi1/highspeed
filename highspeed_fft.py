@@ -328,19 +328,9 @@ def growth_rate(filenames):
     loc9_diameter_amp = np.sqrt((4/t)*loc9_diameter_fft)
     loc9_centroid_amp = np.sqrt((4/t)*loc9_centroid_fft)
 
-    amps = [loc0_diameter_amp[700], loc1_diameter_amp[700],
-            loc2_diameter_amp[700], loc3_diameter_amp[700],
-            loc4_diameter_amp[700], loc5_diameter_amp[700],
-            loc6_diameter_amp[700], loc7_diameter_amp[700],
-            loc8_diameter_amp[700], loc9_diameter_amp[700]]
-
-    ind = np.arange(0, 10, 1)
 
     fig, ax = plt.subplots()
-    ax.plot(ind, amps)
-
-    fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, loc1_diameter_fft)
+    ax.plot(freqs, loc1_diameter_fft)
 
     # setting up storage array for the z_locations
     z_locations = np.zeros(10)
@@ -391,7 +381,7 @@ def growth_rate(filenames):
 
     fig, ax = plt.subplots()
     ax.plot(freqs, diameter_growth_rates, '.')
-    ax.set_xlim(0, 500)
+    ax.set_xlim(0, 1000)
 
     print("minimum error is:", diameter_errs.min())
 
@@ -399,6 +389,25 @@ def growth_rate(filenames):
     print(minimum_location)
     print("minimum error frequency:", freqs[minimum_location])
 
+    amps = [loc0_diameter_amp[1253], loc1_diameter_amp[1253],
+        loc2_diameter_amp[1253], loc3_diameter_amp[1253],
+        loc4_diameter_amp[1253], loc5_diameter_amp[1253],
+        loc6_diameter_amp[1253], loc7_diameter_amp[1253],
+        loc8_diameter_amp[1253], loc9_diameter_amp[1253]]
 
+    fig1, ax1 = plt.subplots()
+    ax1.plot(z_times, amps, 'o')
+
+    modelling_ts = np.linspace(0, 0.02, 1000)
+    modelling_amps = model_growth_rate(modelling_ts, diameter_a0[1253],
+                                       diameter_growth_rates[1253])
+
+    ax1.plot(modelling_ts, modelling_amps)
+
+
+    fig2, ax2 = plt.subplots()
+    ax2.plot(freqs, diameter_errs, '.')
+    ax2.set_xlim(0, 1000)
+    ax2.set_ylim(0, 5)
 
 
