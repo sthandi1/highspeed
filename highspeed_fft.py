@@ -361,4 +361,10 @@ def growth_rate(filenames):
 
     t, loc0_diameter_amp
 
+    test_array = np.array((loc0_diameter_amp, loc1_diameter_amp,
+                           loc2_diameter_amp, loc3_diameter_amp,
+                           loc4_diameter_amp, loc5_diameter_amp,
+                           loc6_diameter_amp, loc7_diameter_amp,
+                           loc8_diameter_amp, loc9_diameter_amp))
 
+    print(test_array)
