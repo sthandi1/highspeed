@@ -372,8 +372,7 @@ def growth_rate(filenames):
     centroid_a0 = np.zeros((len(loc0_centroid_amp)))
     centroid_errs = np.zeros((len(loc0_centroid_amp)))
 
-    tic = time.perf_counter()
-
+    print("\n\nNow calculating the diameter growth rates:\n\n")
     for i in range(len(loc0_diameter_amp)):
         # progress calculator
         if (i % 1000) == 0:
@@ -388,8 +387,18 @@ def growth_rate(filenames):
         diameter_growth_rates[i] = loc_omega
         diameter_errs[i] = loc_err
     
-    toc = time.perf_counter()
+    print('diameter growth rate calculation complete')
 
-    dur = toc - tic
-    print("For loop time:", dur)
-  
+    fig, ax = plt.subplots()
+    ax.plot(freqs, diameter_growth_rates, '.')
+    ax.set_xlim(0, 500)
+
+    print("minimum error is:", diameter_errs.min())
+
+    minimum_location = diameter_errs.argmin()
+    print(minimum_location)
+    print("minimum error frequency:", freqs[minimum_location])
+
+
+
+
