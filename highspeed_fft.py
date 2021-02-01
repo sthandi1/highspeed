@@ -113,11 +113,8 @@ def morozumi_time(u, z_locations):
     return t
 
 
-def moving_average(x, w):
-    return np.convolve(x, np.ones(w), 'valid') / w
-
 def movingaverage(interval, window_size):
-    window= np.ones(int(window_size))/float(window_size)
+    window = np.ones(int(window_size))/float(window_size)
     return np.convolve(interval, window, 'same')
 
 
@@ -136,7 +133,7 @@ def fft_checking(filename):
                                                  unpack=True)
     # create a new numpy array which converts the frames into time by using
     # the frame rate
-    time = frames/27000
+    frame_time = frames/27000
     # calculating the jet diameter (numpy array)
     jet_diameter = 0.02*(right_edges-left_edges)
     # calculating the jet centroid (numpy array)
@@ -145,24 +142,24 @@ def fft_checking(filename):
     # setting up plots for left and right edges
     fig, ax = plt.subplots()
     # plotting left edge
-    ax.plot(time, left_edges)
+    ax.plot(frame_time, left_edges)
     # plotting right edge
-    ax.plot(time, right_edges, '.')
-    ax.set_xlabel('Time (seconds)')
+    ax.plot(frame_time, right_edges, '.')
+    ax.set_xlabel('frame_time (seconds)')
     ax.set_ylabel('Pixels')
     ax.set_title('Edges plot')
 
     # plotting jet diameter
     fig1, ax1 = plt.subplots()
-    ax1.plot(time, jet_diameter)
-    ax1.set_xlabel('Time (seconds)')
+    ax1.plot(frame_time, jet_diameter)
+    ax1.set_xlabel('frame_time (seconds)')
     ax1.set_ylabel('Jet diameter (mm)')
     ax1.set_title('Jet diameter plot')
 
     # plotting jet centroid
     fig2, ax2 = plt.subplots()
-    ax2.plot(time, jet_centroid)
-    ax2.set_xlabel('Time (seconds)')
+    ax2.plot(frame_time, jet_centroid)
+    ax2.set_xlabel('frame_time (seconds)')
     ax2.set_ylabel('Jet centroid location (mm)')
     ax2.set_title('Jet centroid plot')
 
@@ -190,9 +187,9 @@ def fft_checking(filename):
     # Shifted jet diameter plotting
     shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
     fig5, ax5 = plt.subplots()
-    ax5.plot(time, shifted_jet_diameter)
+    ax5.plot(frame_time, shifted_jet_diameter)
     ax5.set_title("Shifted jet diameter")
-    ax5.set_xlabel('Time (seconds)')
+    ax5.set_xlabel('frame_time (seconds)')
     ax5.set_ylabel('Shifted jet diameter (mm)')
 
     # shifted jet diameter fft
@@ -208,9 +205,9 @@ def fft_checking(filename):
     # shifted jet centroid plotting
     shifted_jet_centroid = jet_centroid - np.mean(jet_centroid)
     fig7, ax7 = plt.subplots()
-    ax7.plot(time, shifted_jet_centroid)
+    ax7.plot(frame_time, shifted_jet_centroid)
     ax7.set_title("Shifted jet centroid")
-    ax7.set_xlabel('Time (seconds)')
+    ax7.set_xlabel('frame_time (seconds)')
     ax7.set_ylabel('Shifted jet centroid (mm)')
 
     # shifted jet centroid fft
@@ -275,9 +272,9 @@ def fft_output(filename):
     abs_jet_centroid_fft = np.abs(shifted_jet_centroid_fft)
 
     # total time
-    time = len(shifted_jet_centroid)/27000
+    total_time = len(shifted_jet_centroid)/27000
 
-    return time, freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
+    return total_time, freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
 
 
 def growth_rate(filenames):
@@ -367,7 +364,11 @@ def growth_rate(filenames):
     centroid_a0 = np.zeros((len(loc0_centroid_amp)))
     centroid_errs = np.zeros((len(loc0_centroid_amp)))
 
+    # performing loop to work out growth rates of diameter from curve fitting
+    # various z locations (z times)
+
     print("\n\nNow calculating the diameter growth rates:\n\n")
+    # i is an indexer for the length of the array, equal to the frame number
     for i in range(len(loc0_diameter_amp)):
         # progress calculator
         if (i % 1000) == 0:
@@ -384,6 +385,15 @@ def growth_rate(filenames):
     
     print('diameter growth rate calculation complete')
 
+    diameter_output = np.stack((freqs, diameter_growth_rates, diameter_a0,
+                                diameter_errs))
+
+    print("\n\nNow calculating the centroid growth rates:\n\n")
+
+
+
+
+    # POST PROCESSING TEXTING, NOT FOR DEPLOYMENT
 
     figfft, axfft = plt.subplots()
     axfft.stem(freqs, loc1_diameter_fft)
