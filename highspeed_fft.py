@@ -404,6 +404,21 @@ def growth_rate(filenames):
         centroid_growth_rates[i] = loc_omega
         centroid_errs[i] = loc_err
 
+    # create filename by taking the first portion of the input filename
+    output_filename = casename[0:16] + '_fft.csv'
+
+    # stack the arrays together so they can be saved as a single file along
+    # the first axis
+    output_arr = np.stack((freqs, diameter_a0, diameter_growth_rates,
+                           diameter_errs, centroid_a0, centroid_growth_rates,
+                           centroid_errs), axis=1)
+
+    # save the array with a header that is for user experience, this is
+    # ignored by numpy.loadtxt
+    np.savetxt(output_filename, output_arr,
+               fmt='%f', delimiter=',',
+               header='freqs, diameter_a0, diameter_growth_rates, diameter_errs, centroid_a0, centroid_growth_rates, centroid_errs')
+
     # POST PROCESSING TEXTING, NOT FOR DEPLOYMENT
 
     figfft, axfft = plt.subplots()
@@ -498,3 +513,5 @@ def growth_rate(filenames):
 
     print("Zeros avg:", freqs[zero_crossings_mov_avg])
     print("Zeros savgol", freqs[zero_crossings_w])
+
+    
