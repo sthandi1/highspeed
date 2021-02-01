@@ -466,7 +466,14 @@ def growth_rate(filenames):
     ax6.plot(freqs,w, label='Savitzky-Golay')
     ax6.plot(freqs,mov_avg, label='Moving average')
     ax6.legend()
-    ax6.set_xlim(0, 2000)
+    ax6.set_xlim(0, 710)
+    ax6.set_ylim(0, 70)
     ax6.set_title("Moving average vs Savitzky-Golay")
     ax6.set_xlabel("Frequency")
     ax6.set_ylabel("Growth rate")
+
+    zero_crossings_mov_avg = np.where(np.diff(np.signbit(mov_avg)))[0]
+    zero_crossings_w = np.where(np.diff(np.signbit(w)))[0]
+
+    print("Zeros avg:", freqs[zero_crossings_mov_avg])
+    print("Zeros savgol", freqs[zero_crossings_w])
