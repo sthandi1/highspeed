@@ -571,8 +571,13 @@ def multi_image(z_locations, inputFile, thresh):
     np.savetxt(output_filename[8], edges_zloc8, fmt='%d', delimiter=',')
     np.savetxt(output_filename[9], edges_zloc9, fmt='%d', delimiter=',')
 
-    file_id(inputFile)
+    casename = file_id(inputFile)
 
+    with open('output_imaging.txt', 'w') as f:
+        f.write('Casename is {}, threshold is {}, z locations are {:i} '.format(casename, threshold, z_locations))
+
+    print('Casename is {}, threshold is {}, z locations are {:i} '.format(casename, threshold, z_locations))
+   
 
 def file_id(filename):
     dirs = filename.split('/')
