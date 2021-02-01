@@ -574,9 +574,13 @@ def multi_image(z_locations, inputFile, thresh):
     casename = file_id(inputFile)
 
     with open('output_imaging.txt', 'w') as f:
-        f.write('Casename is {}, threshold is {}, z locations are {:i} '.format(casename, threshold, z_locations))
+        f.write('Casename is {}, threshold is {}, z locations are {:i} '.format(casename,
+                                                                                thresh,
+                                                                                z_locations))
 
-    print('Casename is {}, threshold is {}, z locations are {:i} '.format(casename, threshold, z_locations))
+    print('Casename is {}, threshold is {:i}, z locations are {:i} '.format(casename,
+                                                                            thresh,
+                                                                            z_locations))
    
 
 def file_id(filename):
