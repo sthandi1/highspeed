@@ -220,16 +220,6 @@ def fft_checking(filename):
     ax8.set_xlabel('Frequencies')
     ax8.set_ylabel('Amplitude')
 
-    # storing fft data
-    # jet diameter results
-    abs_jet_diameter_fft = np.abs(shifted_jet_diameter_fft)
-    jet_diameter_results = np.stack([shifted_jet_diameter_freqs,
-                                     abs_jet_diameter_fft])
-    # jet centroid results
-    abs_jet_centroid_fft = np.abs(shifted_jet_centroid_fft)
-    jet_centroid_results = np.stack([shifted_jet_centroid_freqs,
-                                     abs_jet_centroid_fft])
-
     print(len(shifted_jet_centroid_freqs))
     print(len(shifted_jet_diameter))
     print(len(shifted_jet_centroid_fft))
@@ -387,7 +377,7 @@ def growth_rate(filenames):
         diameter_a0[i] = loc_a_0
         diameter_growth_rates[i] = loc_omega
         diameter_errs[i] = loc_err
-    
+
     print('diameter growth rate calculation complete')
 
     # stack the arrays together to make a single array for file output
@@ -438,10 +428,10 @@ def growth_rate(filenames):
 
     # 1253 is the location of 290.04 Hz
     amps = [loc0_diameter_amp[600], loc1_diameter_amp[600],
-        loc2_diameter_amp[600], loc3_diameter_amp[600],
-        loc4_diameter_amp[600], loc5_diameter_amp[600],
-        loc6_diameter_amp[600], loc7_diameter_amp[600],
-        loc8_diameter_amp[600], loc9_diameter_amp[600]]
+            loc2_diameter_amp[600], loc3_diameter_amp[600],
+            loc4_diameter_amp[600], loc5_diameter_amp[600],
+            loc6_diameter_amp[600], loc7_diameter_amp[600],
+            loc8_diameter_amp[600], loc9_diameter_amp[600]]
 
     fig1, ax1 = plt.subplots()
     ax1.plot(z_times, amps, 'o')
@@ -463,9 +453,9 @@ def growth_rate(filenames):
     ax2.set_ylabel("Standard deviation of curve fit")
 
     freqs_1000 = freqs[4315]
-    
+
     avg_err_1000 = diameter_errs[0:4315].mean()
- 
+
     fig3, ax3 = plt.subplots()
     ax3.plot(freqs, loc0_diameter_amp)
 
@@ -494,8 +484,8 @@ def growth_rate(filenames):
     ax.legend()
 
     fig6, ax6 = plt.subplots()
-    ax6.plot(freqs,w, label='Savitzky-Golay')
-    ax6.plot(freqs,mov_avg, label='Moving average')
+    ax6.plot(freqs, w, label='Savitzky-Golay')
+    ax6.plot(freqs, mov_avg, label='Moving average')
     ax6.legend()
     ax6.set_xlim(0, 710)
     ax6.set_ylim(0, 70)

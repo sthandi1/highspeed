@@ -581,7 +581,7 @@ def multi_image(z_locations, inputFile, thresh):
     print('Casename is {}, threshold is {:i}, z locations are {:i} '.format(casename,
                                                                             thresh,
                                                                             z_locations))
-   
+
 
 def file_id(filename):
     dirs = filename.split('/')
