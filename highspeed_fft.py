@@ -373,25 +373,46 @@ def growth_rate(filenames):
         # progress calculator
         if (i % 1000) == 0:
             print("Progress: {:.1f}%".format(i*100/len(loc0_diameter_amp)))
+        # assign a local array which takes the diameter amp at the current
+        # index across the 10 z locations
         local_amps = np.array((loc0_diameter_amp[i], loc1_diameter_amp[i],
                               loc2_diameter_amp[i], loc3_diameter_amp[i],
                               loc4_diameter_amp[i], loc5_diameter_amp[i],
                               loc6_diameter_amp[i], loc7_diameter_amp[i],
                               loc8_diameter_amp[i], loc9_diameter_amp[i]))
+        # work out the local a_0, growth rate, and error in curve fit
+        # using the curve fit function defined earlier
         loc_a_0, loc_omega, loc_err = param_extractor(z_times, local_amps)
+        # assign local variables to global array
         diameter_a0[i] = loc_a_0
         diameter_growth_rates[i] = loc_omega
         diameter_errs[i] = loc_err
     
     print('diameter growth rate calculation complete')
 
+    # stack the arrays together to make a single array for file output
     diameter_output = np.stack((freqs, diameter_growth_rates, diameter_a0,
                                 diameter_errs))
 
     print("\n\nNow calculating the centroid growth rates:\n\n")
-
-
-
+    for i in range(len(loc0_centroid_amp)):
+        # progress calculator
+        if (i % 1000) == 0:
+            print("Progress: {:.1f}%".format(i*100/len(loc0_centroid_amp)))
+        # assign a local array which takes the centroid amp at the current
+        # index across the 10 z locations
+        local_amps = np.array((loc0_centroid_amp[i], loc1_centroid_amp[i],
+                              loc2_centroid_amp[i], loc3_centroid_amp[i],
+                              loc4_centroid_amp[i], loc5_centroid_amp[i],
+                              loc6_centroid_amp[i], loc7_centroid_amp[i],
+                              loc8_centroid_amp[i], loc9_centroid_amp[i]))
+        # work out the local a_0, growth rate, and error in curve fit
+        # using the curve fit function defined earlier
+        loc_a_0, loc_omega, loc_err = param_extractor(z_times, local_amps)
+        # assign local variables to global array
+        centroid_a0[i] = loc_a_0
+        centroid_growth_rates[i] = loc_omega
+        centroid_errs[i] = loc_err
 
     # POST PROCESSING TEXTING, NOT FOR DEPLOYMENT
 
