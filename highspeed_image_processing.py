@@ -139,7 +139,7 @@ def multi_image(z_locations, inputFile, thresh):
     # of images in the movie (frames) and 3 columns. First column is the frame
     # number, second column is the left edge, third column is the right edge
 
-    file_id(inputFile)
+    # file_id(inputFile)
 
     edges_zloc0 = np.zeros((frames, 3))
     edges_zloc1 = np.zeros((frames, 3))
@@ -549,9 +549,10 @@ def multi_image(z_locations, inputFile, thresh):
                 # exit the for loop once edge has been found
                 break
 
-    dirs = inputFile.split('/')
-    experiment = dirs[-1]
-    casename = experiment.split('.')[0]
+    # dirs = inputFile.split('/')
+    # experiment = dirs[-1]
+    # casename = experiment.split('.')[0]
+    casename = 'rayleigh_1300_thresh'
 
     output_filename = []
     for z_loc in z_locations:
@@ -571,7 +572,7 @@ def multi_image(z_locations, inputFile, thresh):
     np.savetxt(output_filename[8], edges_zloc8, fmt='%d', delimiter=',')
     np.savetxt(output_filename[9], edges_zloc9, fmt='%d', delimiter=',')
 
-    casename = file_id(inputFile)
+    # casename = file_id(inputFile)
 
     print('Casename is {}, threshold is {:%i}'.format(casename, thresh))
     print(z_locations)
