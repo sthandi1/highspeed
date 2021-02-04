@@ -157,6 +157,7 @@ def multi_image(z_locations, inputFile, thresh):
         # print every 100 iterations so progress is monitored
         if (frame % 1000) == 0:
             print("Progress: {:.1f}%".format(frame*100/frames))
+            print(frame)
         # load the image from the movie. Index the movie based on the frame
         # iterator
         image = movie[frame]
@@ -571,11 +572,10 @@ def multi_image(z_locations, inputFile, thresh):
     np.savetxt(output_filename[7], edges_zloc7, fmt='%d', delimiter=',')
     np.savetxt(output_filename[8], edges_zloc8, fmt='%d', delimiter=',')
     np.savetxt(output_filename[9], edges_zloc9, fmt='%d', delimiter=',')
+    print('data saved successfully')
 
     # casename = file_id(inputFile)
 
-    print('Casename is {}, threshold is {:%i}'.format(casename, thresh))
-    print(z_locations)
 
 
 def file_id(filename):
