@@ -291,6 +291,7 @@ def growth_rate(filenames):
     # print("storing casename and Reynolds number\n\n")
     # casename, Re = file_id(filenames[0])
     Re = 1551
+    casename = 'Rayleigh_1300'
 
     print("\nNow calculating FFTs\n\n")
     # calculating ffts
