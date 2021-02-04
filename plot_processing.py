@@ -8,20 +8,9 @@ Created on Tue Feb  2 17:07:04 2021
 
 import numpy as np
 import matplotlib.pyplot as plt
-from highspeed_fft import velocity_calculator
+from highspeed_fft import velocity_calculator, weber_velocity
 from scipy.special import i0, i1
 from scipy.signal import savgol_filter
-
-def weber_velocity(weber_number, reynolds_number):
-    """works out velocity from weber number
-    """
-    d = 2e-3
-    sigma = 0.07
-    rho_g = 1.225
-    u_l = velocity_calculator(reynolds_number)
-    u_g = np.sqrt((weber_number*sigma)/(d*rho_g))+u_l
-    return u_g
-
 
 
 def rayleigh():
