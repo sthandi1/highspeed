@@ -530,8 +530,7 @@ def growth_rate(filenames):
     print("Zeros savgol", freqs[zero_crossings_w])
 
 
-def growth_rate_customised():
-    def growth_rate(filenames):
+def growth_rate_customised(filenames):
     """Main growth rate calculator
 
     Args:
@@ -611,7 +610,7 @@ def growth_rate_customised():
     zs_metres = 0.02*z_locations/1000
 
     # time model can be changed as needed
-    z_times = morozumi_time(u, zs_metres)
+    z_times = constant_time(u, zs_metres)
 
     # initialising storage arrays for growth rates
     diameter_growth_rates = np.zeros((len(loc0_diameter_amp)))

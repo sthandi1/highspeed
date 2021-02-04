@@ -45,7 +45,7 @@ def rayleigh():
     ax1.plot(freq, sqrt_w)
 
 
-def plotting(file1, file2, file3):
+def plotting_thresh(file1, file2, file3):
     """
     Main plotting function
     """
@@ -94,4 +94,41 @@ def plotting(file1, file2, file3):
     ax1.plot(freq_ra, sqrt_w)
     ax1.set_xlim(0, 1250)
     ax1.set_ylim(0, 100)
-    
+
+
+def plotting_ra(file1):
+    """
+    Main plotting function
+    """
+
+    freqs, _, rayleigh_1300, _, _, _, _ = np.loadtxt(file1, delimiter=',',
+                                                    unpack=True)
+
+    k = np.linspace(0, 1000, 10000)
+    sigma = 0.07
+    a = 1e-3
+    rho = 1000
+    w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
+    normaliser = np.sqrt(sigma/rho*a**3)
+    normal_w = w_squared**0.5/normaliser
+    sqrt_w = np.sqrt(w_squared)
+
+    wavelength = 2*np.pi/k
+    u_g = weber_velocity(5.22, 1551)
+    u_l = velocity_calculator(1551)
+    u_avg = (u_l+u_g)/2 - 4
+    freq_ra = u_l/wavelength
+
+    fig, ax = plt.subplots()
+    ax.plot(freqs, rayleigh_1300)
+    ax.plot(freq_ra, sqrt_w)
+    ax.set_xlim(0, 1250)
+    ax.set_ylim(0, 100)
+
+    savgol_ra = savgol_filter(rayleigh_1300, 1001, 2)
+
+    fig1, ax1 = plt.subplots()
+    ax1.plot(freqs, savgol_ra)
+    ax1.plot(freq_ra, sqrt_w)
+    ax1.set_xlim(0, 500)
+    ax1.set_ylim(0, 100)
