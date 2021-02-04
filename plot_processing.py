@@ -80,19 +80,29 @@ def plotting(file1, file2, file3):
     wavelength = 2*np.pi/k
     u_g = weber_velocity(5.22, 1551)
     u_l = velocity_calculator(1551)
-    u_avg = (u_l+u_g)/2
+    u_avg = (u_l+u_g)/2 - 4
     freq_ra = u_avg/wavelength
+    print(u_avg)
+    print(u_l)
+    print(u_g)
 
     fig, ax = plt.subplots()
     ax.plot(freqs, thresh_800_w)
     ax.plot(freqs, thresh_1000_w)
     ax.plot(freqs, thresh_1400_w)
+    ax.plot(freq_ra, sqrt_w)
+    ax.set_xlim(0, 1250)
+    ax.set_ylim(0, 100)
 
-    savgol_800 = savgol_filter(thresh_800_w, 1001, 2)
-    savgol_1000 = savgol_filter(thresh_1000_w, 1001, 2)
-    savgol_1400 = savgol_filter(thresh_1400_w, 1001, 2)
+    savgol_800 = savgol_filter(thresh_800_w, 11, 2)
+    savgol_1000 = savgol_filter(thresh_1000_w, 11, 2)
+    savgol_1400 = savgol_filter(thresh_1400_w, 11, 2)
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, savgol_800)
     ax1.plot(freqs, savgol_1000)
     ax1.plot(freqs, savgol_1400)
+    ax1.plot(freq_ra, sqrt_w)
+    ax1.set_xlim(0, 1250)
+    ax1.set_ylim(0, 100)
+    
