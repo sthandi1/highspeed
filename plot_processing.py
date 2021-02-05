@@ -97,7 +97,7 @@ def rayleigh_moro():
     ax1.set_title('Rayleigh with Morozumi parameters')
 
 
-def plotting_thresh(file1, file2, file3):
+def plotting_generic(file1, file2, file3):
     """
     Main plotting function
     """
