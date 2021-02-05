@@ -32,7 +32,7 @@ def change(x):
 def single_image_thresh_value(inputFile):
     """
     This function is used to determine the threshold value to be used in the
-    processing. Not very stable currently, do not use
+    processing. Not very stable currently, due to the trackbar
 
     Returns
     -------
