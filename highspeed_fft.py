@@ -124,9 +124,38 @@ def morozumi_time(u, z_locations):
     return t
 
 
+def morozumi_time_downstream(u, z_locationss):
+    """
+
+
+    Parameters
+    ----------
+    u : float
+        velocity
+    z_locations : array
+        z locations in metres
+
+    Returns
+    -------
+    t : array
+        time values using the morozumi model
+
+    """
+    z_locations = z_locations + 3.65/1000
+
+    g = 9.81
+    t = (-u+np.sqrt(u**2+2*g*z_locations))/g
+    return t
+
+
 def constant_time(u, z_locations):
     return z_locations/u
 
+
+def avg_vel(u, z_locations):
+    u_g = weber_velocity(5.22, 1551)
+    u_avg = (u+u_g)/2
+    return z_locations/u_avg
 
 def movingaverage(interval, window_size):
     window = np.ones(int(window_size))/float(window_size)
@@ -282,7 +311,7 @@ def fft_output(filename):
     return total_time, freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
 
 
-def growth_rate(filenames):
+def growth_rate(filenames, time_model=morozumi_time):
     """Main growth rate calculator
 
     Args:
@@ -358,7 +387,7 @@ def growth_rate(filenames):
     zs_metres = 0.02*z_locations/1000
 
     # time model can be changed as needed
-    z_times = morozumi_time(u, zs_metres)
+    z_times = time_model(u, zs_metres)
 
     # initialising storage arrays for growth rates
     diameter_growth_rates = np.zeros((len(loc0_diameter_amp)))
@@ -610,7 +639,7 @@ def growth_rate_customised(filenames):
     zs_metres = 0.02*z_locations/1000
 
     # time model can be changed as needed
-    z_times = constant_time(u, zs_metres)
+    z_times = morozumi_time_downstream(u, zs_metres)
 
     # initialising storage arrays for growth rates
     diameter_growth_rates = np.zeros((len(loc0_diameter_amp)))
