@@ -11,4 +11,4 @@ import matplotlib.pyplot as plt
 
 
 def sine():
-    
+    a = 1

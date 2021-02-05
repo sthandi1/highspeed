@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
 from scipy.signal import savgol_filter
-import time
 
 
 def file_id(filename):
@@ -124,7 +123,7 @@ def morozumi_time(u, z_locations):
     return t
 
 
-def morozumi_time_downstream(u, z_locationss):
+def morozumi_time_downstream(u, z_locations):
     """
 
 
@@ -170,6 +169,7 @@ def fft_checking(filename):
     Args:
         filename (str): file to be analysed
     """
+
     # print out experimental parameters and store the case name
     casename, Re = file_id(filename)
 
@@ -425,10 +425,6 @@ def growth_rate(filenames, time_model=morozumi_time):
 
     print('diameter growth rate calculation complete')
 
-    # stack the arrays together to make a single array for file output
-    diameter_output = np.stack((freqs, diameter_growth_rates, diameter_a0,
-                                diameter_errs))
-
     print("\n\nNow calculating the centroid growth rates:\n\n")
     for i in range(len(loc0_centroid_amp)):
         # progress calculator
@@ -462,7 +458,9 @@ def growth_rate(filenames, time_model=morozumi_time):
     # ignored by numpy.loadtxt
     np.savetxt(output_filename, output_arr,
                fmt='%f', delimiter=',',
-               header='freqs, diameter_a0, diameter_growth_rates, diameter_errs, centroid_a0, centroid_growth_rates, centroid_errs')
+               header='freqs, diameter_a0, diameter_growth_rates,\
+                   diameter_errs, centroid_a0, centroid_growth_rates,\
+                       centroid_errs')
 
     # POST PROCESSING TEXTING, NOT FOR DEPLOYMENT
 

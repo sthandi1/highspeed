@@ -69,7 +69,8 @@ def single_image_thresh_value(inputFile):
 def single_image_thresh_data(inputFile, thresh, z_location):
     """
     This function gets the data for a single image and plots it on a graph
-    it compares the normal image and thresholded image
+    it compares the normal image and thresholded image. Can be used to
+    determine the threshold value
 
     Parameters
     ----------
@@ -85,7 +86,7 @@ def single_image_thresh_data(inputFile, thresh, z_location):
     None.
 
     """
-    
+
     movie = mraw(inputFile)
     width = movie.width
     image = movie[0]
@@ -604,7 +605,6 @@ def multi_image(z_locations, inputFile, thresh):
     np.savetxt(output_filename[8], edges_zloc8, fmt='%d', delimiter=',')
     np.savetxt(output_filename[9], edges_zloc9, fmt='%d', delimiter=',')
     print('data saved successfully')
-
 
 
 def file_id(filename):
