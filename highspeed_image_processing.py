@@ -12,6 +12,19 @@ from mraw_v2 import mraw
 
 
 def change(x):
+    """
+    Test function for trackbars
+
+    Parameters
+    ----------
+    x : int
+        input
+
+    Returns
+    -------
+    None.
+
+    """
     # this function is used by the trackbars
     print(x)
 
@@ -19,7 +32,7 @@ def change(x):
 def single_image_thresh_value(inputFile):
     """
     This function is used to determine the threshold value to be used in the
-    processing
+    processing. Not very stable currently, do not use
 
     Returns
     -------
@@ -58,12 +71,21 @@ def single_image_thresh_data(inputFile, thresh, z_location):
     This function gets the data for a single image and plots it on a graph
     it compares the normal image and thresholded image
 
+    Parameters
+    ----------
+    inputFile : str
+        file to be tested
+    thresh : int
+        Threshold value
+    z_location : int
+        location to perform edge detection
+
     Returns
     -------
     None.
 
     """
-
+    
     movie = mraw(inputFile)
     width = movie.width
     image = movie[0]
@@ -123,11 +145,21 @@ def multi_image(z_locations, inputFile, thresh):
     determine edge locations and then it saves it in a csv file to be
     processed later. It takes a list or numpy array of z locations
 
+    Parameters
+    ----------
+    z_locations : list or array
+        z locations to detect edges at, length must be 10
+    inputFile : str
+        file to process
+    thresh : int
+        threshold value
+
     Returns
     -------
     None.
 
     """
+    
     # load all images into a class called movie from Ivo's mraw code
     movie = mraw(inputFile)
     # defines the width of the image
