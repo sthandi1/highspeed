@@ -608,6 +608,20 @@ def multi_image(z_locations, inputFile, thresh):
 
 
 def file_id(filename):
+    """
+    File identifier which works out Reynolds number and other parameters from
+    the file name
+
+    Parameters
+    ----------
+    filename : str
+        file name to be processed
+
+    Returns
+    -------
+    None.
+
+    """
     dirs = filename.split('/')
     experiment = dirs[-1]
     casename = experiment.split('.')[0]
