@@ -270,6 +270,10 @@ def fft_checking(filename):
     print(len(shifted_jet_centroid_fft))
 
 
+def wavelength_fft(filename):
+    
+
+
 def fft_output(filename):
     """This is a backend function which produces the fft data for the given
     filename
