@@ -45,8 +45,6 @@ def rayleigh():
     ax1.plot(freq, sqrt_w)
 
 
-
-
 def moro_re_calc(Re):
     """
 
@@ -109,7 +107,7 @@ def plotting_generic(file1, file2, file3):
     freqs, _, constant_vel, _, _, _, _ = np.loadtxt(file2, delimiter=',',
                                                     unpack=True)
     freqs, _, avg_vel, _, _, _, _ = np.loadtxt(file3, delimiter=',',
-                                                    unpack=True)
+                                               unpack=True)
 
     k = np.linspace(0, 1000, 10000)
     sigma = 0.07
@@ -119,11 +117,11 @@ def plotting_generic(file1, file2, file3):
     normaliser = np.sqrt(sigma/rho*a**3)
     normal_w = w_squared**0.5/normaliser
     sqrt_w = np.sqrt(w_squared)
-    
+
     wavelength = 2*np.pi/k
     u_g = weber_velocity(5.22, 1551)
     u_l = velocity_calculator(1551)
-    u_avg = (u_l+u_g)/2 -2.5
+    u_avg = (u_l+u_g)/2 - 2.5
     freq_ra = u_avg/wavelength
     print(u_avg)
     print(u_l)
@@ -141,7 +139,7 @@ def plotting_generic(file1, file2, file3):
     ax.set_ylabel('Growth rate (1/s)')
     ax.legend()
 
-    savgol_moro= savgol_filter(morozumi_time, 1001, 2)
+    savgol_moro = savgol_filter(morozumi_time, 1001, 2)
     savgol_const = savgol_filter(constant_vel, 1001, 2)
     savgol_avg = savgol_filter(avg_vel, 1001, 2)
 
@@ -164,7 +162,7 @@ def plotting_ra(file1):
     """
 
     freqs, _, rayleigh_1300, _, _, _, _ = np.loadtxt(file1, delimiter=',',
-                                                    unpack=True)
+                                                     unpack=True)
 
     k = np.linspace(0, 1000, 10000)
     sigma = 0.07
@@ -210,7 +208,7 @@ def plotting_moro(file1):
     """
 
     freqs, _, morozumi, _, _, _, _ = np.loadtxt(file1, delimiter=',',
-                                                    unpack=True)
+                                                unpack=True)
 
     k = np.linspace(0, 1000, 10000)
     sigma = 0.07
