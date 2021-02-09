@@ -271,8 +271,35 @@ def fft_checking(filename):
 
 
 def wavelength_fft(filename):
-    
+    """
+    Function for testing wavelength (wavenumber) calcs
 
+    Parameters
+    ----------
+    filename : str
+        csv file with the edges
+
+    Returns
+    -------
+    None.
+
+    """
+    frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
+                                                 unpack=True)
+
+    # calculating the jet diameter (numpy array)
+    jet_diameter = 0.02*(right_edges-left_edges)
+    # calculating the jet centroid (numpy array)
+    jet_centroid = 0.02*0.5*(right_edges+left_edges)
+
+    # Shifted jet diameter
+    shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
+    # shifted jet diameter fft
+    shifted_jet_diameter_fft = rfft(shifted_jet_diameter)
+    shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
+
+    total_time = len(shifted_jet_diameter)/27000
+    
 
 def fft_output(filename):
     """This is a backend function which produces the fft data for the given
