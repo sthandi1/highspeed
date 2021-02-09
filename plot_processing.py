@@ -107,9 +107,9 @@ def plotting_generic(file1, file2, file3):
     freqs, _, morozumi_time, _, _, _, _ = np.loadtxt(file1, delimiter=',',
                                                      unpack=True)
     freqs, _, constant_vel, _, _, _, _ = np.loadtxt(file2, delimiter=',',
-                                                     unpack=True)
+                                                    unpack=True)
     freqs, _, avg_vel, _, _, _, _ = np.loadtxt(file3, delimiter=',',
-                                                     unpack=True)
+                                                    unpack=True)
 
     k = np.linspace(0, 1000, 10000)
     sigma = 0.07
