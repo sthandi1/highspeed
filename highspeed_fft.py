@@ -299,7 +299,7 @@ def wavelength_fft(filename):
     shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
 
     total_time = len(shifted_jet_diameter)/27000
-    
+
 
 def fft_output(filename):
     """This is a backend function which produces the fft data for the given

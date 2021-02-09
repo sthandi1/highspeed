@@ -160,7 +160,7 @@ def multi_image(z_locations, inputFile, thresh):
     None.
 
     """
-    
+
     # load all images into a class called movie from Ivo's mraw code
     movie = mraw(inputFile)
     # defines the width of the image
