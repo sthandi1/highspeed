@@ -300,6 +300,13 @@ def wavelength_fft(filename):
 
     total_time = len(shifted_jet_diameter)/27000
 
+    delx = 1/27000
+    n = len(frames)
+    k = (2*pi/(delx*n))*(0:n-1)
+
+    fig, ax = plt.subplots()
+    ax.plot(k, shifted_jet_diameter_fft)
+
 
 def fft_output(filename):
     """This is a backend function which produces the fft data for the given
