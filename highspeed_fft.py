@@ -302,10 +302,48 @@ def wavelength_fft(filename):
 
     delx = 1/27000
     n = len(frames)
-    k = (2*pi/(delx*n))*(0:n-1)
+    k = (2*np.pi/(delx*n))*frames[0:58248]
+    a = 1e-3
+    fig, ax = plt.subplots()
+    ax.plot(k*a, np.abs(shifted_jet_diameter_fft))
+    ax.set_xlim(0, 1)
+
+def wavelength_fft_2(filename):
+    """
+    Function for testing wavelength (wavenumber) calcs
+
+    Parameters
+    ----------
+    filename : str
+        csv file with the edges
+
+    Returns
+    -------
+    None.
+
+    """
+    frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
+                                                 unpack=True)
+
+    # calculating the jet diameter (numpy array)
+    jet_diameter = 0.02*(right_edges-left_edges)
+    # calculating the jet centroid (numpy array)
+    jet_centroid = 0.02*0.5*(right_edges+left_edges)
+
+    # Shifted jet diameter
+    shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
+    # shifted jet diameter fft
+    shifted_jet_diameter_fft = rfft(shifted_jet_diameter)
+    shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
+
+    total_time = len(shifted_jet_diameter)/27000
+
+    delx = 1/27000
+    n = len(frames)
+    k = (2*np.pi/(delx*n))*frames[0:58248]
 
     fig, ax = plt.subplots()
-    ax.plot(k, shifted_jet_diameter_fft)
+    ax.plot(k, np.abs(shifted_jet_diameter_fft))
 
 
 def fft_output(filename):
