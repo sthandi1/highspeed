@@ -308,6 +308,7 @@ def wavelength_fft(filename):
     ax.plot(k*a, np.abs(shifted_jet_diameter_fft))
     ax.set_xlim(0, 1)
 
+
 def wavelength_fft_2(filename):
     """
     Function for testing wavelength (wavenumber) calcs
