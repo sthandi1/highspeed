@@ -336,7 +336,6 @@ def wavelength_fft_2(filename):
     shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
 
     calculated_freqs = []
-    print(len(shifted_jet_diameter_fft))
     n = int((len(shifted_jet_diameter_fft)/2) - 1)
     Fs = 27000
 
