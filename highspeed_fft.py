@@ -328,8 +328,6 @@ def wavelength_fft_2(filename):
 
     # calculating the jet diameter (numpy array)
     jet_diameter = 0.02*(right_edges-left_edges)
-    # calculating the jet centroid (numpy array)
-    jet_centroid = 0.02*0.5*(right_edges+left_edges)
 
     # Shifted jet diameter
     shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
@@ -337,11 +335,15 @@ def wavelength_fft_2(filename):
     shifted_jet_diameter_fft = rfft(shifted_jet_diameter)
     shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
 
-    total_time = len(shifted_jet_diameter)/27000
+    calculated_freqs = []
 
-    delx = 1/27000
-    n = len(frames)
-    k = (2*np.pi/(delx*n))*frames[0:58248]
+    n = (len(shifted_jet_diameter_fft)/2) - 1
+    Fs = 27000
+
+    for i in range(n):
+        bin_freq = i*Fs/len(shifted_jet_diameter_fft)
+        calculated_freqs.append(bin_freq)
+
 
     fig, ax = plt.subplots()
     ax.plot(k, np.abs(shifted_jet_diameter_fft))
