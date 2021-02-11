@@ -336,12 +336,20 @@ def wavelength_fft_2(filename):
     shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
 
     calculated_freqs = []
-    n = int((len(shifted_jet_diameter_fft)/2) - 1)
     Fs = 27000
 
-    for i in range(n):
-        bin_freq = i*Fs/len(shifted_jet_diameter_fft)
+    for i in range(len(shifted_jet_diameter_fft)):
+        bin_freq = i*Fs/(2*len(shifted_jet_diameter_fft))
         calculated_freqs.append(bin_freq)
+
+    n = len(shifted_jet_diameter_fft)
+    print(len(shifted_jet_diameter))
+    Ks = []
+    delx = 1/27000
+    for i in range(n):
+        k = (2*np.pi)/(delx*n)*i
+        Ks.append(k*1e-3)
+
 
     fig, ax = plt.subplots()
     ax.plot(shifted_jet_diameter_freqs, np.abs(shifted_jet_diameter_fft))
@@ -354,6 +362,12 @@ def wavelength_fft_2(filename):
     ax1.set_xlabel('Frequencies (calculated)')
     ax1.set_ylabel('Amplitude')
     ax1.set_title('Calculated')
+
+    fig2, ax2 = plt.subplots()
+    ax2.plot(Ks, np.abs(shifted_jet_diameter_fft))
+    ax2.set_xlabel('Wavenumber (calculated)')
+    ax2.set_ylabel('Amplitude')
+    ax2.set_title('Wavenumber')
 
 
 def fft_output(filename):
@@ -642,3 +656,17 @@ def growth_rate(filenames, time_model=morozumi_time):
 
     print("Zeros avg:", freqs[zero_crossings_mov_avg])
     print("Zeros savgol", freqs[zero_crossings_w])
+
+    Ks = []
+    delx = 1/27000
+    for i in range(len(loc0_diameter_amp)):
+        k = i*(2*np.pi)/(delx*116495)
+        Ks.append(k*1e-3)
+
+    fig7, ax7 = plt.subplots()
+    ax7.plot(Ks, w)
+    ax7.set_xlim(0, 20)
+    ax7.set_ylim(0, 70)
+    ax7.set_xlabel('ka')
+    ax7.set_ylabel('Growth rate')
+    ax7.set_title('Wavenumber plot')
