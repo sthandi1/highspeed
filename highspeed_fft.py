@@ -336,17 +336,25 @@ def wavelength_fft_2(filename):
     shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
 
     calculated_freqs = []
-
-    n = (len(shifted_jet_diameter_fft)/2) - 1
+    print(len(shifted_jet_diameter_fft))
+    n = int((len(shifted_jet_diameter_fft)/2) - 1)
     Fs = 27000
 
     for i in range(n):
         bin_freq = i*Fs/len(shifted_jet_diameter_fft)
         calculated_freqs.append(bin_freq)
 
-
     fig, ax = plt.subplots()
-    ax.plot(k, np.abs(shifted_jet_diameter_fft))
+    ax.plot(shifted_jet_diameter_freqs, np.abs(shifted_jet_diameter_fft))
+    ax.set_xlabel('Frequencies (scipy)')
+    ax.set_ylabel('Amplitude')
+    ax.set_title('Scipy')
+
+    fig1, ax1 = plt.subplots()
+    ax1.plot(calculated_freqs, np.abs(shifted_jet_diameter_fft))
+    ax1.set_xlabel('Frequencies (calculated)')
+    ax1.set_ylabel('Amplitude')
+    ax1.set_title('Calculated')
 
 
 def fft_output(filename):
