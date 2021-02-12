@@ -562,7 +562,7 @@ def growth_rate(filenames, time_model=morozumi_time):
                    diameter_errs, centroid_a0, centroid_growth_rates,\
                        centroid_errs')
 
-    # POST PROCESSING TEXTING, NOT FOR DEPLOYMENT
+    # POST PROCESSING TESTING, NOT FOR DEPLOYMENT
 
     figfft, axfft = plt.subplots()
     axfft.stem(freqs, loc1_diameter_fft)
