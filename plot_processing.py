@@ -39,10 +39,15 @@ def rayleigh():
     u_g = weber_velocity(5.22, 1551)
     u_l = velocity_calculator(1551)
     u_avg = (u_l+u_g)/2
+    u_arbitrary = (u_l+u_g)/2 - 2.5
     freq = u_avg/wavelength
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freq, sqrt_w)
+    print(u_arbitrary)
+    print(u_g)
+    print(u_l)
+    print(u_avg)
 
 
 def moro_re_calc(Re):
@@ -254,4 +259,9 @@ def x_vel(filename):
     jet_diameter = 0.02*(right_edges-left_edges)
 
     deltax = np.diff(jet_diameter)
-    
+    average_deltax = np.mean(deltax)
+    print(average_deltax)
+    t = 1/27000
+    metres = average_deltax/1000
+    speed = metres/t
+    print(speed)
