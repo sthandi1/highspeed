@@ -244,3 +244,14 @@ def plotting_moro(file1):
     ax1.set_xlabel('Frequencies (Hz)')
     ax1.set_ylabel('Growth rate (1/s)')
     ax1.legend()
+
+
+def x_vel(filename):
+    frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
+                                                 unpack=True)
+
+    # calculating the jet diameter (numpy array)
+    jet_diameter = 0.02*(right_edges-left_edges)
+
+    deltax = np.diff(jet_diameter)
+    
