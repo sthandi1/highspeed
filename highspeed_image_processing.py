@@ -745,3 +745,18 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
 
     peaktopeak = 0.02*(peak2_avg-peak1_avg)
     print('peak to peak is', peaktopeak)
+
+    left_focused = edges[400:, 1]
+    left_focused_edges = edges[400:, 0]
+
+    fig8, ax8 = plt.subplots()
+    ax8.plot(left_focused_edges, left_focused)
+    ax8.set_title('Left edges focused')
+    ax8.set_xlabel('Z location (pixels)')
+    ax8.set_ylabel('Left edge location (pixels)')
+
+    left_peak1 = np.where(left_focused == np.max(left_focused))
+    left_peak1_loc = left_focused_edges[left_peak1]
+
+    left_focused_1 = edges[700:, 1]
+    left_focused_edges_1 = edges[700:, 0]
