@@ -732,3 +732,16 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     peak1 = np.where(focused_jet_diameter == np.max(focused_jet_diameter))
     peak1_loc = focused_edges[peak1]
     print('Peak 1 is', peak1_loc)
+
+    focused_jet_diameter_1 = jet_diameter[800:]
+    focused_edges_1 = edges[800:, 0]
+
+    peak2 = np.where(focused_jet_diameter_1 == np.max(focused_jet_diameter_1))
+    peak2_loc = focused_edges_1[peak2]
+    print('Peak 2 is', peak2_loc)
+
+    peak1_avg = np.mean(peak1_loc)
+    peak2_avg = np.mean(peak2_loc)
+
+    peaktopeak = 0.02*(peak2_avg-peak1_avg)
+    print('peak to peak is', peaktopeak)
