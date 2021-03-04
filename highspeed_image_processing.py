@@ -696,10 +696,13 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     jet_diameter = 0.02*(edges[:, 2]-edges[:, 1])
 
     fig4, ax4 = plt.subplots()
-    ax4.plot(edges[:, 0], jet_diameter[:])
+    ax4.plot(edges[5:, 0], jet_diameter[5:])
     ax4.set_xlabel('Z location (pixels)')
     ax4.set_ylabel('Jet diameter (mm)')
     print(jet_diameter[5])
 
     avg_diam = np.mean(jet_diameter[5:])
     print(avg_diam)
+
+    fig5, ax5 = plt.subplots()
+    ax5.plot(edges[:,0], edges[:, 1])
