@@ -712,4 +712,23 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     ax5.plot(edges[5:,0], edges[5:, 1])
     ax5.set_xlabel('Z location (pixels)')
     ax5.set_ylabel('Left edge location')
-    ax5.set_title('')
+    ax5.set_title('Left edge')
+
+    fig6, ax6 = plt.subplots()
+    ax6.plot(edges[5:,0], edges[5:, 2])
+    ax6.set_xlabel('Z location (pixels)')
+    ax6.set_ylabel('Right edge location')
+    ax6.set_title('Right edge')
+
+    fig7, ax7 = plt.subplots()
+    ax7.plot(edges[600:, 0], jet_diameter[600:])
+    ax7.set_title('focused jet diameter')
+    ax7.set_xlabel('Z location')
+    ax7.set_ylabel('Jet diameter (mm)')
+
+    focused_jet_diameter = jet_diameter[600:]
+    focused_edges = edges[600:, 0]
+
+    peak1 = np.where(focused_jet_diameter == np.max(focused_jet_diameter))
+    peak1_loc = focused_edges[peak1]
+    print('Peak 1 is', peak1_loc)
