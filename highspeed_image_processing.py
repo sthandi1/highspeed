@@ -760,3 +760,43 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
 
     left_focused_1 = edges[700:, 1]
     left_focused_edges_1 = edges[700:, 0]
+
+    left_peak2 = np.where(left_focused_1 == np.max(left_focused_1))
+    left_peak2_loc = left_focused_edges_1[left_peak2]
+
+    left_peak1_avg = np.mean(left_peak1_loc)
+    left_peak2_avg = np.mean(left_peak2_loc)
+
+    left_peak_to_peak = 0.02*(left_peak2_avg-left_peak1_avg)
+
+    print('Left peak to peak is', left_peak_to_peak)
+
+    right_focused = edges[400:, 2]
+    right_focused_edges = edges[400:, 0]
+
+    fig9, ax9 = plt.subplots()
+    ax9.plot(right_focused_edges, right_focused)
+    ax9.set_title('right edges focused')
+    ax9.set_xlabel('Z location (pixels)')
+    ax9.set_ylabel('right edge location (pixels)')
+    
+    right_peak1 = np.where(right_focused == np.max(right_focused))
+    right_peak1_loc = right_focused_edges[right_peak1]
+
+    right_focused_1 = edges[600:, 2]
+    right_focused_edges_1 = edges[600:, 0]
+
+    right_peak2 = np.where(right_focused_1 == np.max(right_focused_1))
+    right_peak2_loc = right_focused_edges_1[right_peak2]
+
+    right_peak1_avg = np.mean(right_peak1_loc)
+    right_peak2_avg = np.mean(right_peak2_loc)
+
+    right_peak_to_peak = 0.02*(right_peak2_avg-right_peak1_avg)
+
+    print('right peak to peak is', right_peak_to_peak)
+
+    print(right_peak1_avg)
+    print(right_peak2_avg)
+
+ 
