@@ -650,7 +650,9 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     fig, ax = plt.subplots()
     fig1, ax1 = plt.subplots()
     ax.imshow(image, cmap=plt.cm.gray)
+    ax.set_title('Unmodified image')
     ax1.imshow(th1, cmap=plt.cm.gray)
+    ax1.set_title('Thresholded image')
 
     # initialise array with 3 columns and same number of rows as image height
     # first column is z location
@@ -692,6 +694,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     ax3.set_aspect(1)
     ax3.set_ylim(1024, 0)
     ax3.set_xlim(0, width)
+    ax3.set_title('Edges')
 
     jet_diameter = 0.02*(edges[:, 2]-edges[:, 1])
 
@@ -699,10 +702,14 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     ax4.plot(edges[5:, 0], jet_diameter[5:])
     ax4.set_xlabel('Z location (pixels)')
     ax4.set_ylabel('Jet diameter (mm)')
+    ax4.set_title('Jet diameter')
     print(jet_diameter[5])
 
     avg_diam = np.mean(jet_diameter[5:])
     print(avg_diam)
 
     fig5, ax5 = plt.subplots()
-    ax5.plot(edges[:,0], edges[:, 1])
+    ax5.plot(edges[5:,0], edges[5:, 1])
+    ax5.set_xlabel('Z location (pixels)')
+    ax5.set_ylabel('Left edge location')
+    ax5.set_title('')
