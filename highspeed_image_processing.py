@@ -90,14 +90,14 @@ def single_image_thresh_data(inputFile, thresh, z_location):
     movie = mraw(inputFile)
     width = movie.width
     image = movie[0]
-
+    
+    
     # apply binary threshold where below threshold is zero and above is max
     _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
 
     fig, ax = plt.subplots()
     fig1, ax1 = plt.subplots()
     fig2, ax2 = plt.subplots()
-
     ax.imshow(image, cmap=plt.cm.gray)
     ax1.imshow(th1, cmap=plt.cm.gray)
     ax2.imshow(th1, cmap=plt.cm.gray)
@@ -109,7 +109,7 @@ def single_image_thresh_data(inputFile, thresh, z_location):
         # 'x' direction until it finds a zero. This zero indicate the edge of
         # the jet.
         if th1[z_location, pixel] == 0:
-            # assign the iterator to a variable
+            # assign the pixel to a variable
             left_edge = pixel
             # exit the for loop once edge has been found
             break
@@ -118,7 +118,7 @@ def single_image_thresh_data(inputFile, thresh, z_location):
     for pixel in range(width):
         # invert the loop so it counts down instead of up
         inv = width - pixel - 1
-        # This for loop finds the rihgt edge at z_location and assings it to a
+        # This for loop finds the right edge at z_location and assigns it to a
         # variable
         if th1[z_location, inv] == 0:
             # assigning the pixel to a variable
@@ -633,3 +633,73 @@ def file_id(filename):
     print('Reynolds number is: ', Re)
     print('Weber number is:', We)
     print('The casename is:', casename)
+
+
+def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
+    """
+    function to manually measure wavelength of a single image
+    """
+
+    movie = mraw(inputFile)
+    width = movie.width
+    height = movie.height
+    image = movie[image_loc]
+
+    _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
+
+    fig, ax = plt.subplots()
+    fig1, ax1 = plt.subplots()
+    ax.imshow(image, cmap=plt.cm.gray)
+    ax1.imshow(th1, cmap=plt.cm.gray)
+
+    # initialise array with 3 columns and same number of rows as image height
+    # first column is z location
+    # second column is left edge
+    # third column is right edge
+    edges = np.zeros((height, 3))
+    # add the height values to the array
+    edges[:, 0] = range(height)
+
+    for z_loc in range(height):
+        if (z_loc % 100) == 0:
+            print("Progress: {:.1f}%".format(z_loc*100/height))
+        for pixel in range(width):
+            # for loop goes through the threshold array at the given
+            # downstream 'z' position (z_location) and then cycles across in the
+            # 'x' direction until it finds a zero. This zero indicate the edge of
+            # the jet.
+            if th1[z_loc, pixel] == 0:
+                # assign the pixel to a variable
+                edges[z_loc, 1] = pixel
+                # exit the for loop once edge has been found
+                break
+
+        # RIGHT EDGES
+        for pixel in range(width):
+            # invert the loop so it counts down instead of up
+            inv = width - pixel - 1
+            # This for loop finds the right edge at z_location and assigns it to a
+            # variable
+            if th1[z_loc, inv] == 0:
+                # assigning the pixel to a variable
+                edges[z_loc, 2] = inv
+                # exit the for loop once edge has been found
+                break
+    
+    fig3, ax3 = plt.subplots()
+    ax3.plot(edges[:, 1], edges[:, 0])
+    ax3.plot(edges[:, 2], edges[:, 0])
+    ax3.set_aspect(1)
+    ax3.set_ylim(1024, 0)
+    ax3.set_xlim(0, width)
+
+    jet_diameter = 0.02*(edges[:, 2]-edges[:, 1])
+
+    fig4, ax4 = plt.subplots()
+    ax4.plot(edges[:, 0], jet_diameter[:])
+    ax4.set_xlabel('Z location (pixels)')
+    ax4.set_ylabel('Jet diameter (mm)')
+    print(jet_diameter[5])
+
+    avg_diam = np.mean(jet_diameter[5:])
+    print(avg_diam)
