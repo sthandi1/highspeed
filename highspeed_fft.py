@@ -120,30 +120,6 @@ def morozumi_time(u, z_locations):
     return t
 
 
-def morozumi_time_downstream(u, z_locations):
-    """
-
-
-    Parameters
-    ----------
-    u : float
-        velocity
-    z_locations : array
-        z locations in metres
-
-    Returns
-    -------
-    t : array
-        time values using the morozumi model
-
-    """
-    z_locations = z_locations + 3.65/1000
-
-    g = 9.81
-    t = (-u+np.sqrt(u**2+2*g*z_locations))/g
-    return t
-
-
 def constant_time(u, z_locations):
     return z_locations/u
 
