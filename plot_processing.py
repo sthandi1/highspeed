@@ -52,7 +52,7 @@ def rayleigh():
 
 def moro_re_calc(Re):
     """
-
+    Function to calculate velocity for Morozumi's data
     Parameters
     ----------
     Re : int
@@ -330,31 +330,25 @@ def plotting_measured_wavelength(file1):
     freqs, _, control, _, _, _, _ = np.loadtxt(file1, delimiter=',',
                                                 unpack=True)
 
-    k = np.linspace(0, 1000, 10000)
+    k = np.linspace(0, 5000, 1000000)
     sigma = 0.07
     a = 1e-3
     rho = 1000
     w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
     sqrt_w = np.sqrt(w_squared)
 
-    v = arai_velocity(1551)
+    v = 1.26
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
-    savgol_control = control
+    savgol_control = savgol_filter(control, 101, 2)
 
-    wavelength_min = 0.70426496/freqs
-    wavenumber_min = 2*np.pi/wavelength_min
-
-    wavelength_max = 0.88898208/freqs
-    wavenumber_max = 2*np.pi/wavelength_max
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh')
-    ax.plot(wavenumber*a, savgol_control, label='Experimental (average velocity)')
-    ax.plot(wavenumber_min*a, savgol_control, label='Experimental (minimum velocity)')
-    ax.plot(wavenumber_max*a, savgol_control, label='Experimental (maximum velocity)')
+    ax.plot(wavenumber*a, savgol_control, label='Experimental (wavelength velocity)')
     ax.set_xlim(0, 7)
-    ax.set_ylim(0, 100)
+    ax.set_ylim(0, 150)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
+    ax.set_title('Radius = 1mm')
