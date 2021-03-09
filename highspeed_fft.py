@@ -149,11 +149,6 @@ def constant_time(u, z_locations):
 
 
 
-def movingaverage(interval, window_size):
-    window = np.ones(int(window_size))/float(window_size)
-    return np.convolve(interval, window, 'same')
-
-
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
     been captured and produce fft graphs to be checked.
