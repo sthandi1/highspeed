@@ -640,13 +640,17 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     function to manually measure wavelength of a single image
     """
 
+    # load data
     movie = mraw(inputFile)
     width = movie.width
     height = movie.height
+    # load single image defined by index
     image = movie[image_loc]
 
+    # apply threshold
     _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
 
+    # display image and thresholded image
     fig, ax = plt.subplots()
     fig1, ax1 = plt.subplots()
     ax.imshow(image, cmap=plt.cm.gray)
@@ -662,6 +666,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     # add the height values to the array
     edges[:, 0] = range(height)
 
+    # use all z locations
     for z_loc in range(height):
         if (z_loc % 100) == 0:
             print("Progress: {:.1f}%".format(z_loc*100/height))
@@ -688,6 +693,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
                 # exit the for loop once edge has been found
                 break
     
+    # plotting the edges
     fig3, ax3 = plt.subplots()
     ax3.plot(edges[:, 1], edges[:, 0])
     ax3.plot(edges[:, 2], edges[:, 0])
@@ -696,8 +702,10 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     ax3.set_xlim(0, width)
     ax3.set_title('Edges')
 
+    # calculating jet diameter
     jet_diameter = 0.02*(edges[:, 2]-edges[:, 1])
 
+    # plotting zoomed in jet diameter
     fig4, ax4 = plt.subplots()
     ax4.plot(edges[5:, 0], jet_diameter[5:])
     ax4.set_xlabel('Z location (pixels)')
@@ -705,93 +713,117 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     ax4.set_title('Jet diameter')
     print(jet_diameter[5])
 
+    # working out average jet diameter from zoomed in plot
     avg_diam = np.mean(jet_diameter[5:])
     print(avg_diam)
 
+    # looking at left edges at zoomed in location
     fig5, ax5 = plt.subplots()
     ax5.plot(edges[5:,0], edges[5:, 1])
     ax5.set_xlabel('Z location (pixels)')
     ax5.set_ylabel('Left edge location')
     ax5.set_title('Left edge')
 
+    # looking at right edges at zoomed in location
     fig6, ax6 = plt.subplots()
     ax6.plot(edges[5:,0], edges[5:, 2])
     ax6.set_xlabel('Z location (pixels)')
     ax6.set_ylabel('Right edge location')
     ax6.set_title('Right edge')
 
+    # looking at peaks in jet diameter
     fig7, ax7 = plt.subplots()
     ax7.plot(edges[600:, 0], jet_diameter[600:])
     ax7.set_title('focused jet diameter')
     ax7.set_xlabel('Z location')
     ax7.set_ylabel('Jet diameter (mm)')
 
+    # new arrays only containing the two peaks
     focused_jet_diameter = jet_diameter[600:]
     focused_edges = edges[600:, 0]
 
+    # finding the first peak
     peak1 = np.where(focused_jet_diameter == np.max(focused_jet_diameter))
     peak1_loc = focused_edges[peak1]
     print('Peak 1 is', peak1_loc)
 
+    # zooming in on the second peak
     focused_jet_diameter_1 = jet_diameter[800:]
     focused_edges_1 = edges[800:, 0]
 
+    # finding the second peak
     peak2 = np.where(focused_jet_diameter_1 == np.max(focused_jet_diameter_1))
     peak2_loc = focused_edges_1[peak2]
     print('Peak 2 is', peak2_loc)
 
+    # averaging the peak values since they are an array of numbers
     peak1_avg = np.mean(peak1_loc)
     peak2_avg = np.mean(peak2_loc)
 
+    # working out peak to peak distance (wavelength)
     peaktopeak = 0.02*(peak2_avg-peak1_avg)
     print('peak to peak is', peaktopeak)
 
+    # focuing on two peaks of left edges
     left_focused = edges[400:, 1]
     left_focused_edges = edges[400:, 0]
 
+    # plotting focused peaks of left edges
     fig8, ax8 = plt.subplots()
     ax8.plot(left_focused_edges, left_focused)
     ax8.set_title('Left edges focused')
     ax8.set_xlabel('Z location (pixels)')
     ax8.set_ylabel('Left edge location (pixels)')
 
+    # locating left edges first peak
     left_peak1 = np.where(left_focused == np.max(left_focused))
     left_peak1_loc = left_focused_edges[left_peak1]
 
+    # focusing on the second peak of the left edges
     left_focused_1 = edges[700:, 1]
     left_focused_edges_1 = edges[700:, 0]
 
+    # finding the second peak of the left edges
     left_peak2 = np.where(left_focused_1 == np.max(left_focused_1))
     left_peak2_loc = left_focused_edges_1[left_peak2]
 
+    # averaging the peak values
     left_peak1_avg = np.mean(left_peak1_loc)
     left_peak2_avg = np.mean(left_peak2_loc)
 
+    # working out wavelength
     left_peak_to_peak = 0.02*(left_peak2_avg-left_peak1_avg)
 
     print('Left peak to peak is', left_peak_to_peak)
 
+    # focusing on two peaks of the right edges
     right_focused = edges[400:, 2]
     right_focused_edges = edges[400:, 0]
 
+    # plotting the two peaks of the right edges
     fig9, ax9 = plt.subplots()
     ax9.plot(right_focused_edges, right_focused)
     ax9.set_title('right edges focused')
     ax9.set_xlabel('Z location (pixels)')
     ax9.set_ylabel('right edge location (pixels)')
     
+    # finding the first peak of the right edges
     right_peak1 = np.where(right_focused == np.max(right_focused))
     right_peak1_loc = right_focused_edges[right_peak1]
 
+    # focusing on the second peak of the right edges
     right_focused_1 = edges[600:, 2]
     right_focused_edges_1 = edges[600:, 0]
 
+    # locating the second peak of the right edges
     right_peak2 = np.where(right_focused_1 == np.max(right_focused_1))
     right_peak2_loc = right_focused_edges_1[right_peak2]
 
+    # averaging the peak locations
     right_peak1_avg = np.mean(right_peak1_loc)
     right_peak2_avg = np.mean(right_peak2_loc)
 
+    # calculating wavelength
     right_peak_to_peak = 0.02*(right_peak2_avg-right_peak1_avg)
 
     print('right peak to peak is', right_peak_to_peak)
