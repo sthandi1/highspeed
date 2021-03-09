@@ -148,11 +148,6 @@ def constant_time(u, z_locations):
     return z_locations/u
 
 
-def avg_vel(u, z_locations):
-    u_g = weber_velocity(5.22, 1551)
-    u_avg = (u+u_g)/2
-    return z_locations/u_avg
-
 
 def movingaverage(interval, window_size):
     window = np.ones(int(window_size))/float(window_size)
