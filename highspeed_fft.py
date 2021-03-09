@@ -65,7 +65,7 @@ def param_extractor(ts, amps):
     return a_0, omega, omega_err
 
 
-def velocity_calculator(Re):
+def velocity_calculator(Re, d=1.5e-3):
     """
 
     Parameters
@@ -83,17 +83,14 @@ def velocity_calculator(Re):
     mu = 8.9e-4
     # density
     rho = 1000
-    # diameter
-    d = 2/1000
     # reynolds number standard equation
     u = Re*mu/(rho*d)
     return u
 
 
-def weber_velocity(weber_number, reynolds_number):
+def weber_velocity(weber_number, reynolds_number, d=1.5e-3):
     """works out velocity from weber number
     """
-    d = 2e-3
     sigma = 0.07
     rho_g = 1.225
     u_l = velocity_calculator(reynolds_number)
