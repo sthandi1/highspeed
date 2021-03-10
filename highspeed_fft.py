@@ -124,7 +124,6 @@ def constant_time(u, z_locations):
     return z_locations/u
 
 
-
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
     been captured and produce fft graphs to be checked.
