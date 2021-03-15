@@ -502,7 +502,6 @@ def growth_rate(filenames, time_model=morozumi_time):
     ax6.set_xlabel("Frequency")
     ax6.set_ylabel("Growth rate")
 
-    zero_crossings_mov_avg = np.where(np.diff(np.signbit(mov_avg)))[0]
     zero_crossings_w = np.where(np.diff(np.signbit(w)))[0]
 
     print("Zeros avg:", freqs[zero_crossings_mov_avg])
