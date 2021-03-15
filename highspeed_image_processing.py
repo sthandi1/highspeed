@@ -779,7 +779,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     left_peak1 = np.where(left_focused == np.max(left_focused))
     left_peak1_loc = left_focused_edges[left_peak1]
 
-    # focusing on the second peak of the left edges
+    # focusing on the second peak of the left edges
     left_focused_1 = edges[700:, 1]
     left_focused_edges_1 = edges[700:, 0]
 
@@ -830,5 +830,4 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
 
     print(right_peak1_avg)
     print(right_peak2_avg)
-
  
