@@ -504,7 +504,6 @@ def growth_rate(filenames, time_model=morozumi_time):
 
     zero_crossings_w = np.where(np.diff(np.signbit(w)))[0]
 
-    print("Zeros avg:", freqs[zero_crossings_mov_avg])
     print("Zeros savgol", freqs[zero_crossings_w])
 
     Ks = []
