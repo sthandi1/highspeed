@@ -495,7 +495,6 @@ def growth_rate(filenames, time_model=morozumi_time):
 
     fig6, ax6 = plt.subplots()
     ax6.plot(freqs, w, label='Savitzky-Golay')
-    ax6.plot(freqs, mov_avg, label='Moving average')
     ax6.legend()
     ax6.set_xlim(0, 710)
     ax6.set_ylim(0, 70)
