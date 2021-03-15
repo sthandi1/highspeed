@@ -481,16 +481,6 @@ def growth_rate(filenames, time_model=morozumi_time):
 
     print(freqs[600])
 
-    mov_avg = movingaverage(diameter_growth_rates, 1000)
-
-    fig4, ax4 = plt.subplots()
-    ax4.plot(freqs, mov_avg)
-    ax4.set_xlim(0, 5000)
-    ax4.set_title('Moving average')
-    ax4.set_xlabel('Frequencies')
-    ax4.set_ylabel('Growth rate')
-
-    ax.plot(freqs, mov_avg, label='moving average', color='blue')
 
     w = savgol_filter(diameter_growth_rates, 1001, 2)
     fig5, ax5 = plt.subplots()
