@@ -232,67 +232,6 @@ def fft_checking(filename):
     print(len(shifted_jet_centroid_fft))
 
 
-def wavelength_fft_2(filename):
-    """
-    Function for testing wavelength (wavenumber) calcs
-
-    Parameters
-    ----------
-    filename : str
-        csv file with the edges
-
-    Returns
-    -------
-    None.
-
-    """
-    frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
-                                                 unpack=True)
-
-    # calculating the jet diameter (numpy array)
-    jet_diameter = 0.02*(right_edges-left_edges)
-
-    # Shifted jet diameter
-    shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
-    # shifted jet diameter fft
-    shifted_jet_diameter_fft = rfft(shifted_jet_diameter)
-    shifted_jet_diameter_freqs = rfftfreq(len(shifted_jet_diameter), 1/27000)
-
-    calculated_freqs = []
-    Fs = 27000
-
-    for i in range(len(shifted_jet_diameter_fft)):
-        bin_freq = i*Fs/(2*len(shifted_jet_diameter_fft))
-        calculated_freqs.append(bin_freq)
-
-    n = len(shifted_jet_diameter_fft)
-    print(len(shifted_jet_diameter))
-    Ks = []
-    delx = 1/27000
-    for i in range(n):
-        k = (2*np.pi)/(delx*n)*i
-        Ks.append(k*1e-3)
-
-
-    fig, ax = plt.subplots()
-    ax.plot(shifted_jet_diameter_freqs, np.abs(shifted_jet_diameter_fft))
-    ax.set_xlabel('Frequencies (scipy)')
-    ax.set_ylabel('Amplitude')
-    ax.set_title('Scipy')
-
-    fig1, ax1 = plt.subplots()
-    ax1.plot(calculated_freqs, np.abs(shifted_jet_diameter_fft))
-    ax1.set_xlabel('Frequencies (calculated)')
-    ax1.set_ylabel('Amplitude')
-    ax1.set_title('Calculated')
-
-    fig2, ax2 = plt.subplots()
-    ax2.plot(Ks, np.abs(shifted_jet_diameter_fft))
-    ax2.set_xlabel('Wavenumber (calculated)')
-    ax2.set_ylabel('Amplitude')
-    ax2.set_title('Wavenumber')
-
-
 def fft_output(filename):
     """This is a backend function which produces the fft data for the given
     filename
