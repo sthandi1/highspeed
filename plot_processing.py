@@ -277,7 +277,7 @@ def plotting_arai(file1):
 
     k = np.linspace(0, 2000, 10000)
     sigma = 0.07
-    a = (1.5e-3)/2
+    a = (2e-3)/2
     rho = 1000
     w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
     sqrt_w = np.sqrt(w_squared)
@@ -327,3 +327,28 @@ def plotting_measured_wavelength(file1):
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
     ax.set_title('Radius = 1mm')
+
+
+def plotting_2file(file1, file2):
+    # load the two files
+    freqs, _, file1_axi, _, _, _, _ = np.loadtxt(file1, delimiter=',', unpack=True)
+    freqs, _, file2_axi, _, _, _, _ = np.loadtxt(file2, delimiter=',', unpack=True)
+
+    file1_axi_savgol = savgol_filter(file1_axi, 1001, 2)
+    file2_axi_savgol = savgol_filter(file2_axi, 1001, 2)
+
+    fig, ax = plt.subplots()
+    ax.plot(freqs, file1_axi, label='file1')
+    ax.plot(freqs, file2_axi, label='file2')
+    ax.set_title('Standard data')
+    ax.legend()
+    ax.set_xlim(0, 1000)
+    ax.set_ylim(0, 80)
+
+    fig1, ax1 = plt.subplots()
+    ax1.plot(freqs, file1_axi_savgol, label='file1')
+    ax1.plot(freqs, file2_axi_savgol, label='file2')
+    ax1.set_title('Savgol')
+    ax1.legend()
+    ax1.set_xlim(0, 1000)
+    ax1.set_ylim(0, 80)
