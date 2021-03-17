@@ -294,7 +294,7 @@ def plotting_arai(file1):
 
     k = np.linspace(0, 1000, 10000)
     sigma = 0.07
-    a = 1e-3
+    a = (1.5e-3)/2
     rho = 1000
     w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
     sqrt_w = np.sqrt(w_squared)
