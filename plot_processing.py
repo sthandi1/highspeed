@@ -253,23 +253,6 @@ def plotting_moro(file1):
     ax1.legend()
 
 
-
-def x_vel(filename):
-    frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
-                                                 unpack=True)
-
-    # calculating the jet diameter (numpy array)
-    jet_diameter = 0.02*(right_edges-left_edges)
-
-    deltax = np.diff(jet_diameter)
-    average_deltax = np.mean(deltax)
-    print(average_deltax)
-    t = 1/27000
-    metres = average_deltax/1000
-    speed = metres/t
-    print(speed)
-
-
 def arai_velocity(Re):
     g = 9.81
     z_pixels = np.array([50, 100, 150, 250, 350, 450, 550, 650, 750, 800])
@@ -292,7 +275,7 @@ def plotting_arai(file1):
     freqs, _, control, _, _, _, _ = np.loadtxt(file1, delimiter=',',
                                                 unpack=True)
 
-    k = np.linspace(0, 1000, 10000)
+    k = np.linspace(0, 2000, 10000)
     sigma = 0.07
     a = (1.5e-3)/2
     rho = 1000
@@ -302,21 +285,13 @@ def plotting_arai(file1):
     v = arai_velocity(1551)
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
-    savgol_control = control
-
-    wavelength_min = 0.70426496/freqs
-    wavenumber_min = 2*np.pi/wavelength_min
-
-    wavelength_max = 0.88898208/freqs
-    wavenumber_max = 2*np.pi/wavelength_max
+    savgol_control = savgol_filter(control, 1001, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh')
     ax.plot(wavenumber*a, savgol_control, label='Experimental (average velocity)')
-    ax.plot(wavenumber_min*a, savgol_control, label='Experimental (minimum velocity)')
-    ax.plot(wavenumber_max*a, savgol_control, label='Experimental (maximum velocity)')
     ax.set_xlim(0, 7)
-    ax.set_ylim(0, 100)
+    ax.set_ylim(0, 180)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
