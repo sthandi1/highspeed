@@ -65,7 +65,7 @@ def param_extractor(ts, amps):
     return a_0, omega, omega_err
 
 
-def velocity_calculator(Re, d=1.5e-3):
+def velocity_calculator(Re, d=2e-3):
     """
 
     Parameters
@@ -88,7 +88,7 @@ def velocity_calculator(Re, d=1.5e-3):
     return u
 
 
-def weber_velocity(weber_number, reynolds_number, d=1.5e-3):
+def weber_velocity(weber_number, reynolds_number, d=2e-3):
     """works out velocity from weber number
     """
     sigma = 0.07
@@ -123,6 +123,9 @@ def morozumi_time(u, z_locations):
 def constant_time(u, z_locations):
     return z_locations/u
 
+
+def aero_time(u, z_locations)
+    
 
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
