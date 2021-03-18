@@ -322,12 +322,12 @@ def plotting_measured_wavelength(file1, file2):
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
     savgol_control = savgol_filter(control, 101, 2)
-    savgol_control_2 = savgol_control_2(control_2, 101, 2)
+    savgol_control_2 = savgol_filter(control_2, 101, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh')
-    ax.plot(wavenumber*a, savgol_control, label='Experimental (wavelength velocity)')
-     ax.plot(wavenumber*a, savgol_control_2, label='Experimental (wavelength velocity)')
+    ax.plot(wavenumber*a, savgol_control, label='moro')
+    ax.plot(wavenumber*a, savgol_control_2, label='aero')
     ax.set_xlim(0, 7)
     ax.set_ylim(0, 150)
     ax.legend()
