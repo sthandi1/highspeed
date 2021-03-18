@@ -277,7 +277,7 @@ def plotting_arai(file1):
     freqs, _, control, _, _, _, _ = np.loadtxt(file1, delimiter=',',
                                                 unpack=True)
 
-    k = np.linspace(0, 2000, 10000)
+    k = np.linspace(0, 3000, 10000)
     sigma = 0.07
     a = (2e-3)/2
     rho = 1000
@@ -293,7 +293,7 @@ def plotting_arai(file1):
     ax.plot(k*a, sqrt_w, label='Rayleigh')
     ax.plot(wavenumber*a, savgol_control, label='Experimental (average velocity)')
     ax.set_xlim(0, 7)
-    ax.set_ylim(0, 180)
+    ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
