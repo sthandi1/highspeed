@@ -124,8 +124,19 @@ def constant_time(u, z_locations):
     return z_locations/u
 
 
-def aero_time(u, z_locations)
-    
+def aero_time(u_l, z_locations, weber_number):
+    d = 2e-3
+    # viscosity of water
+    mu_l = 8.9e-4
+    # density of water
+    rho_l = 1000
+    # viscosity of air
+    mu_g = 1.825e-5
+    re_exp = rho_l*u_l*d/mu_l
+    u_g = weber_velocity(weber_number, re_exp)
+    re_sphere = 1.225*d*np.abs(u_g-u_l)/mu_g
+    print(re_sphere)
+
 
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
