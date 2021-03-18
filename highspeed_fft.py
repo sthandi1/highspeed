@@ -25,7 +25,7 @@ def file_id(filename):
     print('Reynolds number is: ', Re)
     print('Weber number is:', We)
     print('The casename is:', casename)
-    return casename, Re
+    return casename, Re, We
 
 
 def model_growth_rate(t, a_0, omega):
@@ -98,7 +98,7 @@ def weber_velocity(weber_number, reynolds_number, d=2e-3):
     return u_g
 
 
-def morozumi_time(u, z_locations):
+def morozumi_time(u, z_locations, We):
     """
 
 
@@ -120,7 +120,7 @@ def morozumi_time(u, z_locations):
     return t
 
 
-def constant_time(u, z_locations):
+def constant_time(u, z_locations, We):
     return z_locations/u
 
 
@@ -138,9 +138,10 @@ def aero_time(u_l, z_locations, weber_number):
     f = 0.0183*re_sphere
     tau = (rho_l*d**2)/(18*mu_g)
     acc = (f/tau)*(u_g-u_l)+9.81
-    print("Acceleration is {:.2f} m/s^2".format(acc))
-    print("f is", f)
-    print("tau is", tau)
+    t = (-u+np.sqrt(u**2+2*acc*z_locations))/acc
+    return t
+
+
 
 
 def fft_checking(filename):
@@ -302,7 +303,7 @@ def growth_rate(filenames, time_model=morozumi_time):
     # file ID
 
     print("storing casename and Reynolds number\n\n")
-    casename, Re = file_id(filenames[0])
+    casename, Re, We = file_id(filenames[0])
 
     print("\nNow calculating FFTs\n\n")
     # calculating ffts
@@ -369,7 +370,7 @@ def growth_rate(filenames, time_model=morozumi_time):
     zs_metres = 0.02*z_locations/1000
 
     # time model can be changed as needed
-    z_times = time_model(u, zs_metres)
+    z_times = time_model(u, zs_metres, We)
 
     # initialising storage arrays for growth rates
     diameter_growth_rates = np.zeros((len(loc0_diameter_amp)))
