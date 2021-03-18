@@ -301,12 +301,14 @@ def plotting_arai(file1):
     ax.set_ylabel('$\omega$', fontsize=16)
 
 
-def plotting_measured_wavelength(file1):
+def plotting_measured_wavelength(file1, file2):
     """
     Main plotting function
     """
 
     freqs, _, control, _, _, _, _ = np.loadtxt(file1, delimiter=',',
+                                                unpack=True)
+    freqs, _, control_2, _, _, _, _ = np.loadtxt(file2, delimiter=',',
                                                 unpack=True)
 
     k = np.linspace(0, 5000, 1000000)
@@ -316,15 +318,16 @@ def plotting_measured_wavelength(file1):
     w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
     sqrt_w = np.sqrt(w_squared)
 
-    v = 1.26
+    v = 1.2668032087199999
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
     savgol_control = savgol_filter(control, 101, 2)
-
+    savgol_control_2 = savgol_control_2(control_2, 101, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh')
     ax.plot(wavenumber*a, savgol_control, label='Experimental (wavelength velocity)')
+     ax.plot(wavenumber*a, savgol_control_2, label='Experimental (wavelength velocity)')
     ax.set_xlim(0, 7)
     ax.set_ylim(0, 150)
     ax.legend()
