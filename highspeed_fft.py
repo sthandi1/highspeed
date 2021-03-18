@@ -370,7 +370,7 @@ def growth_rate(filenames, time_model=morozumi_time):
     zs_metres = 0.02*z_locations/1000
 
     # time model can be changed as needed
-    z_times = time_model(u, zs_metres, We)
+    z_times = time_model(u, zs_metres, float(We))
 
     # initialising storage arrays for growth rates
     diameter_growth_rates = np.zeros((len(loc0_diameter_amp)))
