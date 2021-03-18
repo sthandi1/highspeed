@@ -635,7 +635,7 @@ def file_id(filename):
     print('The casename is:', casename)
 
 
-def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
+def wavelength_measuring(inputFile, thresh, image_loc=31697):
     """
     function to manually measure wavelength of a single image
     """
@@ -827,7 +827,5 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697, ):
     right_peak_to_peak = 0.02*(right_peak2_avg-right_peak1_avg)
 
     print('right peak to peak is', right_peak_to_peak)
-
-    print(right_peak1_avg)
-    print(right_peak2_avg)
  
+    return peaktopeak, left_peak_to_peak, right_peak_to_peak
