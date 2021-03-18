@@ -138,7 +138,7 @@ def aero_time(u_l, z_locations, weber_number):
     f = 0.0183*re_sphere
     tau = (rho_l*d**2)/(18*mu_g)
     acc = (f/tau)*(u_g-u_l)+9.81
-    t = (-u+np.sqrt(u**2+2*acc*z_locations))/acc
+    t = (-u_l+np.sqrt(u_l**2+2*acc*z_locations))/acc
     return t
 
 
