@@ -102,7 +102,7 @@ def rayleigh_moro():
     ax1.set_title('Rayleigh with Morozumi parameters')
 
 
-def plotting_generic(file1, file2, file3):
+def plotting_generic(file1, file2, file3, file4):
     """
     Main plotting function
     """
@@ -112,6 +112,8 @@ def plotting_generic(file1, file2, file3):
     freqs, _, constant_vel, _, _, _, _ = np.loadtxt(file2, delimiter=',',
                                                     unpack=True)
     freqs, _, avg_vel, _, _, _, _ = np.loadtxt(file3, delimiter=',',
+                                               unpack=True)
+    freqs, _, aero_vel, _, _, _, _ = np.loadtxt(file4, delimiter=',',
                                                unpack=True)
 
     k = np.linspace(0, 1000, 10000)
@@ -352,3 +354,47 @@ def plotting_2file(file1, file2):
     ax1.legend()
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 80)
+
+
+def plotting_4file_time_models(file1, file2, file3, file4):
+    """
+    Main plotting function
+    """
+
+    freqs, _, morozumi_time, _, _, _, _ = np.loadtxt(file1, delimiter=',',
+                                                     unpack=True)
+    freqs, _, constant_vel, _, _, _, _ = np.loadtxt(file2, delimiter=',',
+                                                    unpack=True)
+    freqs, _, avg_vel, _, _, _, _ = np.loadtxt(file3, delimiter=',',
+                                               unpack=True)
+    freqs, _, aero_vel, _, _, _, _ = np.loadtxt(file4, delimiter=',',
+                                               unpack=True)
+
+    fig, ax = plt.subplots()
+    ax.plot(freqs, morozumi_time, label='Morozumi time')
+    ax.plot(freqs, constant_vel, label='constant velocity')
+    ax.plot(freqs, avg_vel, label='averaged velocity')
+    ax.plot(freqs, aero_vel, label='aero vel')
+    ax.set_xlim(0, 1250)
+    ax.set_ylim(0, 600)
+    ax.set_title('Unfiltered data')
+    ax.set_xlabel('Frequencies (Hz)')
+    ax.set_ylabel('Growth rate (1/s)')
+    ax.legend()
+
+    savgol_moro = savgol_filter(morozumi_time, 1001, 2)
+    savgol_const = savgol_filter(constant_vel, 1001, 2)
+    savgol_avg = savgol_filter(avg_vel, 1001, 2)
+    savgol_aero = savgol_filter(aero_vel, 1001, 2)
+
+    fig1, ax1 = plt.subplots()
+    ax1.plot(freqs, savgol_moro, label='Morozumi time')
+    ax1.plot(freqs, savgol_const, label='Constant velocity')
+    ax1.plot(freqs, savgol_avg, label='Averaged velocity')
+    ax1.plot(freqs, savgol_aero, label='Aero vel')
+    ax1.set_xlim(0, 700)
+    ax1.set_ylim(0, 600)
+    ax1.set_title('Savgol filtering (window size = 1001) data')
+    ax1.set_xlabel('Frequencies (Hz)')
+    ax1.set_ylabel('Growth rate (1/s)')
+    ax1.legend()
