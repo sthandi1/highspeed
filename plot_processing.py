@@ -210,6 +210,8 @@ def plotting_ra(file1):
 
     peak_freq = freqs[np.where(savgol_ra == np.max(savgol_ra))]
     print(peak_freq)
+    return peak_freq
+
 
 def plotting_moro(file1):
     """
