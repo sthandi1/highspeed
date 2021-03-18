@@ -135,7 +135,10 @@ def aero_time(u_l, z_locations, weber_number):
     re_exp = rho_l*u_l*d/mu_l
     u_g = weber_velocity(weber_number, re_exp)
     re_sphere = 1.225*d*np.abs(u_g-u_l)/mu_g
-    print(re_sphere)
+    f = 0.0183*re_sphere
+    tau = rho_l*d**2/18*mu_g
+    acc = (f/tau)*(u_g-u_l)+9.81
+    print(acc)
 
 
 def fft_checking(filename):
