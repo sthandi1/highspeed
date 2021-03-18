@@ -138,7 +138,10 @@ def aero_time(u_l, z_locations, weber_number):
     f = 0.0183*re_sphere
     tau = (rho_l*d**2)/(18*mu_g)
     acc = (f/tau)*(u_g-u_l)+9.81
-    print("Acceleration is {:e}" , acc)
+    print("Acceleration is {:.2f} m/s^2".format(acc))
+    print("f is", f)
+    print("tau is", tau)
+
 
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
