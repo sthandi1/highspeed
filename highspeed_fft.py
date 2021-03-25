@@ -158,7 +158,7 @@ def f_model_putnam_high(Re):
 
 
 def f_model_clift(Re):
-    f = 1 + 0.15*Re**0.687+0.0175*Re*(1+4.25e-4*Re**(-1.16))**(-1)
+    f = 1 + 0.15*Re**0.687+0.0175*Re*(1+4.25e4*Re**(-1.16))**(-1)
     return f
 
 
