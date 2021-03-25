@@ -157,6 +157,11 @@ def f_model_putnam_high(Re):
     return f
 
 
+def f_model_clift(Re):
+    f = 1 + 0.15*Re**0.687+0.0175*Re*(1+4.25e-4*Re**(-1.16))**(-1)
+    return f
+
+
 def arai_time_model(u_l, z_locations, weber_number):
     t = (z_locations/u_l)*(1+(2*9.81*z_locations)/(u_l**2))**(-0.5)
     return t
