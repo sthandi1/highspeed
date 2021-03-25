@@ -144,31 +144,47 @@ def aero_time(u_l, z_locations, weber_number):
 
 
 def f_model_schillar(Re):
+    # schillar model for f
     f = 1+0.15*Re**0.687
     return f
 
 
 def f_model_putnam(Re):
+    # putnam model for f
     f = 1 + (1/6)*Re**(2/3)
     return f
 
 
 def f_model_putnam_high(Re):
+    # putnam's model above Re=1000
     f = 0.0183*Re
     return f
 
 
 def f_model_clift(Re):
+    # clift's model
     f = 1 + 0.15*Re**0.687+0.0175*Re*(1+4.25e4*Re**(-1.16))**(-1)
     return f
 
 
-def drop_equation(x):
-    return 2*x
+def drop_equation(u_l, f_model):
+    # drop diameter
+    d = 2e-3
+    # viscosity of water
+    mu_l = 8.9e-4
+    # density of water
+    rho_l = 1000
+    # viscosity of air
+    mu_g = 1.825e-5
+    re_exp = rho_l*u_l*d/mu_l
+    u_g = weber_velocity(weber_number, re_exp)
+    re_sphere = 1.225*d*np.abs(u_g-u_l)/mu_g
+    f = f_model(re_sphere)
+    acc = (f/tau)*(u_g-u_l)+9.81
 
 
 def integrator():
-    quad(drop_equation, 1, 2)
+    return quad(drop_equation, 1, 2)
 
 
 
