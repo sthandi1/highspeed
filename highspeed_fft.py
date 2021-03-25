@@ -142,6 +142,14 @@ def aero_time(u_l, z_locations, weber_number):
     return t
 
 
+def f_model_schillar(Re):
+    f = 1+0.15*Re**0.687
+    return f
+
+
+def arai_time_model(u_l, z_locations, weber_number):
+    t = (z_locations/u_l)*(1+(2*9.81*z_locations)/(u_l**2))**(-0.5)
+    return t
 
 
 def fft_checking(filename):
