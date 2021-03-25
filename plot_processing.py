@@ -301,15 +301,17 @@ def plotting_arai(file1):
     ax.set_ylabel('$\omega$', fontsize=16)
 
 
-def plotting_measured_wavelength(file1, file2):
+def plotting_measured_wavelength(file1, file2, file3):
     """
     Main plotting function
     """
 
     freqs, _, control, _, _, _, _ = np.loadtxt(file1, delimiter=',',
-                                                unpack=True)
+                                               unpack=True)
     freqs, _, control_2, _, _, _, _ = np.loadtxt(file2, delimiter=',',
-                                                unpack=True)
+                                                 unpack=True)
+    freqs, _, control_3, _, _, _, _ = np.loadtxt(file3, delimiter=',',
+                                                 unpack=True)
 
     k = np.linspace(0, 5000, 1000000)
     sigma = 0.07
@@ -323,17 +325,19 @@ def plotting_measured_wavelength(file1, file2):
     wavenumber = 2*np.pi/wavelength
     savgol_control = savgol_filter(control, 101, 2)
     savgol_control_2 = savgol_filter(control_2, 101, 2)
+    savgol_control_3 = savgol_filter(control_3, 101, 2)
+
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh')
-    ax.plot(wavenumber*a, savgol_control, label='moro')
-    ax.plot(wavenumber*a, savgol_control_2, label='aero')
-    ax.set_xlim(0, 7)
+    ax.plot(wavenumber*a, savgol_control, label='Morozumi')
+    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamics model')
+    ax.plot(wavenumber*a, savgol_control_3, label='Arai model')
+    ax.set_xlim(0, 4)
     ax.set_ylim(0, 150)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
-    ax.set_title('Radius = 1mm')
 
 
 def plotting_2file(file1, file2):
