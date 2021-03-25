@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
 from scipy.signal import savgol_filter
+from scipy.integrate import quad
 
 
 def file_id(filename):
@@ -160,6 +161,15 @@ def f_model_putnam_high(Re):
 def f_model_clift(Re):
     f = 1 + 0.15*Re**0.687+0.0175*Re*(1+4.25e4*Re**(-1.16))**(-1)
     return f
+
+
+def drop_equation(x):
+    return 2*x
+
+
+def integrator():
+    quad(drop_equation, 1, 2)
+
 
 
 def arai_time_model(u_l, z_locations, weber_number):
