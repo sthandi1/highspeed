@@ -147,6 +147,11 @@ def f_model_schillar(Re):
     return f
 
 
+def f_model_putnam(Re):
+    f = 1 + (1/6)*Re**(2/3)
+    return f
+
+
 def arai_time_model(u_l, z_locations, weber_number):
     t = (z_locations/u_l)*(1+(2*9.81*z_locations)/(u_l**2))**(-0.5)
     return t
