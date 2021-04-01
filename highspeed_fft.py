@@ -177,11 +177,16 @@ def drop_equation_old(u_l, z_locations, weber_number):
     rho_l = 1000
     # viscosity of air
     mu_g = 1.825e-5
+    # density of air
+    rho_g = 1.225
+    # calculating the liquid reynolds number for extracting u_g
     re_exp = rho_l*u_l*d/mu_l
+    # extracting u_g using the weber velocity function
     u_g = weber_velocity(weber_number, re_exp)
-    re_sphere = 1.225*d*np.abs(u_g-u_l)/mu_g
-    f = f_model(re_sphere)
-    acc = (f/tau)*(u_g-u_l)+9.81
+    tau = rho_l*d**2/(18*mu_g)
+    A = 0.0183*rho_g*d/(mu_g*tau)
+    t = (-u_l+2*A*u_g*z_locations+np.sqrt((u_l-2*A*u_g*z_locations)**2-4*(A*u_g+g)*(A*z**2-z)))/(2*A*u_g+2*g)
+    return t
 
 
 
