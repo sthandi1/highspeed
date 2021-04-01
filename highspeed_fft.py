@@ -12,6 +12,7 @@ from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
 from scipy.signal import savgol_filter
 from scipy.integrate import quad
+import sympy
 
 
 def file_id(filename):
@@ -186,6 +187,11 @@ def drop_equation(u_l, f_model):
 def integrator():
     return quad(drop_equation, 1, 2)
 
+
+def analytical_drop_equation():
+    sympy.symbols('t ')
+
+    a = (f/q)*(u_g-u_l)+9.81
 
 
 def arai_time_model(u_l, z_locations, weber_number):
