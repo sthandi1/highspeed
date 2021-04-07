@@ -334,7 +334,7 @@ def plotting_measured_wavelength(file1, file2, file3):
     ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamics model')
     ax.plot(wavenumber*a, savgol_control_3, label='Arai model')
     ax.set_xlim(0, 4)
-    ax.set_ylim(0, 150)
+    ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
