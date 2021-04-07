@@ -168,7 +168,7 @@ def f_model_clift(Re):
     return f
 
 
-def drop_equation_old(u_l, z_locations, weber_number):
+def drop_equation(u_l, z_locations, weber_number):
     # drop diameter
     d = 2e-3
     # viscosity of water
@@ -179,13 +179,15 @@ def drop_equation_old(u_l, z_locations, weber_number):
     mu_g = 1.825e-5
     # density of air
     rho_g = 1.225
+    # gravity
+    g = 9.81
     # calculating the liquid reynolds number for extracting u_g
     re_exp = rho_l*u_l*d/mu_l
     # extracting u_g using the weber velocity function
     u_g = weber_velocity(weber_number, re_exp)
     tau = rho_l*d**2/(18*mu_g)
     A = 0.0183*rho_g*d/(mu_g*tau)
-    t = (-u_l+2*A*u_g*z_locations+np.sqrt((u_l-2*A*u_g*z_locations)**2-4*(A*u_g+g)*(A*z**2-z)))/(2*A*u_g+2*g)
+    t = (-u_l+2*A*u_g*z_locations+np.sqrt((u_l-2*A*u_g*z_locations)**2-4*(A*u_g+g)*(A*z_locations**2-z_locations)))/(2*A*u_g+2*g)
     return t
 
 
