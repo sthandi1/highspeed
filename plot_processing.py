@@ -367,9 +367,12 @@ def plotting_2file(file1, file2):
 
 def plotting_3file(file1, file2, file3):
     # load the two files
-    freqs, _, file1_axi, _, _, _, _ = np.loadtxt(file1, delimiter=',', unpack=True)
-    freqs, _, file2_axi, _, _, _, _ = np.loadtxt(file2, delimiter=',', unpack=True)
-    freqs, _, file3_axi, _, _, _, _ = np.loadtxt(file3, delimiter=',', unpack=True)
+    freqs, _, file1_axi, _, _, _, _ = np.loadtxt(file1, delimiter=',',
+                                                 unpack=True)
+    freqs, _, file2_axi, _, _, _, _ = np.loadtxt(file2, delimiter=',',
+                                                 unpack=True)
+    freqs, _, file3_axi, _, _, _, _ = np.loadtxt(file3, delimiter=',',
+                                                 unpack=True)
 
     file1_axi_savgol = savgol_filter(file1_axi, 1001, 2)
     file2_axi_savgol = savgol_filter(file2_axi, 1001, 2)
