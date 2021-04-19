@@ -391,7 +391,7 @@ def plotting_3file(file1, file2, file3):
     ax1.set_title('Savgol')
     ax1.legend()
     ax1.set_xlim(0, 700)
-    ax1.set_ylim(0, 70)
+    ax1.set_ylim(0, 65)
 
 
 def plotting_4file_time_models(file1, file2, file3, file4):
