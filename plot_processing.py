@@ -400,7 +400,13 @@ def plotting_3file(file1, file2, file3):
     ax1.legend()
     ax1.set_xlim(0, 700)
     ax1.set_ylim(0, 65)
-    fig.savefig(fname='threshold_comparison_unfiltered.pgf', )
+    fig.set_size_inches(6, 4)
+    fig1.set_size_inches(6, 4)
+    fig.savefig(fname='threshold_comparison_unfiltered.pgf',
+                bbox_inches='tight')
+    fig1.savefig(fname='threshold_comparison_filtered.pgf',
+                 bbox_inches='tight')
+    
 
 
 def plotting_4file_time_models(file1, file2, file3, file4):
