@@ -388,9 +388,12 @@ def plotting_3file(file1, file2, file3):
     ax.set_ylim(0, 80)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, file1_axi_savgol, label='file1', color='black', linestyle='solid')
-    ax1.plot(freqs, file2_axi_savgol, label='file2', color='black', linestyle='dashed')
-    ax1.plot(freqs, file3_axi_savgol, label='file3', color='black', linestyle='dotted')
+    ax1.plot(freqs, file1_axi_savgol, label='file1', color='black',
+             linestyle='solid')
+    ax1.plot(freqs, file2_axi_savgol, label='file2', color='black',
+             linestyle='dashed')
+    ax1.plot(freqs, file3_axi_savgol, label='file3', color='black',
+             linestyle='dotted')
     ax1.set_title('Savgol')
     ax1.legend()
     ax1.set_xlim(0, 700)
