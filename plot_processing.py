@@ -6,6 +6,10 @@ Created on Tue Feb  2 17:07:04 2021
 @author: samvirthandi
 """
 
+# locating latex installation
+import os 
+os.environ['PATH'] = os.environ['PATH'] + ':/Library/TeX/texbin'
+
 import numpy as np
 import matplotlib.pyplot as plt
 from highspeed_fft import velocity_calculator, weber_velocity

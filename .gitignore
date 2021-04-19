@@ -14,3 +14,4 @@ mraw_v2.py
 .DS_Store
 highspeed_fft.py
 /.ipynb_checkpoints
+*.pgf
