@@ -379,22 +379,20 @@ def plotting_3file(file1, file2, file3):
     file3_axi_savgol = savgol_filter(file3_axi, 1001, 2)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi, label='file1')
-    ax.plot(freqs, file2_axi, label='file2')
-    ax.plot(freqs, file3_axi, label='file3')
-    ax.set_title('Standard data')
+    ax.plot(freqs, file1_axi, label='Threshold=800')
+    ax.plot(freqs, file2_axi, label='Threshold=1000')
+    ax.plot(freqs, file3_axi, label='Threshold=1400')
     ax.legend()
     ax.set_xlim(0, 1000)
     ax.set_ylim(0, 80)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, file1_axi_savgol, label='file1', color='black',
+    ax1.plot(freqs, file1_axi_savgol, label='Threshold=800', color='black',
              linestyle='solid')
-    ax1.plot(freqs, file2_axi_savgol, label='file2', color='black',
+    ax1.plot(freqs, file2_axi_savgol, label='Threshold=1000', color='black',
              linestyle='dashed')
-    ax1.plot(freqs, file3_axi_savgol, label='file3', color='black',
+    ax1.plot(freqs, file3_axi_savgol, label='Threshold=1400', color='black',
              linestyle='dotted')
-    ax1.set_title('Savgol')
     ax1.legend()
     ax1.set_xlim(0, 700)
     ax1.set_ylim(0, 65)
