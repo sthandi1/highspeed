@@ -317,7 +317,7 @@ def plotting_measured_wavelength(file1, file2, file3):
     freqs, _, control_3, _, _, _, _ = np.loadtxt(file3, delimiter=',',
                                                  unpack=True)
 
-    k = np.linspace(0, 5000, 1000000)
+    k = np.linspace(0, 7000, 10000000)
     sigma = 0.07
     a = 1e-3
     rho = 1000
@@ -327,24 +327,22 @@ def plotting_measured_wavelength(file1, file2, file3):
     v = 1.2668032087199999
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
-    savgol_control = savgol_filter(control, 101, 2)
-    savgol_control_2 = savgol_filter(control_2, 101, 2)
-    savgol_control_3 = savgol_filter(control_3, 101, 2)
-
+    savgol_control = savgol_filter(control, 1001, 2)
+    savgol_control_2 = savgol_filter(control_2, 1001, 2)
+    savgol_control_3 = savgol_filter(control_3, 1001, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh', color='black', linestyle='solid')
-    ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model',
-            color='black', linestyle='dashed')
-    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model',
-            color='black', linestyle='dotted')
-    ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model',
-            color='black', linestyle='dashdot')
-    ax.set_xlim(0, 4)
+    ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model')
+    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model')
+    ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model')
+    ax.set_xlim(0, 3.5)
     ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
+    fig.set_size_inches(6, 4.5)
+    fig.savefig(fname='time_models.pgf', bbox_inches='tight')
 
 
 def plotting_2file(file1, file2):
@@ -389,6 +387,8 @@ def plotting_3file(file1, file2, file3):
     ax.plot(freqs, file1_axi, label='Threshold=800')
     ax.plot(freqs, file2_axi, label='Threshold=1000')
     ax.plot(freqs, file3_axi, label='Threshold=1400')
+    ax.set_xlabel('Frequency (Hz)')
+    ax.set_ylabel('$\omega$')
     ax.legend()
     ax.set_xlim(0, 1000)
     ax.set_ylim(0, 80)
@@ -400,6 +400,8 @@ def plotting_3file(file1, file2, file3):
              linestyle='dashed')
     ax1.plot(freqs, file3_axi_savgol, label='Threshold=1400', color='black',
              linestyle='dotted')
+    ax1.set_xlabel('Frequency (Hz)')
+    ax1.set_ylabel('$\omega$')
     ax1.legend()
     ax1.set_xlim(0, 700)
     ax1.set_ylim(0, 65)
