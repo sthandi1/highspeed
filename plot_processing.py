@@ -333,10 +333,13 @@ def plotting_measured_wavelength(file1, file2, file3):
 
 
     fig, ax = plt.subplots()
-    ax.plot(k*a, sqrt_w, label='Rayleigh')
-    ax.plot(wavenumber*a, savgol_control, label='Morozumi')
-    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamics model')
-    ax.plot(wavenumber*a, savgol_control_3, label='Arai model')
+    ax.plot(k*a, sqrt_w, label='Rayleigh', color='black', linestyle='solid')
+    ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model',
+            color='black', linestyle='dashed')
+    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model',
+            color='black', linestyle='dotted')
+    ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model',
+            color='black', linestyle='dashdot')
     ax.set_xlim(0, 4)
     ax.set_ylim(0, 100)
     ax.legend()
