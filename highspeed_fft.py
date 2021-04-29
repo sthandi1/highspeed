@@ -151,7 +151,7 @@ def f_model_schillar(Re):
 
 
 def f_model_putnam(Re):
-    # putnam model for f
+    # putnam model for f
     f = 1 + (1/6)*Re**(2/3)
     return f
 
@@ -207,7 +207,7 @@ def fft_checking(filename):
     """
 
     # print out experimental parameters and store the case name
-    casename, Re = file_id(filename)
+    casename, Re, We = file_id(filename)
 
     # load the data into three numpy arrays
     frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
