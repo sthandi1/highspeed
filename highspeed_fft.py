@@ -348,7 +348,7 @@ def fft_output(filename):
     return total_time, freqs, abs_jet_diameter_fft, abs_jet_centroid_fft
 
 
-def growth_rate(filenames, time_model=morozumi_time):
+def growth_rate(filenames, time_model=drop_equation):
     """Main growth rate calculator
 
     Args:
