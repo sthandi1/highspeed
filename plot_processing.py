@@ -327,9 +327,9 @@ def plotting_measured_wavelength(file1, file2, file3):
     v = 1.2668032087199999
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
-    savgol_control = savgol_filter(control, 101, 2)
-    savgol_control_2 = savgol_filter(control_2, 101, 2)
-    savgol_control_3 = savgol_filter(control_3, 101, 2)
+    savgol_control = savgol_filter(control, 11, 2)
+    savgol_control_2 = savgol_filter(control_2, 11, 2)
+    savgol_control_3 = savgol_filter(control_3, 11, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh', color='black', linestyle='solid')
