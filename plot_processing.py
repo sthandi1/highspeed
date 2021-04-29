@@ -347,8 +347,10 @@ def plotting_measured_wavelength(file1, file2, file3):
 
 def plotting_2file(file1, file2):
     # load the two files
-    freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',', unpack=True)
-    freqs, _, file2_axi, _, _, file2_as, _ = np.loadtxt(file2, delimiter=',', unpack=True)
+    freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
+                                                        unpack=True)
+    freqs, _, file2_axi, _, _, file2_as, _ = np.loadtxt(file2, delimiter=',',
+                                                        unpack=True)
 
     file1_axi_savgol = savgol_filter(file1_axi, 1001, 2)
     file2_axi_savgol = savgol_filter(file2_axi, 1001, 2)
@@ -376,7 +378,8 @@ def plotting_2file(file1, file2):
     ax2.plot(freqs, file1_as_savgol, label='file1')
     ax2.plot(freqs, file2_as_savgol, label='file2')
     ax2.legend()
-
+    ax2.set_xlim(0, 1000)
+    ax2.set_ylim(0, 35)
 
 def plotting_3file(file1, file2, file3):
     # load the two files
