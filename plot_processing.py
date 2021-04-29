@@ -327,9 +327,9 @@ def plotting_measured_wavelength(file1, file2, file3):
     v = 1.2668032087199999
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
-    savgol_control = savgol_filter(control, 1001, 2)
-    savgol_control_2 = savgol_filter(control_2, 1001, 2)
-    savgol_control_3 = savgol_filter(control_3, 1001, 2)
+    savgol_control = savgol_filter(control, 101, 2)
+    savgol_control_2 = savgol_filter(control_2, 101, 2)
+    savgol_control_3 = savgol_filter(control_3, 101, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh', color='black', linestyle='solid')
@@ -384,14 +384,17 @@ def plotting_3file(file1, file2, file3):
     file3_axi_savgol = savgol_filter(file3_axi, 1001, 2)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi, label='Threshold=800')
-    ax.plot(freqs, file2_axi, label='Threshold=1000')
-    ax.plot(freqs, file3_axi, label='Threshold=1400')
+    ax.plot(freqs, file1_axi_savgol, label='Threshold=800', color='black',
+            linestyle='solid')
+    ax.plot(freqs, file2_axi_savgol, label='Threshold=1000', color='black',
+            linestyle='dashed')
+    ax.plot(freqs, file3_axi_savgol, label='Threshold=1400', color='black',
+            linestyle='dotted')
     ax.set_xlabel('Frequency (Hz)')
     ax.set_ylabel('$\omega$')
     ax.legend()
-    ax.set_xlim(0, 1000)
-    ax.set_ylim(0, 80)
+    ax.set_xlim(0, 700)
+    ax.set_ylim(0, 65)
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, file1_axi_savgol, label='Threshold=800', color='black',
@@ -403,8 +406,8 @@ def plotting_3file(file1, file2, file3):
     ax1.set_xlabel('Frequency (Hz)')
     ax1.set_ylabel('$\omega$')
     ax1.legend()
-    ax1.set_xlim(0, 700)
-    ax1.set_ylim(0, 65)
+    ax1.set_xlim(0, 200)
+    ax1.set_ylim(0, 25)
     fig.set_size_inches(6, 4)
     fig1.set_size_inches(6, 4)
     fig.savefig(fname='threshold_comparison_unfiltered.pgf',
@@ -412,6 +415,7 @@ def plotting_3file(file1, file2, file3):
     fig1.savefig(fname='threshold_comparison_filtered.pgf',
                  bbox_inches='tight')
     
+
 
 
 def plotting_4file_time_models(file1, file2, file3, file4):
