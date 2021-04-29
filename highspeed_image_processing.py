@@ -31,6 +31,7 @@ def change(x):
 
 def single_image_thresh_value(inputFile):
     """
+    DO NOT USE, UNSTABLE AND CRASHES PYTHON
     This function is used to determine the threshold value to be used in the
     processing. Not very stable currently, due to the trackbar
 
