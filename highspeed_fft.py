@@ -482,7 +482,7 @@ def growth_rate(filenames, time_model=drop_equation):
         centroid_errs[i] = loc_err
 
     # create filename by taking the first portion of the input filename
-    output_filename = casename[0:16] + '_fft.csv'
+    output_filename = casename[0:-12] + '_fft.csv'
 
     # stack the arrays together so they can be saved as a single file along
     # the first axis
