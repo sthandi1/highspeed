@@ -379,7 +379,7 @@ def plotting_2file(file1, file2):
     ax2.plot(freqs, file2_as_savgol, label='file2')
     ax2.legend()
     ax2.set_xlim(0, 1000)
-    ax2.set_ylim(0, 35)
+    ax2.set_ylim(0, 60)
 
 def plotting_3file(file1, file2, file3):
     # load the two files
