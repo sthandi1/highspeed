@@ -381,6 +381,7 @@ def plotting_2file(file1, file2):
     ax2.set_xlim(0, 1000)
     ax2.set_ylim(0, 60)
 
+
 def plotting_3file(file1, file2, file3):
     # load the two files
     freqs, _, file1_axi, _, _, _, _ = np.loadtxt(file1, delimiter=',',
