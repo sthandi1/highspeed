@@ -391,17 +391,14 @@ def plotting_3file(file1, file2, file3):
     freqs, _, file3_axi, _, _, _, _ = np.loadtxt(file3, delimiter=',',
                                                  unpack=True)
 
-    file1_axi_savgol = savgol_filter(file1_axi, 1001, 2)
-    file2_axi_savgol = savgol_filter(file2_axi, 1001, 2)
-    file3_axi_savgol = savgol_filter(file3_axi, 1001, 2)
+    file1_axi_savgol = savgol_filter(file1_axi, 101, 2)
+    file2_axi_savgol = savgol_filter(file2_axi, 101, 2)
+    file3_axi_savgol = savgol_filter(file3_axi, 101, 2)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi_savgol, label='Threshold=800', color='black',
-            linestyle='solid')
-    ax.plot(freqs, file2_axi_savgol, label='Threshold=1000', color='black',
-            linestyle='dashed')
-    ax.plot(freqs, file3_axi_savgol, label='Threshold=1400', color='black',
-            linestyle='dotted')
+    ax.plot(freqs, file1_axi_savgol, label='Threshold=800')
+    ax.plot(freqs, file2_axi_savgol, label='Threshold=1000')
+    ax.plot(freqs, file3_axi_savgol, label='Threshold=1400')
     ax.set_xlabel('Frequency (Hz)')
     ax.set_ylabel('$\omega$')
     ax.legend()
@@ -409,12 +406,9 @@ def plotting_3file(file1, file2, file3):
     ax.set_ylim(0, 65)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, file1_axi_savgol, label='Threshold=800', color='black',
-             linestyle='solid')
-    ax1.plot(freqs, file2_axi_savgol, label='Threshold=1000', color='black',
-             linestyle='dashed')
-    ax1.plot(freqs, file3_axi_savgol, label='Threshold=1400', color='black',
-             linestyle='dotted')
+    ax1.plot(freqs, file1_axi_savgol, label='Threshold=800')
+    ax1.plot(freqs, file2_axi_savgol, label='Threshold=1000')
+    ax1.plot(freqs, file3_axi_savgol, label='Threshold=1400')
     ax1.set_xlabel('Frequency (Hz)')
     ax1.set_ylabel('$\omega$')
     ax1.legend()
@@ -422,7 +416,7 @@ def plotting_3file(file1, file2, file3):
     ax1.set_ylim(0, 25)
     fig.set_size_inches(6, 4)
     fig1.set_size_inches(6, 4)
-    fig.savefig(fname='threshold_comparison_unfiltered.pgf',
+    fig.savefig(fname='threshold_comparison_savgol_101.pgf',
                 bbox_inches='tight')
     fig1.savefig(fname='threshold_comparison_filtered.pgf',
                  bbox_inches='tight')
