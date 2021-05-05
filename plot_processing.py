@@ -478,8 +478,8 @@ def plotting_1file(file1):
     freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
                                                         unpack=True)
 
-    file1_axi_savgol = savgol_filter(file1_axi, 101, 2)
-    file1_axi_savgol_1001 = savgol_filter(file1_axi, 1001, 2)
+    file1_axi_savgol = savgol_filter(file1_axi, 11, 2)
+    file1_axi_savgol_1001 = savgol_filter(file1_axi, 101, 2)
 
     fig, ax = plt.subplots()
     ax.plot(freqs, file1_axi, label='file1', color='black')
@@ -488,6 +488,8 @@ def plotting_1file(file1):
     ax.set_ylim(0, 90)
     ax.set_xlabel('$f$ (Hz)')
     ax.set_ylabel('$\omega$')
+    fig.set_size_inches(6,4)
+    fig.savefig(fname='unfiltered_example.pgf', bbox_inches='tight')
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, file1_axi_savgol, label='file1', color='black')
@@ -496,6 +498,9 @@ def plotting_1file(file1):
     ax1.set_ylim(0, 90)
     ax1.set_xlabel('$f$ (Hz)')
     ax1.set_ylabel('$\omega$')
+    fig1.set_size_inches(6,4)
+    fig1.savefig(fname='savgol_11_example.pgf', bbox_inches='tight')
+
 
     fig2, ax2 = plt.subplots()
 
@@ -505,3 +510,5 @@ def plotting_1file(file1):
     ax2.set_ylim(0, 90)
     ax2.set_xlabel('$f$ (Hz)')
     ax2.set_ylabel('$\omega$')
+    fig2.set_size_inches(6,4)
+    fig2.savefig(fname='savgol_101_example.pgf', bbox_inches='tight')
