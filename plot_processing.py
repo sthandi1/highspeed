@@ -482,8 +482,7 @@ def plotting_1file(file1):
     file1_axi_savgol_1001 = savgol_filter(file1_axi, 101, 2)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi, label='file1', color='black')
-    ax.legend()
+    ax.plot(freqs, file1_axi, color='black')
     ax.set_xlim(0, 1000)
     ax.set_ylim(0, 90)
     ax.set_xlabel('$f$ (Hz)')
@@ -492,8 +491,7 @@ def plotting_1file(file1):
     fig.savefig(fname='unfiltered_example.pgf', bbox_inches='tight')
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, file1_axi_savgol, label='file1', color='black')
-    ax1.legend()
+    ax1.plot(freqs, file1_axi_savgol, color='black')
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 90)
     ax1.set_xlabel('$f$ (Hz)')
@@ -501,11 +499,9 @@ def plotting_1file(file1):
     fig1.set_size_inches(6,4)
     fig1.savefig(fname='savgol_11_example.pgf', bbox_inches='tight')
 
-
     fig2, ax2 = plt.subplots()
 
-    ax2.plot(freqs, file1_axi_savgol_1001, label='file1', color='black')
-    ax2.legend()
+    ax2.plot(freqs, file1_axi_savgol_1001, color='black')
     ax2.set_xlim(0, 1000)
     ax2.set_ylim(0, 90)
     ax2.set_xlabel('$f$ (Hz)')
