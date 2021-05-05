@@ -473,7 +473,6 @@ def plotting_4file_time_models(file1, file2, file3, file4):
     ax1.legend()
 
 
-
 def plotting_1file(file1):
     # load the two files
     freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
@@ -483,28 +482,26 @@ def plotting_1file(file1):
     file1_axi_savgol_1001 = savgol_filter(file1_axi, 1001, 2)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi, label='file1')
-    ax.set_title('Standard data')
+    ax.plot(freqs, file1_axi, label='file1', color='black')
     ax.legend()
     ax.set_xlim(0, 1000)
     ax.set_ylim(0, 90)
     ax.set_xlabel('$f$ (Hz)')
-    ax.set_ylabel('$\omega')
+    ax.set_ylabel('$\omega$')
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, file1_axi_savgol, label='file1')
-    ax1.set_title('Savgol')
+    ax1.plot(freqs, file1_axi_savgol, label='file1', color='black')
     ax1.legend()
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 90)
     ax1.set_xlabel('$f$ (Hz)')
-    ax1.set_ylabel('$\omega')
+    ax1.set_ylabel('$\omega$')
 
     fig2, ax2 = plt.subplots()
 
-    ax2.plot(freqs, file1_axi_savgol_1001, label='file1')
+    ax2.plot(freqs, file1_axi_savgol_1001, label='file1', color='black')
     ax2.legend()
     ax2.set_xlim(0, 1000)
     ax2.set_ylim(0, 90)
     ax2.set_xlabel('$f$ (Hz)')
-    ax2.set_ylabel('$\omega')
+    ax2.set_ylabel('$\omega$')
