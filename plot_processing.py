@@ -420,8 +420,15 @@ def plotting_3file(file1, file2, file3):
                 bbox_inches='tight')
     fig1.savefig(fname='threshold_comparison_filtered.pgf',
                  bbox_inches='tight')
-    
 
+    thresh_800_diff = file2_axi_savgol - file1_axi_savgol
+    thresh_1400_diff = file2_axi_savgol - file3_axi_savgol
+
+    fig2, ax2 = plt.subplots()
+    ax2.plot(freqs, thresh_800_diff)
+    ax2.plot(freqs, thresh_1400_diff)
+    ax.set_xlim(0, 700)
+    ax.set_ylim(0, 65)
 
 
 def plotting_4file_time_models(file1, file2, file3, file4):
