@@ -434,7 +434,7 @@ def plotting_3file(file1, file2, file3):
     ax2.set_ylim(0, 100)
 
 
-def plotting_4file_time_models(file1, file2, file3, file4):
+def plotting_4file(file1, file2, file3, file4):
     """
     Main plotting function
     """
@@ -449,10 +449,10 @@ def plotting_4file_time_models(file1, file2, file3, file4):
                                                 unpack=True)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi, label='Morozumi time')
-    ax.plot(freqs, file2_axi, label='constant velocity')
-    ax.plot(freqs, file3_axi, label='averaged velocity')
-    ax.plot(freqs, file4_axi, label='aero vel')
+    ax.plot(freqs, file1_axi, label='file1')
+    ax.plot(freqs, file2_axi, label='file2')
+    ax.plot(freqs, file3_axi, label='file3')
+    ax.plot(freqs, file4_axi, label='file4')
     ax.set_xlim(0, 1250)
     ax.set_ylim(0, 600)
     ax.set_title('Unfiltered data')
@@ -466,10 +466,10 @@ def plotting_4file_time_models(file1, file2, file3, file4):
     savgol_aero = savgol_filter(file4_axi, 1001, 2)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, savgol_moro, label='Morozumi time')
-    ax1.plot(freqs, savgol_const, label='Constant velocity')
-    ax1.plot(freqs, savgol_avg, label='Averaged velocity')
-    ax1.plot(freqs, savgol_aero, label='Aero vel')
+    ax1.plot(freqs, savgol_moro, label='file1')
+    ax1.plot(freqs, savgol_const, label='file2')
+    ax1.plot(freqs, savgol_avg, label='file3')
+    ax1.plot(freqs, savgol_aero, label='file4')
     ax1.set_xlim(0, 700)
     ax1.set_ylim(0, 600)
     ax1.set_title('Savgol filtering (window size = 1001) data')
