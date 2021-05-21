@@ -327,21 +327,24 @@ def plotting_measured_wavelength(file1, file2, file3):
     v = 1.2668032087199999
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
-    savgol_control = savgol_filter(control, 11, 2)
-    savgol_control_2 = savgol_filter(control_2, 11, 2)
-    savgol_control_3 = savgol_filter(control_3, 11, 2)
+    savgol_control = savgol_filter(control, 101, 2)
+    savgol_control_2 = savgol_filter(control_2, 101, 2)
+    savgol_control_3 = savgol_filter(control_3, 101, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh', color='black', linestyle='solid')
-    ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model')
-    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model')
-    ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model')
+    ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model',
+            marker='o', markevery=100)
+    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model',
+            marker='s', markevery=100)
+    ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model',
+            marker='^', markevery=100)
     ax.set_xlim(0, 3.5)
     ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\omega$', fontsize=16)
-    fig.set_size_inches(6, 4.5)
+    fig.set_size_inches(6.5, 4.5)
     fig.savefig(fname='time_models.pgf', bbox_inches='tight')
 
 
@@ -436,20 +439,20 @@ def plotting_4file_time_models(file1, file2, file3, file4):
     Main plotting function
     """
 
-    freqs, _, morozumi_time, _, _, _, _ = np.loadtxt(file1, delimiter=',',
+    freqs, _, file1_axi, _, _, _, _ = np.loadtxt(file1, delimiter=',',
                                                      unpack=True)
-    freqs, _, constant_vel, _, _, _, _ = np.loadtxt(file2, delimiter=',',
+    freqs, _, file2_axi, _, _, _, _ = np.loadtxt(file2, delimiter=',',
                                                     unpack=True)
-    freqs, _, avg_vel, _, _, _, _ = np.loadtxt(file3, delimiter=',',
+    freqs, _, file3_axi, _, _, _, _ = np.loadtxt(file3, delimiter=',',
                                                unpack=True)
-    freqs, _, aero_vel, _, _, _, _ = np.loadtxt(file4, delimiter=',',
-                                               unpack=True)
+    freqs, _, file4_axi, _, _, _, _ = np.loadtxt(file4, delimiter=',',
+                                                unpack=True)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, morozumi_time, label='Morozumi time')
-    ax.plot(freqs, constant_vel, label='constant velocity')
-    ax.plot(freqs, avg_vel, label='averaged velocity')
-    ax.plot(freqs, aero_vel, label='aero vel')
+    ax.plot(freqs, file1_axi, label='Morozumi time')
+    ax.plot(freqs, file2_axi, label='constant velocity')
+    ax.plot(freqs, file3_axi, label='averaged velocity')
+    ax.plot(freqs, file4_axi, label='aero vel')
     ax.set_xlim(0, 1250)
     ax.set_ylim(0, 600)
     ax.set_title('Unfiltered data')
@@ -457,10 +460,10 @@ def plotting_4file_time_models(file1, file2, file3, file4):
     ax.set_ylabel('Growth rate (1/s)')
     ax.legend()
 
-    savgol_moro = savgol_filter(morozumi_time, 1001, 2)
-    savgol_const = savgol_filter(constant_vel, 1001, 2)
-    savgol_avg = savgol_filter(avg_vel, 1001, 2)
-    savgol_aero = savgol_filter(aero_vel, 1001, 2)
+    savgol_moro = savgol_filter(file1_axi, 1001, 2)
+    savgol_const = savgol_filter(file2_axi, 1001, 2)
+    savgol_avg = savgol_filter(file3_axi, 1001, 2)
+    savgol_aero = savgol_filter(file4_axi, 1001, 2)
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, savgol_moro, label='Morozumi time')
