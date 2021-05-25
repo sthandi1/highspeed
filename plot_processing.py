@@ -7,15 +7,14 @@ Created on Tue Feb  2 17:07:04 2021
 """
 
 # locating latex installation
-import os 
-os.environ['PATH'] = os.environ['PATH'] + ':/Library/TeX/texbin'
-
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from highspeed_fft import velocity_calculator, weber_velocity
 from scipy.special import i0, i1
 from scipy.signal import savgol_filter
 
+os.environ['PATH'] = os.environ['PATH'] + ':/Library/TeX/texbin'
 
 def rayleigh():
     """
@@ -485,7 +484,6 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.set_ylabel('$\omega$')
     ax1.legend()
 
-
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$', marker='o',
              markevery=100, markersize=8)
@@ -495,6 +493,11 @@ def plotting_4file(file1, file2, file3, file4):
              markevery=100, markersize=8)
     ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$', marker='P',
              markevery=100, markersize=8)
+    ax2.set_xlim(0, 1200)
+    ax2.set_ylim(0, 60)
+    ax2.set_xlabel('$f$ (Hz)')
+    ax2.set_ylabel('$\omega$')
+    ax2.legend()
 
 
 def plotting_1file(file1):
