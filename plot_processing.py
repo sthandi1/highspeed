@@ -449,7 +449,7 @@ def plotting_4file(file1, file2, file3, file4):
     freqs, _, file4_axi, _, _, file4_as, _ = np.loadtxt(file4, delimiter=',',
                                                         unpack=True)
 
-
+    casename, Re, We = file_id(file1)
 
     fig, ax = plt.subplots()
     ax.plot(freqs, file1_axi, label='$RR_G=1.5$')
@@ -487,7 +487,11 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.set_xlabel('$f$ (Hz)')
     ax1.set_ylabel('$\omega$')
     ax1.legend()
-    
+    We_underscored = We.split('.') + '_' + We.split('.')[1]
+    print(We_underscored)
+    fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
+    fig1.savefig(fname=fig1filename, bbox_inches='tight')
+
 
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$', marker='o',
