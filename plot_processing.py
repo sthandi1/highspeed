@@ -10,11 +10,13 @@ Created on Tue Feb  2 17:07:04 2021
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from highspeed_fft import velocity_calculator, weber_velocity
+from highspeed_fft import velocity_calculator, weber_velocity, file_id
 from scipy.special import i0, i1
 from scipy.signal import savgol_filter
 
+
 os.environ['PATH'] = os.environ['PATH'] + ':/Library/TeX/texbin'
+
 
 def rayleigh():
     """
@@ -447,6 +449,8 @@ def plotting_4file(file1, file2, file3, file4):
     freqs, _, file4_axi, _, _, file4_as, _ = np.loadtxt(file4, delimiter=',',
                                                         unpack=True)
 
+
+
     fig, ax = plt.subplots()
     ax.plot(freqs, file1_axi, label='$RR_G=1.5$')
     ax.plot(freqs, file2_axi, label='$RR_G=3.9$')
@@ -483,6 +487,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.set_xlabel('$f$ (Hz)')
     ax1.set_ylabel('$\omega$')
     ax1.legend()
+    
 
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$', marker='o',
