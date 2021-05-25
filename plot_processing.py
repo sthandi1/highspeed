@@ -487,8 +487,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.set_xlabel('$f$ (Hz)')
     ax1.set_ylabel('$\omega$')
     ax1.legend()
-    We_underscored = We.split('.') + '_' + We.split('.')[1]
-    print(We_underscored)
+    We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
     fig1.savefig(fname=fig1filename, bbox_inches='tight')
 
