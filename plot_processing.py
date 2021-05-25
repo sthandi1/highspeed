@@ -449,12 +449,12 @@ def plotting_4file(file1, file2, file3, file4):
                                                 unpack=True)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi, label='file1')
-    ax.plot(freqs, file2_axi, label='file2')
-    ax.plot(freqs, file3_axi, label='file3')
-    ax.plot(freqs, file4_axi, label='file4')
+    ax.plot(freqs, file1_axi, label='$RR_G=1.5$')
+    ax.plot(freqs, file2_axi, label='$RR_G=3.9$')
+    ax.plot(freqs, file3_axi, label='$RR_G=6.3$')
+    ax.plot(freqs, file4_axi, label='$RR_G=8.7$')
     ax.set_xlim(0, 1250)
-    ax.set_ylim(0, 600)
+    ax.set_ylim(0, 400)
     ax.set_title('Unfiltered data')
     ax.set_xlabel('Frequencies (Hz)')
     ax.set_ylabel('Growth rate (1/s)')
@@ -466,15 +466,18 @@ def plotting_4file(file1, file2, file3, file4):
     savgol_aero = savgol_filter(file4_axi, 1001, 2)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, savgol_moro, label='file1')
-    ax1.plot(freqs, savgol_const, label='file2')
-    ax1.plot(freqs, savgol_avg, label='file3')
-    ax1.plot(freqs, savgol_aero, label='file4')
-    ax1.set_xlim(0, 700)
-    ax1.set_ylim(0, 600)
-    ax1.set_title('Savgol filtering (window size = 1001) data')
-    ax1.set_xlabel('Frequencies (Hz)')
-    ax1.set_ylabel('Growth rate (1/s)')
+    ax1.plot(freqs, savgol_moro, label='file1', marker='o', markevery=100,
+             markersize=8)
+    ax1.plot(freqs, savgol_const, label='file2', marker='s', markevery=100,
+             markersize=8)
+    ax1.plot(freqs, savgol_avg, label='file3', marker='^', markevery=100,
+             markersize=8)
+    ax1.plot(freqs, savgol_aero, label='file4', marker='P', markevery=100,
+             markersize=8)
+    ax1.set_xlim(0, 1000)
+    ax1.set_ylim(0, 110)
+    ax1.set_xlabel('$f$ (Hz)')
+    ax1.set_ylabel('$\omega$')
     ax1.legend()
 
 
