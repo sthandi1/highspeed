@@ -439,14 +439,14 @@ def plotting_4file(file1, file2, file3, file4):
     Main plotting function
     """
 
-    freqs, _, file1_axi, _, _, _, _ = np.loadtxt(file1, delimiter=',',
-                                                     unpack=True)
-    freqs, _, file2_axi, _, _, _, _ = np.loadtxt(file2, delimiter=',',
-                                                    unpack=True)
-    freqs, _, file3_axi, _, _, _, _ = np.loadtxt(file3, delimiter=',',
-                                               unpack=True)
-    freqs, _, file4_axi, _, _, _, _ = np.loadtxt(file4, delimiter=',',
-                                                unpack=True)
+    freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
+                                                        unpack=True)
+    freqs, _, file2_axi, _, _, file2_as, _ = np.loadtxt(file2, delimiter=',',
+                                                        unpack=True)
+    freqs, _, file3_axi, _, _, file3_as, _ = np.loadtxt(file3, delimiter=',',
+                                                        unpack=True)
+    freqs, _, file4_axi, _, _, file4_as, _ = np.loadtxt(file4, delimiter=',',
+                                                        unpack=True)
 
     fig, ax = plt.subplots()
     ax.plot(freqs, file1_axi, label='$RR_G=1.5$')
@@ -460,25 +460,41 @@ def plotting_4file(file1, file2, file3, file4):
     ax.set_ylabel('Growth rate (1/s)')
     ax.legend()
 
-    savgol_moro = savgol_filter(file1_axi, 1001, 2)
-    savgol_const = savgol_filter(file2_axi, 1001, 2)
-    savgol_avg = savgol_filter(file3_axi, 1001, 2)
-    savgol_aero = savgol_filter(file4_axi, 1001, 2)
+    savgol_file1_axi = savgol_filter(file1_axi, 1001, 2)
+    savgol_file2_axi = savgol_filter(file2_axi, 1001, 2)
+    savgol_file3_axi = savgol_filter(file3_axi, 1001, 2)
+    savgol_file4_axi = savgol_filter(file4_axi, 1001, 2)
+
+    savgol_file1_as = savgol_filter(file1_as, 1001, 2)
+    savgol_file2_as = savgol_filter(file2_as, 1001, 2)
+    savgol_file3_as = savgol_filter(file3_as, 1001, 2)
+    savgol_file4_as = savgol_filter(file4_as, 1001, 2)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, savgol_moro, label='file1', marker='o', markevery=100,
-             markersize=8)
-    ax1.plot(freqs, savgol_const, label='file2', marker='s', markevery=100,
-             markersize=8)
-    ax1.plot(freqs, savgol_avg, label='file3', marker='^', markevery=100,
-             markersize=8)
-    ax1.plot(freqs, savgol_aero, label='file4', marker='P', markevery=100,
-             markersize=8)
+    ax1.plot(freqs, savgol_file1_axi, label='$RR_G=1.5$', marker='o',
+             markevery=100, markersize=8)
+    ax1.plot(freqs, savgol_file2_axi, label='$RR_G=3.9$', marker='s',
+             markevery=100, markersize=8)
+    ax1.plot(freqs, savgol_file3_axi, label='$RR_G=6.3$', marker='^',
+             markevery=100, markersize=8)
+    ax1.plot(freqs, savgol_file4_axi, label='$RR_G=8.7$', marker='P',
+             markevery=100, markersize=8)
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 110)
     ax1.set_xlabel('$f$ (Hz)')
     ax1.set_ylabel('$\omega$')
     ax1.legend()
+
+
+    fig2, ax2 = plt.subplots()
+    ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$', marker='o',
+             markevery=100, markersize=8)
+    ax2.plot(freqs, savgol_file2_as, label='$RR_G=3.9$', marker='s',
+             markevery=100, markersize=8)
+    ax2.plot(freqs, savgol_file3_as, label='$RR_G=6.3$', marker='^',
+             markevery=100, markersize=8)
+    ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$', marker='P',
+             markevery=100, markersize=8)
 
 
 def plotting_1file(file1):
