@@ -540,14 +540,6 @@ def growth_rate(filenames, time_model=drop_equation):
     ax.plot(freqs, w, label='Savitzky-Golay', color='red')
     ax.legend()
 
-    fig6, ax6 = plt.subplots()
-    ax6.plot(freqs, w, label='Savitzky-Golay')
-    ax6.legend()
-    ax6.set_xlim(0, 710)
-    ax6.set_ylim(0, 70)
-    ax6.set_title("Moving average vs Savitzky-Golay")
-    ax6.set_xlabel("Frequency")
-    ax6.set_ylabel("Growth rate")
 
     zero_crossings_w = np.where(np.diff(np.signbit(w)))[0]
 
@@ -559,10 +551,3 @@ def growth_rate(filenames, time_model=drop_equation):
         k = i*(2*np.pi)/(delx*116495)
         Ks.append(k*1e-3)
 
-    fig7, ax7 = plt.subplots()
-    ax7.plot(Ks, w)
-    ax7.set_xlim(0, 20)
-    ax7.set_ylim(0, 70)
-    ax7.set_xlabel('ka')
-    ax7.set_ylabel('Growth rate')
-    ax7.set_title('Wavenumber plot')
