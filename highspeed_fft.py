@@ -525,8 +525,6 @@ def growth_rate(filenames, time_model=drop_equation):
 
     avg_err_1000 = diameter_errs[0:4315].mean()
 
-    fig3, ax3 = plt.subplots()
-    ax3.plot(freqs, loc0_diameter_amp)
 
     print(freqs[600])
 
