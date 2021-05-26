@@ -524,10 +524,8 @@ def growth_rate(filenames, time_model=drop_equation):
     freqs_1000 = freqs[4315]
 
     avg_err_1000 = diameter_errs[0:4315].mean()
-
-
+    
     print(freqs[600])
-
 
     w = savgol_filter(diameter_growth_rates, 1001, 2)
     fig5, ax5 = plt.subplots()
@@ -539,7 +537,6 @@ def growth_rate(filenames, time_model=drop_equation):
 
     ax.plot(freqs, w, label='Savitzky-Golay', color='red')
     ax.legend()
-
 
     zero_crossings_w = np.where(np.diff(np.signbit(w)))[0]
 
