@@ -475,37 +475,45 @@ def plotting_4file(file1, file2, file3, file4):
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, savgol_file1_axi, label='$RR_G=1.5$', marker='o',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax1.plot(freqs, savgol_file2_axi, label='$RR_G=3.9$', marker='s',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax1.plot(freqs, savgol_file3_axi, label='$RR_G=6.3$', marker='^',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax1.plot(freqs, savgol_file4_axi, label='$RR_G=8.7$', marker='P',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 110)
-    ax1.set_xlabel('$f$ (Hz)')
-    ax1.set_ylabel('$\omega$')
+    ax1.set_xlabel('$f$ (Hz)', fontsize=14)
+    ax1.set_ylabel('$\omega$', fontsize=14)
+    ax1.tick_params(axis='both', labelsize=12)
     ax1.legend()
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
+    fig1.set_size_inches(6.25, 4.5)
     fig1.savefig(fname=fig1filename, bbox_inches='tight')
 
+    # ASYMMETRIC PLOTS
 
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$', marker='o',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax2.plot(freqs, savgol_file2_as, label='$RR_G=3.9$', marker='s',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax2.plot(freqs, savgol_file3_as, label='$RR_G=6.3$', marker='^',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$', marker='P',
-             markevery=100, markersize=8)
+             markevery=100, markersize=6)
     ax2.set_xlim(0, 1200)
     ax2.set_ylim(0, 60)
-    ax2.set_xlabel('$f$ (Hz)')
-    ax2.set_ylabel('$\omega$')
+    ax2.set_xlabel('$f$ (Hz)', fontsize=14)
+    ax2.set_ylabel('$\omega$', fontsize=14)
+    ax2.tick_params(axis='both', labelsize=12)
     ax2.legend()
+    fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
+    fig2.set_size_inches(6.25, 4.5)
+    fig2.savefig(fname=fig2filename, bbox_inches='tight')
+
 
 
 def plotting_1file(file1):
