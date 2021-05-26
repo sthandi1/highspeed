@@ -244,25 +244,6 @@ def fft_checking(filename):
     ax2.set_ylabel('Jet centroid location (mm)')
     ax2.set_title('Jet centroid plot')
 
-    # fft of jet centroid (non shifted)
-    centroid_fft = rfft(jet_centroid)
-    centroid_freqs = rfftfreq(len(jet_centroid), 1/27000)
-
-    fig3, ax3 = plt.subplots()
-    ax3.stem(centroid_freqs, np.abs(centroid_fft))
-    ax3.set_title("centroid fft")
-    ax3.set_xlabel('Frequencies')
-    ax3.set_ylabel('Amplitude')
-
-    # fft of jet diameter (non shifted)
-    loc1_diameter_fft = rfft(jet_diameter)
-    loc1_diameter_freqs = rfftfreq(len(jet_diameter), 1/27000)
-
-    fig4, ax4 = plt.subplots()
-    ax4.stem(loc1_diameter_freqs, np.abs(loc1_diameter_fft))
-    ax4.set_title('Jet diameter frequencies')
-    ax4.set_xlabel('Frequencies')
-    ax4.set_ylabel('Amplitude')
 
     # shifted FFTs
     # Shifted jet diameter plotting
