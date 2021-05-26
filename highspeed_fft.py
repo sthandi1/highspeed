@@ -481,16 +481,10 @@ def growth_rate(filenames, time_model=drop_equation):
 
     # POST PROCESSING TESTING, NOT FOR DEPLOYMENT
 
-    figfft, axfft = plt.subplots()
-    axfft.stem(freqs, loc1_diameter_fft)
-    axfft.set_title("FFT data for loc1")
-    axfft.set_xlabel("Frequencies")
-    axfft.set_ylabel("Amplitude")
-
     fig, ax = plt.subplots()
     ax.plot(freqs, diameter_growth_rates, '.', color='yellow')
-    ax.set_xlim(0, 5000)
-    ax.set_ylim(0, 90)
+    ax.set_xlim(0, 1000)
+    ax.set_ylim(0, 150)
     ax.set_title("Growth rates vs frequencies")
     ax.set_xlabel("Frequencies")
     ax.set_ylabel("Growth rates")
