@@ -198,6 +198,45 @@ def arai_time_model(u_l, z_locations, weber_number):
     return t
 
 
+def zero_event_fixer(filename):
+    """This function will fix zero events iteratively"""
+
+    # load the file
+    frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
+                                                 unpack=True)
+
+    zero_events_left = np.count_nonzero(left_edges == 0)
+    zero_events_right = np.count_nonzero(right_edges == 0)
+    print("Before fixes")
+    print("Left edge zero events:", zero_events_left)
+    print("Right edge zero events:", zero_events_right)
+
+    # left edges
+    for i in range(len(left_edges)):
+        # if the edge equals zero because jet breaks
+        if left_edges[i] == 0:
+            # give the value of this the previous value
+            left_edges[i] = left_edges[i-1]
+    
+    # similar for right edges
+    for i in range(len(right_edges)):
+        if right_edges[i] == 0:
+            right_edges[i] = right_edges[i-1]
+
+    output_arr = np.stack((frames, left_edges, right_edges), axis=1)
+
+    print("Fixed zero events")
+    zero_events_left = np.count_nonzero(left_edges == 0)
+    zero_events_right = np.count_nonzero(right_edges == 0)
+
+    print("After fixes")
+    print("Left edge zero events:", zero_events_left)
+    print("Right edge zero events:", zero_events_right)
+    
+    fixed_filename = 'fixed'+filename
+    np.savetxt(fixed_filename, output_arr, fmt='%d', delimiter=',')
+
+
 def fft_checking(filename):
     """This function will check the file and ensure reasonable data has
     been captured and produce fft graphs to be checked.
@@ -285,11 +324,8 @@ def fft_checking(filename):
     zero_events = np.count_nonzero(jet_diameter == 0)
 
     print('Number of zero events:', zero_events)
-    print(len(jet_diameter))
+    print("Percentage of total:", zero_events/len(jet_diameter)*100)
 
-    print(len(shifted_jet_centroid_freqs))
-    print(len(shifted_jet_diameter))
-    print(len(shifted_jet_centroid_fft))
     
 
 
