@@ -372,7 +372,7 @@ def plotting_2file(file1, file2):
     ax1.plot(freqs, file2_axi_savgol, label='file2')
     ax1.set_title('Savgol')
     ax1.legend()
-    ax1.set_xlim(0, 6000)
+    ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 150)
 
     fig2, ax2 = plt.subplots()
