@@ -58,7 +58,7 @@ def param_extractor(ts, amps):
         omega_err: error in growth rate
     """
     # using scipy's curve fit model, p_cov is accuracy
-    p, pcov = curve_fit(model_growth_rate, ts, amps)
+    p, pcov = curve_fit(model_growth_rate, ts, amps, maxfev=6000)
     a_0, omega = p
     # calculates the standard deviation and returns an array
     # first value is the error of a_0, second value is error of omega
