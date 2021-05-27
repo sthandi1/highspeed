@@ -204,11 +204,11 @@ def zero_event_fixer(filename):
     # load the file
     frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
                                                  unpack=True)
-    print('File loaded')
+    print('File loaded\n')
     print(filename)
     zero_events_left = np.count_nonzero(left_edges == 0)
     zero_events_right = np.count_nonzero(right_edges == 0)
-    print("Before fixes")
+    print("\nBefore fixes")
     print("Left edge zero events:", zero_events_left)
     print("Right edge zero events:", zero_events_right)
 
@@ -221,7 +221,7 @@ def zero_event_fixer(filename):
             left_edge_zeros += 1
             # give the value of this the previous value
             left_edges[i] = left_edges[i-1]
-    print("Found and corrected {} left edges".format(left_edge_zeros))
+    print("\nFound and corrected {} left edges".format(left_edge_zeros))
 
     # similar for right edges
     for i in range(len(right_edges)):
@@ -232,11 +232,10 @@ def zero_event_fixer(filename):
     print("Found and corrected {} right edges".format(right_edge_zeros))
     output_arr = np.stack((frames, left_edges, right_edges), axis=1)
 
-    print("Fixed zero events")
     zero_events_left = np.count_nonzero(left_edges == 0)
     zero_events_right = np.count_nonzero(right_edges == 0)
 
-    print("After fixes")
+    print("\nAfter fixes")
     print("Left edge zero events:", zero_events_left)
     print("Right edge zero events:", zero_events_right)
     
