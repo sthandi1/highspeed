@@ -240,7 +240,7 @@ def zero_event_fixer(filename):
     print("Right edge zero events:", zero_events_right)
     
     fixed_filename = 'fixed'+filename
-    # np.savetxt(fixed_filename, output_arr, fmt='%d', delimiter=',')
+    np.savetxt(fixed_filename, output_arr, fmt='%d', delimiter=',')
 
 
 def fft_checking(filename):
