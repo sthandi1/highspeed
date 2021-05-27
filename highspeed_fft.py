@@ -204,7 +204,8 @@ def zero_event_fixer(filename):
     # load the file
     frames, left_edges, right_edges = np.loadtxt(filename, delimiter=',',
                                                  unpack=True)
-
+    print('File loaded')
+    print(filename)
     zero_events_left = np.count_nonzero(left_edges == 0)
     zero_events_right = np.count_nonzero(right_edges == 0)
     print("Before fixes")
