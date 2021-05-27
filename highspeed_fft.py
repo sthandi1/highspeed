@@ -212,18 +212,24 @@ def zero_event_fixer(filename):
     print("Left edge zero events:", zero_events_left)
     print("Right edge zero events:", zero_events_right)
 
+    left_edge_zeros = 0
+    right_edge_zeros = 0
     # left edges
     for i in range(len(left_edges)):
         # if the edge equals zero because jet breaks
         if left_edges[i] == 0:
+            left_edge_zeros += 1
             # give the value of this the previous value
             left_edges[i] = left_edges[i-1]
-    
+    print("Found and corrected {} left edges".format(left_edge_zeros))
+
     # similar for right edges
     for i in range(len(right_edges)):
         if right_edges[i] == 0:
+            right_edge_zeros += 1
             right_edges[i] = right_edges[i-1]
 
+    print("Found and corrected {} right edges".format(right_edge_zeros))
     output_arr = np.stack((frames, left_edges, right_edges), axis=1)
 
     print("Fixed zero events")
@@ -235,7 +241,7 @@ def zero_event_fixer(filename):
     print("Right edge zero events:", zero_events_right)
     
     fixed_filename = 'fixed'+filename
-    np.savetxt(fixed_filename, output_arr, fmt='%d', delimiter=',')
+    # np.savetxt(fixed_filename, output_arr, fmt='%d', delimiter=',')
 
 
 def fft_checking(filename):
