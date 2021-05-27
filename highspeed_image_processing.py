@@ -91,7 +91,7 @@ def single_image_thresh_data(inputFile, thresh, z_location):
     movie = mraw(inputFile)
     width = movie.width
     image = movie[0]
-    
+    print(width)
     
     # apply binary threshold where below threshold is zero and above is max
     _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
