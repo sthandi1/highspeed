@@ -282,9 +282,15 @@ def fft_checking(filename):
     ax8.set_xlabel('Frequencies')
     ax8.set_ylabel('Amplitude')
 
+    zero_events = np.count_nonzero(jet_diameter == 0)
+
+    print('Number of zero events:', zero_events)
+    print(len(jet_diameter))
+
     print(len(shifted_jet_centroid_freqs))
     print(len(shifted_jet_diameter))
     print(len(shifted_jet_centroid_fft))
+    
 
 
 def fft_output(filename):
