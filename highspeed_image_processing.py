@@ -655,10 +655,13 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     fig, ax = plt.subplots()
     fig1, ax1 = plt.subplots()
     ax.imshow(image, cmap=plt.cm.gray)
-    ax.set_title('Unmodified image')
+    ax.set_xlabel('x')
+    ax.set_ylabel('z')
     ax1.imshow(th1, cmap=plt.cm.gray)
-    ax1.set_title('Thresholded image')
-    fig.savefig(fname='jet_image.pdf', bbox_inches='tight')
+    fig.savefig(fname='single_jet_image.pdf', bbox_inches='tight')
+    fig1.savefig(fname='single_jet_thresholded.pdf', bbox_inches='tight')
+    ax1.set_xlabel('x')
+    ax1.set_ylabel('z')
 
     # initialise array with 3 columns and same number of rows as image height
     # first column is z location
@@ -706,6 +709,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
 
     # calculating jet diameter
     jet_diameter = 0.02*(edges[:, 2]-edges[:, 1])
+    jet_diameter_pixels = (edges[:, 2]-edges[:, 1])
 
     # plotting zoomed in jet diameter
     fig4, ax4 = plt.subplots()
@@ -721,7 +725,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
 
     # looking at left edges at zoomed in location
     fig5, ax5 = plt.subplots()
-    ax5.plot(edges[5:,0], edges[5:, 1])
+    ax5.plot(edges[5:, 0], edges[5:, 1])
     ax5.set_xlabel('Z location (pixels)')
     ax5.set_ylabel('Left edge location')
     ax5.set_title('Left edge')
@@ -777,6 +781,8 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     ax8.set_xlabel('Z location (pixels)')
     ax8.set_ylabel('Left edge location (pixels)')
 
+
+
     # locating left edges first peak
     left_peak1 = np.where(left_focused == np.max(left_focused))
     left_peak1_loc = left_focused_edges[left_peak1]
@@ -809,6 +815,13 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     ax9.set_xlabel('Z location (pixels)')
     ax9.set_ylabel('right edge location (pixels)')
     
+    fig10, ax10 = plt.subplots()
+    ax10.plot(edges[5:, 0], edges[5:, 1], label='left edges')
+    ax10.plot(edges[5:, 0], edges[5:, 2], label='right edges')
+    ax10.plot(edges[5:, 0], jet_diameter_pixels[5:], label='jet diameter')
+    ax10.legend()
+
+
     # finding the first peak of the right edges
     right_peak1 = np.where(right_focused == np.max(right_focused))
     right_peak1_loc = right_focused_edges[right_peak1]
