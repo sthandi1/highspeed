@@ -658,6 +658,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     ax.set_title('Unmodified image')
     ax1.imshow(th1, cmap=plt.cm.gray)
     ax1.set_title('Thresholded image')
+    fig.savefig(fname=jet_image.pdf, bbox_inches='tight')
 
     # initialise array with 3 columns and same number of rows as image height
     # first column is z location
