@@ -356,8 +356,8 @@ def plotting_2file(file1, file2):
     freqs, _, file2_axi, _, _, file2_as, _ = np.loadtxt(file2, delimiter=',',
                                                         unpack=True)
 
-    file1_axi_savgol = savgol_filter(file1_axi, 101, 2)
-    file2_axi_savgol = savgol_filter(file2_axi, 101, 2)
+    file1_axi_savgol = savgol_filter(file1_axi, 1001, 2)
+    file2_axi_savgol = savgol_filter(file2_axi, 1001, 2)
 
     fig, ax = plt.subplots()
     #ax.plot(freqs, file1_axi, label='file1')
@@ -373,7 +373,7 @@ def plotting_2file(file1, file2):
     ax1.set_title('Savgol')
     ax1.legend()
     ax1.set_xlim(0, 1000)
-    ax1.set_ylim(0, 150)
+    ax1.set_ylim(0, 70)
 
     fig2, ax2 = plt.subplots()
     file1_as_savgol = savgol_filter(file1_as, 101, 2)
