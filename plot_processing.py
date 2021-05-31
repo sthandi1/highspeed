@@ -403,10 +403,11 @@ def plotting_3file(file1, file2, file3):
     ax.plot(freqs, file3_axi_savgol, label='Threshold=1400')
     ax.set_xlabel('$f$ (Hz)', fontsize=16)
     ax.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax.grid()
     ax.tick_params(axis='both', labelsize=12)
     ax.legend()
     ax.set_xlim(0, 700)
-    ax.set_ylim(0, 65)
+    ax.set_ylim(0, 70)
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, file1_axi_savgol, label='Threshold=800')
@@ -416,8 +417,9 @@ def plotting_3file(file1, file2, file3):
     ax1.set_ylabel('$\omega$ (1/s)', fontsize=16)
     ax1.tick_params(axis='both', labelsize=12)
     ax1.legend()
-    ax1.set_xlim(0, 200)
+    ax1.set_xlim(20, 175)
     ax1.set_ylim(0, 25)
+    ax1.grid()
     fig.set_size_inches(6, 4)
     fig1.set_size_inches(6, 4)
     fig.savefig(fname='threshold_comparison_savgol_101.pgf',
