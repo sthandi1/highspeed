@@ -490,7 +490,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.legend()
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
-    fig1.set_size_inches(6.25, 4.5)
+    fig1.set_size_inches(6, 4.5)
     fig1.savefig(fname=fig1filename, bbox_inches='tight')
 
     # ASYMMETRIC PLOTS
@@ -511,7 +511,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.tick_params(axis='both', labelsize=12)
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
-    fig2.set_size_inches(6.25, 4.5)
+    fig2.set_size_inches(6, 4.5)
     fig2.savefig(fname=fig2filename, bbox_inches='tight')
 
 
