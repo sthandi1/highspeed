@@ -334,18 +334,16 @@ def plotting_measured_wavelength(file1, file2, file3):
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh', color='black', linestyle='solid')
-    ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model',
-            marker='o', markevery=100)
-    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model',
-            marker='s', markevery=100)
-    ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model',
-            marker='^', markevery=100)
+    ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model')
+    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model')
+    ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model')
     ax.set_xlim(0, 3.5)
     ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
-    ax.set_ylabel('$\omega$', fontsize=16)
-    fig.set_size_inches(6.5, 4.5)
+    ax.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax.grid()
+    fig.set_size_inches(6, 4.5)
     fig.savefig(fname='time_models.pgf', bbox_inches='tight')
 
 
@@ -465,29 +463,26 @@ def plotting_4file(file1, file2, file3, file4):
     ax.set_ylabel('Growth rate (1/s)')
     ax.legend()
 
-    savgol_file1_axi = savgol_filter(file1_axi, 1001, 2)
-    savgol_file2_axi = savgol_filter(file2_axi, 1001, 2)
-    savgol_file3_axi = savgol_filter(file3_axi, 1001, 2)
-    savgol_file4_axi = savgol_filter(file4_axi, 1001, 2)
+    savgol_file1_axi = savgol_filter(file1_axi, 201, 2)
+    savgol_file2_axi = savgol_filter(file2_axi, 201, 2)
+    savgol_file3_axi = savgol_filter(file3_axi, 201, 2)
+    savgol_file4_axi = savgol_filter(file4_axi, 201, 2)
 
-    savgol_file1_as = savgol_filter(file1_as, 1001, 2)
-    savgol_file2_as = savgol_filter(file2_as, 1001, 2)
-    savgol_file3_as = savgol_filter(file3_as, 1001, 2)
-    savgol_file4_as = savgol_filter(file4_as, 1001, 2)
+    savgol_file1_as = savgol_filter(file1_as, 301, 2)
+    savgol_file2_as = savgol_filter(file2_as, 301, 2)
+    savgol_file3_as = savgol_filter(file3_as, 301, 2)
+    savgol_file4_as = savgol_filter(file4_as, 301, 2)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, savgol_file1_axi, label='$RR_G=1.5$', marker='o',
-             markevery=100, markersize=6)
-    ax1.plot(freqs, savgol_file2_axi, label='$RR_G=3.9$', marker='s',
-             markevery=100, markersize=6)
-    ax1.plot(freqs, savgol_file3_axi, label='$RR_G=6.3$', marker='^',
-             markevery=100, markersize=6)
-    ax1.plot(freqs, savgol_file4_axi, label='$RR_G=8.7$', marker='P',
-             markevery=100, markersize=6)
+    ax1.plot(freqs, savgol_file1_axi, label='$RR_G=1.5$')
+    ax1.plot(freqs, savgol_file2_axi, label='$RR_G=3.9$')
+    ax1.plot(freqs, savgol_file3_axi, label='$RR_G=6.3$')
+    ax1.plot(freqs, savgol_file4_axi, label='$RR_G=8.7$')
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 110)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax1.grid()
     ax1.tick_params(axis='both', labelsize=12)
     ax1.legend()
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
@@ -498,18 +493,15 @@ def plotting_4file(file1, file2, file3, file4):
     # ASYMMETRIC PLOTS
 
     fig2, ax2 = plt.subplots()
-    ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$', marker='o',
-             markevery=100, markersize=6)
-    ax2.plot(freqs, savgol_file2_as, label='$RR_G=3.9$', marker='s',
-             markevery=100, markersize=6)
-    ax2.plot(freqs, savgol_file3_as, label='$RR_G=6.3$', marker='^',
-             markevery=100, markersize=6)
-    ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$', marker='P',
-             markevery=100, markersize=6)
-    ax2.set_xlim(0, 1200)
-    ax2.set_ylim(0, 60)
+    ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$')
+    ax2.plot(freqs, savgol_file2_as, label='$RR_G=3.9$')
+    ax2.plot(freqs, savgol_file3_as, label='$RR_G=6.3$')
+    ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$')
+    ax2.set_xlim(0, 850)
+    ax2.set_ylim(0, 70)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
     ax2.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax2.grid()
     ax2.tick_params(axis='both', labelsize=12)
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
