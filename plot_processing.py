@@ -484,8 +484,8 @@ def plotting_4file(file1, file2, file3, file4):
              markevery=100, markersize=6)
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 110)
-    ax1.set_xlabel('$f$ (Hz)', fontsize=14)
-    ax1.set_ylabel('$\omega$', fontsize=14)
+    ax1.set_xlabel('$f$ (Hz)', fontsize=16)
+    ax1.set_ylabel('$\omega$', fontsize=16)
     ax1.tick_params(axis='both', labelsize=12)
     ax1.legend()
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
@@ -506,8 +506,8 @@ def plotting_4file(file1, file2, file3, file4):
              markevery=100, markersize=6)
     ax2.set_xlim(0, 1200)
     ax2.set_ylim(0, 60)
-    ax2.set_xlabel('$f$ (Hz)', fontsize=14)
-    ax2.set_ylabel('$\omega$', fontsize=14)
+    ax2.set_xlabel('$f$ (Hz)', fontsize=16)
+    ax2.set_ylabel('$\omega$', fontsize=16)
     ax2.tick_params(axis='both', labelsize=12)
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
