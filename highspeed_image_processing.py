@@ -655,13 +655,9 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     fig, ax = plt.subplots()
     fig1, ax1 = plt.subplots()
     ax.imshow(image, cmap=plt.cm.gray)
-    ax.set_xlabel('x')
-    ax.set_ylabel('z')
     ax1.imshow(th1, cmap=plt.cm.gray)
     fig.savefig(fname='single_jet_image.pdf', bbox_inches='tight')
     fig1.savefig(fname='single_jet_thresholded.pdf', bbox_inches='tight')
-    ax1.set_xlabel('x')
-    ax1.set_ylabel('z')
 
     # initialise array with 3 columns and same number of rows as image height
     # first column is z location
@@ -700,12 +696,12 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     
     # plotting the edges
     fig3, ax3 = plt.subplots()
-    ax3.plot(edges[:, 1], edges[:, 0])
-    ax3.plot(edges[:, 2], edges[:, 0])
+    ax3.plot(edges[:, 1], edges[:, 0], color='black')
+    ax3.plot(edges[:, 2], edges[:, 0], color='black')
     ax3.set_aspect(1)
     ax3.set_ylim(1024, 0)
     ax3.set_xlim(0, width)
-    ax3.set_title('Edges')
+    fig3.savefig(fname='single_jet_edges.pdf', bbox_inches='tight')
 
     # calculating jet diameter
     jet_diameter = 0.02*(edges[:, 2]-edges[:, 1])
@@ -713,10 +709,13 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
 
     # plotting zoomed in jet diameter
     fig4, ax4 = plt.subplots()
-    ax4.plot(edges[5:, 0], jet_diameter[5:])
-    ax4.set_xlabel('Z location (pixels)')
+    ax4.plot(0.02*edges[5:, 0], jet_diameter[5:], color='black')
+    ax4.set_xlabel('Z (mm)')
     ax4.set_ylabel('Jet diameter (mm)')
-    ax4.set_title('Jet diameter')
+    ax4.grid()
+    ax4.set_xlim(0, 0.02*height)
+    fig4.set_size_inches(6, 4)
+    fig4.savefig(fname='jet_diameter_edges.pgf', bbox_inches='tight')
     print(jet_diameter[5])
 
     # working out average jet diameter from zoomed in plot
