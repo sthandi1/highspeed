@@ -468,7 +468,7 @@ def plotting_4file(file1, file2, file3, file4):
     savgol_file1_axi = savgol_filter(file1_axi, 101, 2)
     savgol_file2_axi = savgol_filter(file2_axi, 101, 2)
     savgol_file3_axi = savgol_filter(file3_axi, 101, 2)
-    savgol_file4_axi = savgol_filter(file4_axi, 1001, 2)
+    savgol_file4_axi = savgol_filter(file4_axi, 101, 2)
 
     savgol_file1_as = savgol_filter(file1_as, 101, 2)
     savgol_file2_as = savgol_filter(file2_as, 101, 2)
