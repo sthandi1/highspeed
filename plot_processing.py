@@ -519,7 +519,7 @@ def plotting_4file(file1, file2, file3, file4):
 
 
 def plotting_1file(file1):
-    # load the two files
+    # load the file
     freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
                                                         unpack=True)
 
