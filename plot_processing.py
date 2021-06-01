@@ -576,3 +576,4 @@ def example_curve_fit(filename):
     
     fig, ax = plt.subplots()
     ax.plot(modelling_ts, modelling_amps)
+    ax.set_xlabel('$\\frac{a}{a}$')
