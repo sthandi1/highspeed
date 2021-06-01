@@ -556,18 +556,20 @@ def growth_rate(filenames, time_model=drop_equation):
             loc9_diameter_amp[minimum_location]])/diameter_a0[minimum_location]
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(z_times, amps, 'o')
+    ax1.plot(z_times, amps, 'o', label='Experimental amplitudes')
 
     modelling_ts = np.linspace(0, 0.02, 1000)
     modelling_amps = (model_growth_rate(modelling_ts, diameter_a0[minimum_location],
                                        diameter_growth_rates[minimum_location]))/diameter_a0[minimum_location]
 
-    ax1.plot(modelling_ts, modelling_amps)
+    ax1.plot(modelling_ts, modelling_amps, label='Curve fit')
     ax1.set_xlabel("Modelled time (seconds)")
-    ax1.set_ylabel("$\frac{a}{a_0}$")
+    ax1.set_ylabel('$\\frac{a}{a_0}$')
     ax1.set_xlim(0, 0.02)
     ax1.set_ylim(1, 3.5)
-    
+    ax1.grid()
+    ax1.legend()
+
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, diameter_errs, '.')
     ax2.set_xlim(0, 1000)
