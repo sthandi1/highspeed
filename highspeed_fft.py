@@ -544,24 +544,30 @@ def growth_rate(filenames, time_model=drop_equation):
     print("minimum error frequency:", freqs[minimum_location])
 
     # 1253 is the location of 290.04 Hz
-    amps = [loc0_diameter_amp[600], loc1_diameter_amp[600],
-            loc2_diameter_amp[600], loc3_diameter_amp[600],
-            loc4_diameter_amp[600], loc5_diameter_amp[600],
-            loc6_diameter_amp[600], loc7_diameter_amp[600],
-            loc8_diameter_amp[600], loc9_diameter_amp[600]]
+    amps = np.array([loc0_diameter_amp[minimum_location],
+            loc1_diameter_amp[minimum_location],
+            loc2_diameter_amp[minimum_location],
+            loc3_diameter_amp[minimum_location],
+            loc4_diameter_amp[minimum_location],
+            loc5_diameter_amp[minimum_location],
+            loc6_diameter_amp[minimum_location],
+            loc7_diameter_amp[minimum_location],
+            loc8_diameter_amp[minimum_location],
+            loc9_diameter_amp[minimum_location]])/diameter_a0[minimum_location]
 
     fig1, ax1 = plt.subplots()
     ax1.plot(z_times, amps, 'o')
 
     modelling_ts = np.linspace(0, 0.02, 1000)
-    modelling_amps = model_growth_rate(modelling_ts, diameter_a0[600],
-                                       diameter_growth_rates[600])
+    modelling_amps = (model_growth_rate(modelling_ts, diameter_a0[minimum_location],
+                                       diameter_growth_rates[minimum_location]))/diameter_a0[minimum_location]
 
     ax1.plot(modelling_ts, modelling_amps)
-    ax1.set_xlabel("z time (seconds)")
-    ax1.set_ylabel("amplitude (m)?")
-    ax1.set_title("An example plot")
-
+    ax1.set_xlabel("Modelled time (seconds)")
+    ax1.set_ylabel("$\frac{a}{a_0}$")
+    ax1.set_xlim(0, 0.02)
+    ax1.set_ylim(1, 3.5)
+    
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, diameter_errs, '.')
     ax2.set_xlim(0, 1000)
