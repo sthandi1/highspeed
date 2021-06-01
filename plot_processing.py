@@ -10,7 +10,7 @@ Created on Tue Feb  2 17:07:04 2021
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from highspeed_fft import velocity_calculator, weber_velocity, file_id
+from highspeed_fft import model_growth_rate, velocity_calculator, weber_velocity, file_id
 from scipy.special import i0, i1
 from scipy.signal import savgol_filter
 
@@ -564,3 +564,15 @@ def plotting_1file(file1):
 
     print(len(freqs))
     print(len(file1_axi_savgol_1001))
+
+
+def example_curve_fit(filename):
+    (freqs, diameter_a0, diameter_growth_rates, diameter_errs, centroid_a0,
+     centroid_growth_rates, centroid_errs) = np.loadtxt(filename, delimiter=',',
+                                                       unpack=True)
+    modelling_ts = np.linspace(0, 0.02, 1000)
+    modelling_amps = model_growth_rate(modelling_ts, diameter_a0[600],
+                                       diameter_growth_rates[600])
+    
+    fig, ax = plt.subplots()
+    ax.plot(modelling_ts, modelling_amps)
