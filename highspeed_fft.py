@@ -562,13 +562,16 @@ def growth_rate(filenames, time_model=drop_equation):
     modelling_amps = (model_growth_rate(modelling_ts, diameter_a0[minimum_location],
                                        diameter_growth_rates[minimum_location]))/diameter_a0[minimum_location]
 
-    ax1.plot(modelling_ts, modelling_amps, label='Curve fit')
-    ax1.set_xlabel("Modelled time (seconds)")
-    ax1.set_ylabel('$\\frac{a}{a_0}$')
+    ax1.plot(modelling_ts, modelling_amps, label='Curve fit ($a=a_0e^{\omega t}$)')
+    ax1.set_xlabel("Modelled time (seconds)", fontsize=12)
+    ax1.set_ylabel('$\\frac{a}{a_0}$', fontsize=16)
     ax1.set_xlim(0, 0.02)
     ax1.set_ylim(1, 3.5)
     ax1.grid()
     ax1.legend()
+    ax1.tick_params(axis='both', labelsize=8)
+    fig1.set_size_inches(5.5, 4)
+    fig1.savefig(fname='curve_fit_example.pgf', bbox_inches='tight')
 
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, diameter_errs, '.')
