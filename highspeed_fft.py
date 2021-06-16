@@ -558,11 +558,12 @@ def growth_rate(filenames, time_model=drop_equation):
     ax1.plot(z_times, amps, 'o', label='Experimental amplitudes')
 
     modelling_ts = np.linspace(0, 0.02, 1000)
-    modelling_amps = (model_growth_rate(modelling_ts,
-                                        diameter_a0[minimum_location],
-                                        diameter_growth_rates[minimum_location]))/diameter_a0[minimum_location]
+    modelamps_r = (model_growth_rate(modelling_ts,
+                                     diameter_a0[minimum_location],
+                                     diameter_growth_rates[minimum_location]))
+    model_amps = modelamps_r/diameter_a0[minimum_location]
 
-    ax1.plot(modelling_ts, modelling_amps,
+    ax1.plot(modelling_ts, model_amps,
              label='Curve fit ($a=a_0e^{\\omega t}$)')
     ax1.set_xlabel("Modelled time (seconds)", fontsize=12)
     ax1.set_ylabel('$\\frac{a}{a_0}$', fontsize=16)
@@ -580,10 +581,6 @@ def growth_rate(filenames, time_model=drop_equation):
     ax2.set_title('Errors')
     ax2.set_xlabel("Frequencies")
     ax2.set_ylabel("Standard deviation of curve fit")
-
-    freqs_1000 = freqs[4315]
-
-    avg_err_1000 = diameter_errs[0:4315].mean()
 
     print(freqs[600])
 
