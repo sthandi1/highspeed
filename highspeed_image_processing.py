@@ -92,7 +92,7 @@ def single_image_thresh_data(inputFile, thresh, z_location):
     width = movie.width
     image = movie[0]
     print(width)
-    
+
     # apply binary threshold where below threshold is zero and above is max
     _, th1 = cv2.threshold(image, thresh, 4096, cv2.THRESH_BINARY)
 
@@ -673,9 +673,9 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
             print("Progress: {:.1f}%".format(z_loc*100/height))
         for pixel in range(width):
             # for loop goes through the threshold array at the given
-            # downstream 'z' position (z_location) and then cycles across in the
-            # 'x' direction until it finds a zero. This zero indicate the edge of
-            # the jet.
+            # downstream 'z' position (z_location) and then cycles across in
+            # the 'x' direction until it finds a zero. This zero indicate the
+            # edge of the jet.
             if th1[z_loc, pixel] == 0:
                 # assign the pixel to a variable
                 edges[z_loc, 1] = pixel
@@ -686,14 +686,14 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
         for pixel in range(width):
             # invert the loop so it counts down instead of up
             inv = width - pixel - 1
-            # This for loop finds the right edge at z_location and assigns it to a
-            # variable
+            # This for loop finds the right edge at z_location and assigns it
+            # to a variable
             if th1[z_loc, inv] == 0:
                 # assigning the pixel to a variable
                 edges[z_loc, 2] = inv
                 # exit the for loop once edge has been found
                 break
-    
+
     # plotting the edges
     fig3, ax3 = plt.subplots()
     ax3.plot(edges[:, 1], edges[:, 0], color='black')
@@ -731,7 +731,7 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
 
     # looking at right edges at zoomed in location
     fig6, ax6 = plt.subplots()
-    ax6.plot(edges[5:,0], edges[5:, 2])
+    ax6.plot(edges[5:, 0], edges[5:, 2])
     ax6.set_xlabel('Z location (pixels)')
     ax6.set_ylabel('Right edge location')
     ax6.set_title('Right edge')
@@ -780,8 +780,6 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     ax8.set_xlabel('Z location (pixels)')
     ax8.set_ylabel('Left edge location (pixels)')
 
-
-
     # locating left edges first peak
     left_peak1 = np.where(left_focused == np.max(left_focused))
     left_peak1_loc = left_focused_edges[left_peak1]
@@ -813,13 +811,12 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     ax9.set_title('right edges focused')
     ax9.set_xlabel('Z location (pixels)')
     ax9.set_ylabel('right edge location (pixels)')
-    
+
     fig10, ax10 = plt.subplots()
     ax10.plot(edges[5:, 0], edges[5:, 1], label='left edges')
     ax10.plot(edges[5:, 0], edges[5:, 2], label='right edges')
     ax10.plot(edges[5:, 0], jet_diameter_pixels[5:], label='jet diameter')
     ax10.legend()
-
 
     # finding the first peak of the right edges
     right_peak1 = np.where(right_focused == np.max(right_focused))
@@ -841,5 +838,5 @@ def wavelength_measuring(inputFile, thresh, image_loc=31697):
     right_peak_to_peak = 0.02*(right_peak2_avg-right_peak1_avg)
 
     print('right peak to peak is', right_peak_to_peak)
- 
+
     return peaktopeak, left_peak_to_peak, right_peak_to_peak
