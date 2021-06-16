@@ -11,8 +11,6 @@ import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
 from scipy.signal import savgol_filter
-from scipy.integrate import quad
-import sympy
 
 
 def file_id(filename):
@@ -191,8 +189,6 @@ def drop_equation(u_l, z_locations, weber_number):
     return t
 
 
-
-
 def arai_time_model(u_l, z_locations, weber_number):
     t = (z_locations/u_l)*(1+(2*9.81*z_locations)/(u_l**2))**(-0.5)
     return t
@@ -238,7 +234,7 @@ def zero_event_fixer(filename):
     print("\nAfter fixes")
     print("Left edge zero events:", zero_events_left)
     print("Right edge zero events:", zero_events_right)
-    
+
     fixed_filename = 'fixed'+filename
     np.savetxt(fixed_filename, output_arr, fmt='%d', delimiter=',')
 
@@ -289,7 +285,6 @@ def fft_checking(filename):
     ax2.set_ylabel('Jet centroid location (mm)')
     ax2.set_title('Jet centroid plot')
 
-
     # shifted FFTs
     # Shifted jet diameter plotting
     shifted_jet_diameter = jet_diameter - np.mean(jet_diameter)
@@ -331,8 +326,6 @@ def fft_checking(filename):
 
     print('Number of zero events:', zero_events)
     print("Percentage of total:", zero_events/len(jet_diameter)*100)
-
-    
 
 
 def fft_output(filename):
@@ -545,24 +538,25 @@ def growth_rate(filenames, time_model=drop_equation):
 
     # 1253 is the location of 290.04 Hz
     amps = np.array([loc0_diameter_amp[minimum_location],
-            loc1_diameter_amp[minimum_location],
-            loc2_diameter_amp[minimum_location],
-            loc3_diameter_amp[minimum_location],
-            loc4_diameter_amp[minimum_location],
-            loc5_diameter_amp[minimum_location],
-            loc6_diameter_amp[minimum_location],
-            loc7_diameter_amp[minimum_location],
-            loc8_diameter_amp[minimum_location],
-            loc9_diameter_amp[minimum_location]])/diameter_a0[minimum_location]
+                     loc1_diameter_amp[minimum_location],
+                     loc3_diameter_amp[minimum_location],
+                     loc2_diameter_amp[minimum_location],
+                     loc4_diameter_amp[minimum_location],
+                     loc5_diameter_amp[minimum_location],
+                     loc6_diameter_amp[minimum_location],
+                     loc7_diameter_amp[minimum_location],
+                     loc8_diameter_amp[minimum_location],
+                     loc9_diameter_amp[minimum_location]])/diameter_a0[minimum_location]
 
     fig1, ax1 = plt.subplots()
     ax1.plot(z_times, amps, 'o', label='Experimental amplitudes')
 
     modelling_ts = np.linspace(0, 0.02, 1000)
     modelling_amps = (model_growth_rate(modelling_ts, diameter_a0[minimum_location],
-                                       diameter_growth_rates[minimum_location]))/diameter_a0[minimum_location]
+                                        diameter_growth_rates[minimum_location]))/diameter_a0[minimum_location]
 
-    ax1.plot(modelling_ts, modelling_amps, label='Curve fit ($a=a_0e^{\omega t}$)')
+    ax1.plot(modelling_ts, modelling_amps,
+             label='Curve fit ($a=a_0e^{\\omega t}$)')
     ax1.set_xlabel("Modelled time (seconds)", fontsize=12)
     ax1.set_ylabel('$\\frac{a}{a_0}$', fontsize=16)
     ax1.set_xlim(0, 0.02)
@@ -583,7 +577,7 @@ def growth_rate(filenames, time_model=drop_equation):
     freqs_1000 = freqs[4315]
 
     avg_err_1000 = diameter_errs[0:4315].mean()
-    
+
     print(freqs[600])
 
     w = savgol_filter(diameter_growth_rates, 1001, 2)
@@ -606,4 +600,3 @@ def growth_rate(filenames, time_model=drop_equation):
     for i in range(len(loc0_diameter_amp)):
         k = i*(2*np.pi)/(delx*116495)
         Ks.append(k*1e-3)
-
