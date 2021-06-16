@@ -10,7 +10,8 @@ Created on Tue Feb  2 17:07:04 2021
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from highspeed_fft import model_growth_rate, velocity_calculator, weber_velocity, file_id
+from highspeed_fft import (model_growth_rate, velocity_calculator,
+                           weber_velocity, file_id)
 from scipy.special import i0, i1
 from scipy.signal import savgol_filter
 
@@ -95,9 +96,7 @@ def rayleigh_moro():
     ax.set_xlim(0, 1.2)
 
     wavelength = 2*np.pi/k
-    u_g = weber_velocity(5.22, 2940)
     u_l = moro_re_calc(2940)
-    u_avg = (u_l+u_g)/2
     freq = u_l/wavelength
 
     fig1, ax1 = plt.subplots()
@@ -119,15 +118,13 @@ def plotting_generic(file1, file2, file3, file4):
     freqs, _, avg_vel, _, _, _, _ = np.loadtxt(file3, delimiter=',',
                                                unpack=True)
     freqs, _, aero_vel, _, _, _, _ = np.loadtxt(file4, delimiter=',',
-                                               unpack=True)
+                                                unpack=True)
 
     k = np.linspace(0, 1000, 10000)
     sigma = 0.07
     a = 1e-3
     rho = 1000
     w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
-    normaliser = np.sqrt(sigma/rho*a**3)
-    normal_w = w_squared**0.5/normaliser
     sqrt_w = np.sqrt(w_squared)
 
     wavelength = 2*np.pi/k
@@ -181,14 +178,10 @@ def plotting_ra(file1):
     a = 1e-3
     rho = 1000
     w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
-    normaliser = np.sqrt(sigma/rho*a**3)
-    normal_w = w_squared**0.5/normaliser
     sqrt_w = np.sqrt(w_squared)
 
     wavelength = 2*np.pi/k
-    u_g = weber_velocity(5.22, 1551)
     u_l = velocity_calculator(1551)
-    u_avg = (u_l+u_g)/2 - 4
     freq_ra = u_l/wavelength
 
     fig, ax = plt.subplots()
@@ -225,21 +218,6 @@ def plotting_moro(file1):
 
     freqs, _, morozumi, _, _, _, _ = np.loadtxt(file1, delimiter=',',
                                                 unpack=True)
-
-    k = np.linspace(0, 1000, 10000)
-    sigma = 0.07
-    a = 1e-3
-    rho = 1000
-    w_squared = ((sigma*k)/(rho*a**2))*(1-k**2*a**2)*(i1(k*a)/i0(k*a))
-    normaliser = np.sqrt(sigma/rho*a**3)
-    normal_w = w_squared**0.5/normaliser
-    sqrt_w = np.sqrt(w_squared)
-
-    wavelength = 2*np.pi/k
-    u_g = weber_velocity(5.22, 1551)
-    u_l = velocity_calculator(1551)
-    u_avg = (u_l+u_g)/2 - 4
-    freq_ra = u_l/wavelength
 
     fig, ax = plt.subplots()
     ax.plot(freqs, morozumi, label='Morozumi replica Re=2940, We=5.22')
@@ -282,7 +260,7 @@ def plotting_arai(file1):
     """
 
     freqs, _, control, _, _, _, _ = np.loadtxt(file1, delimiter=',',
-                                                unpack=True)
+                                               unpack=True)
 
     k = np.linspace(0, 3000, 10000)
     sigma = 0.07
@@ -298,12 +276,13 @@ def plotting_arai(file1):
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh')
-    ax.plot(wavenumber*a, savgol_control, label='Experimental (average velocity)')
+    ax.plot(wavenumber*a, savgol_control,
+            label='Experimental (average velocity)')
     ax.set_xlim(0, 7)
     ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
-    ax.set_ylabel('$\omega$', fontsize=16)
+    ax.set_ylabel('$\\omega$', fontsize=16)
 
 
 def plotting_measured_wavelength(file1, file2, file3):
@@ -341,7 +320,7 @@ def plotting_measured_wavelength(file1, file2, file3):
     ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
-    ax.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax.grid()
     fig.set_size_inches(6, 4.5)
     fig.savefig(fname='time_models.pgf', bbox_inches='tight')
@@ -358,7 +337,7 @@ def plotting_2file(file1, file2):
     file2_axi_savgol = savgol_filter(file2_axi, 1001, 2)
 
     fig, ax = plt.subplots()
-    #ax.plot(freqs, file1_axi, label='file1')
+    ax.plot(freqs, file1_axi, label='file1')
     ax.plot(freqs, file2_axi, label='file2')
     ax.set_title('Standard data')
     ax.legend()
@@ -402,7 +381,7 @@ def plotting_3file(file1, file2, file3):
     ax.plot(freqs, file2_axi_savgol, label='Threshold=1000')
     ax.plot(freqs, file3_axi_savgol, label='Threshold=1400')
     ax.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax.grid()
     ax.tick_params(axis='both', labelsize=12)
     ax.legend()
@@ -414,7 +393,7 @@ def plotting_3file(file1, file2, file3):
     ax1.plot(freqs, file2_axi_savgol, label='Threshold=1000')
     ax1.plot(freqs, file3_axi_savgol, label='Threshold=1400')
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax1.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.tick_params(axis='both', labelsize=12)
     ax1.legend()
     ax1.set_xlim(20, 175)
@@ -427,8 +406,10 @@ def plotting_3file(file1, file2, file3):
     fig1.savefig(fname='threshold_comparison_savgol_101_zoom.pgf',
                  bbox_inches='tight')
 
-    thresh_800_diff = 100*(file2_axi_savgol - file1_axi_savgol)/file2_axi_savgol
-    thresh_1400_diff = 100*(file2_axi_savgol - file3_axi_savgol)/file2_axi_savgol
+    thresh_800_diff = 100*(file2_axi_savgol
+                           - file1_axi_savgol)/file2_axi_savgol
+    thresh_1400_diff = 100*(file2_axi_savgol
+                            - file3_axi_savgol)/file2_axi_savgol
 
     fig2, ax2 = plt.subplots()
     ax2.plot(freqs, thresh_800_diff)
@@ -483,7 +464,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 110)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax1.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.grid()
     ax1.tick_params(axis='both', labelsize=12)
     ax1.legend()
@@ -502,14 +483,13 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.set_xlim(0, 850)
     ax2.set_ylim(0, 70)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax2.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.grid()
     ax2.tick_params(axis='both', labelsize=12)
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
     fig2.set_size_inches(6, 4.5)
     fig2.savefig(fname=fig2filename, bbox_inches='tight')
-
 
 
 def plotting_1file(file1):
@@ -526,7 +506,7 @@ def plotting_1file(file1):
     ax.set_xlim(0, 1000)
     ax.set_ylim(0, 90)
     ax.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax.tick_params(axis='both', labelsize=12)
     fig.set_size_inches(6, 4)
     fig.savefig(fname='unfiltered_example.pgf', bbox_inches='tight')
@@ -536,7 +516,7 @@ def plotting_1file(file1):
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 90)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax1.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.tick_params(axis='both', labelsize=12)
     fig1.set_size_inches(6, 4)
     fig1.savefig(fname='savgol_11_example.pgf', bbox_inches='tight')
@@ -547,7 +527,7 @@ def plotting_1file(file1):
     ax2.set_xlim(0, 1000)
     ax2.set_ylim(0, 90)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax2.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.tick_params(axis='both', labelsize=12)
     fig2.set_size_inches(6, 4)
     fig2.savefig(fname='savgol_101_example.pgf', bbox_inches='tight')
@@ -557,7 +537,7 @@ def plotting_1file(file1):
     ax3.set_xlim(0, 1000)
     ax3.set_ylim(0, 90)
     ax3.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax3.set_ylabel('$\omega$ (1/s)', fontsize=16)
+    ax3.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax3.tick_params(axis='both', labelsize=12)
     fig3.set_size_inches(6, 4)
     fig3.savefig(fname='savgol_1001_example.pgf', bbox_inches='tight')
@@ -568,12 +548,13 @@ def plotting_1file(file1):
 
 def example_curve_fit(filename):
     (freqs, diameter_a0, diameter_growth_rates, diameter_errs, centroid_a0,
-     centroid_growth_rates, centroid_errs) = np.loadtxt(filename, delimiter=',',
-                                                       unpack=True)
+     centroid_growth_rates, centroid_errs) = np.loadtxt(filename,
+                                                        delimiter=',',
+                                                        unpack=True)
     modelling_ts = np.linspace(0, 0.02, 1000)
     modelling_amps = model_growth_rate(modelling_ts, diameter_a0[600],
                                        diameter_growth_rates[600])
-    
+
     fig, ax = plt.subplots()
     ax.plot(modelling_ts, modelling_amps)
     ax.set_xlabel('$\\frac{a}{a}$')
