@@ -185,7 +185,11 @@ def drop_equation(u_l, z_locations, weber_number):
     u_g = weber_velocity(weber_number, re_exp)
     tau = rho_l*d**2/(18*mu_g)
     A = 0.0183*rho_g*d/(mu_g*tau)
-    t = (-u_l+2*A*u_g*z_locations+np.sqrt((u_l-2*A*u_g*z_locations)**2-4*(A*u_g+g)*(A*z_locations**2-z_locations)))/(2*A*u_g+2*g)
+    numerator = (-u_l+2*A*u_g*z_locations
+                 + np.sqrt((u_l-2*A*u_g*z_locations)**2
+                           - 4*(A*u_g+g)*(A*z_locations**2-z_locations)))
+    denominator = (2*A*u_g+2*g)
+    t = numerator/denominator
     return t
 
 
@@ -537,22 +541,25 @@ def growth_rate(filenames, time_model=drop_equation):
     print("minimum error frequency:", freqs[minimum_location])
 
     # 1253 is the location of 290.04 Hz
-    amps = np.array([loc0_diameter_amp[minimum_location],
-                     loc1_diameter_amp[minimum_location],
-                     loc3_diameter_amp[minimum_location],
-                     loc2_diameter_amp[minimum_location],
-                     loc4_diameter_amp[minimum_location],
-                     loc5_diameter_amp[minimum_location],
-                     loc6_diameter_amp[minimum_location],
-                     loc7_diameter_amp[minimum_location],
-                     loc8_diameter_amp[minimum_location],
-                     loc9_diameter_amp[minimum_location]])/diameter_a0[minimum_location]
+    amps_reg = np.array([loc0_diameter_amp[minimum_location],
+                         loc1_diameter_amp[minimum_location],
+                         loc3_diameter_amp[minimum_location],
+                         loc2_diameter_amp[minimum_location],
+                         loc4_diameter_amp[minimum_location],
+                         loc5_diameter_amp[minimum_location],
+                         loc6_diameter_amp[minimum_location],
+                         loc7_diameter_amp[minimum_location],
+                         loc8_diameter_amp[minimum_location],
+                         loc9_diameter_amp[minimum_location]])
+
+    amps = amps_reg/diameter_a0[minimum_location]
 
     fig1, ax1 = plt.subplots()
     ax1.plot(z_times, amps, 'o', label='Experimental amplitudes')
 
     modelling_ts = np.linspace(0, 0.02, 1000)
-    modelling_amps = (model_growth_rate(modelling_ts, diameter_a0[minimum_location],
+    modelling_amps = (model_growth_rate(modelling_ts,
+                                        diameter_a0[minimum_location],
                                         diameter_growth_rates[minimum_location]))/diameter_a0[minimum_location]
 
     ax1.plot(modelling_ts, modelling_amps,
