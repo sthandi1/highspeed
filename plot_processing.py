@@ -350,7 +350,7 @@ def plotting_2file(file1, file2):
     ax1.set_title('Savgol')
     ax1.legend()
     ax1.set_xlim(0, 1000)
-    ax1.set_ylim(0, 70)
+    ax1.set_ylim(0, 140)
 
     fig2, ax2 = plt.subplots()
     file1_as_savgol = savgol_filter(file1_as, 101, 2)
@@ -372,50 +372,21 @@ def plotting_3file(file1, file2, file3):
     freqs, _, file3_axi, _, _, _, _ = np.loadtxt(file3, delimiter=',',
                                                  unpack=True)
 
-    file1_axi_savgol = savgol_filter(file1_axi, 101, 2)
-    file2_axi_savgol = savgol_filter(file2_axi, 101, 2)
-    file3_axi_savgol = savgol_filter(file3_axi, 101, 2)
+    file1_axi_savgol = savgol_filter(file1_axi, 1001, 2)
+    file2_axi_savgol = savgol_filter(file2_axi, 1001, 2)
+    file3_axi_savgol = savgol_filter(file3_axi, 1001, 2)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi_savgol, label='Threshold=800')
-    ax.plot(freqs, file2_axi_savgol, label='Threshold=1000')
-    ax.plot(freqs, file3_axi_savgol, label='Threshold=1400')
+    ax.plot(freqs, file1_axi_savgol, label='file1')
+    ax.plot(freqs, file2_axi_savgol, label='file2')
+    ax.plot(freqs, file3_axi_savgol, label='file3')
     ax.set_xlabel('$f$ (Hz)', fontsize=16)
     ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax.grid()
     ax.tick_params(axis='both', labelsize=12)
     ax.legend()
-    ax.set_xlim(0, 700)
-    ax.set_ylim(0, 70)
-
-    fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, file1_axi_savgol, label='Threshold=800')
-    ax1.plot(freqs, file2_axi_savgol, label='Threshold=1000')
-    ax1.plot(freqs, file3_axi_savgol, label='Threshold=1400')
-    ax1.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
-    ax1.tick_params(axis='both', labelsize=12)
-    ax1.legend()
-    ax1.set_xlim(20, 175)
-    ax1.set_ylim(0, 25)
-    ax1.grid()
-    fig.set_size_inches(6, 4)
-    fig1.set_size_inches(6, 4)
-    fig.savefig(fname='threshold_comparison_savgol_101.pgf',
-                bbox_inches='tight')
-    fig1.savefig(fname='threshold_comparison_savgol_101_zoom.pgf',
-                 bbox_inches='tight')
-
-    thresh_800_diff = 100*(file2_axi_savgol
-                           - file1_axi_savgol)/file2_axi_savgol
-    thresh_1400_diff = 100*(file2_axi_savgol
-                            - file3_axi_savgol)/file2_axi_savgol
-
-    fig2, ax2 = plt.subplots()
-    ax2.plot(freqs, thresh_800_diff)
-    ax2.plot(freqs, thresh_1400_diff)
-    ax2.set_xlim(0, 700)
-    ax2.set_ylim(0, 100)
+    ax.set_xlim(0, 4000)
+    ax.set_ylim(0, 140)
 
 
 def plotting_4file(file1, file2, file3, file4):
@@ -446,10 +417,10 @@ def plotting_4file(file1, file2, file3, file4):
     ax.set_ylabel('Growth rate (1/s)')
     ax.legend()
 
-    savgol_file1_axi = savgol_filter(file1_axi, 201, 2)
-    savgol_file2_axi = savgol_filter(file2_axi, 201, 2)
-    savgol_file3_axi = savgol_filter(file3_axi, 201, 2)
-    savgol_file4_axi = savgol_filter(file4_axi, 201, 2)
+    savgol_file1_axi = savgol_filter(file1_axi, 1001, 2)
+    savgol_file2_axi = savgol_filter(file2_axi, 1001, 2)
+    savgol_file3_axi = savgol_filter(file3_axi, 1001, 2)
+    savgol_file4_axi = savgol_filter(file4_axi, 1001, 2)
 
     savgol_file1_as = savgol_filter(file1_as, 301, 2)
     savgol_file2_as = savgol_filter(file2_as, 301, 2)
@@ -457,12 +428,16 @@ def plotting_4file(file1, file2, file3, file4):
     savgol_file4_as = savgol_filter(file4_as, 301, 2)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, savgol_file1_axi, label='$RR_G=1.5$')
-    ax1.plot(freqs, savgol_file2_axi, label='$RR_G=3.9$')
-    ax1.plot(freqs, savgol_file3_axi, label='$RR_G=6.3$')
-    ax1.plot(freqs, savgol_file4_axi, label='$RR_G=8.7$')
-    ax1.set_xlim(0, 1000)
-    ax1.set_ylim(0, 110)
+    ax1.plot(freqs, savgol_file1_axi,
+             label='$RR_G=8.7$, $\\mathrm{We}_\\mathrm{g}=5.22$')
+    ax1.plot(freqs, savgol_file2_axi,
+             label='$RR_G=1.5$, $\\mathrm{We}_\\mathrm{g}=11.6$')
+    ax1.plot(freqs, savgol_file3_axi,
+             label='$RR_G=3.9$, $\\mathrm{We}_\\mathrm{g}=11.6$')
+    ax1.plot(freqs, savgol_file4_axi,
+             label='$RR_G=6.3$, $\\mathrm{We}_\\mathrm{g}=11.6$')
+    ax1.set_xlim(0, 6000)
+    ax1.set_ylim(0, 160)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.grid()
@@ -470,8 +445,10 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.legend()
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
-    fig1.set_size_inches(6, 4.5)
-    fig1.savefig(fname=fig1filename, bbox_inches='tight')
+    print(fig1filename)
+    fig1.set_size_inches(6, 5.5)
+    fig1.savefig(fname='We_5_22_11_6_recess_comparison.pgf',
+                 bbox_inches='tight')
 
     # ASYMMETRIC PLOTS
 
@@ -480,16 +457,15 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.plot(freqs, savgol_file2_as, label='$RR_G=3.9$')
     ax2.plot(freqs, savgol_file3_as, label='$RR_G=6.3$')
     ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$')
-    ax2.set_xlim(0, 850)
-    ax2.set_ylim(0, 70)
+    ax2.set_xlim(0, 2000)
+    ax2.set_ylim(0, 140)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
     ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.grid()
     ax2.tick_params(axis='both', labelsize=12)
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
-    fig2.set_size_inches(6, 4.5)
-    fig2.savefig(fname=fig2filename, bbox_inches='tight')
+    print(fig2filename)
 
 
 def plotting_1file(file1):
@@ -558,3 +534,15 @@ def example_curve_fit(filename):
     fig, ax = plt.subplots()
     ax.plot(modelling_ts, modelling_amps)
     ax.set_xlabel('$\\frac{a}{a}$')
+
+
+def morozumi_comparison(morozumi_axi, morozumi_as, experimental_file):
+    freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(experimental_file,
+                                                        delimiter=',',
+                                                        unpack=True)
+    morozumi_axi_freqs, moro_axi_growth_rates = np.load(morozumi_axi,
+                                                        delimiter=',',
+                                                        unpack=True)
+    morozumi_as_freqs, moro_as_growth_rates = np.load(morozumi_as,
+                                                      delimiter=',',
+                                                      unpack=True)
