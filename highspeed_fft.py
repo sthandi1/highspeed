@@ -6,11 +6,14 @@ Created on Tue Jan 19 19:08:38 2021
 @author: samvirthandi
 """
 
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import rfft, rfftfreq
 from scipy.optimize import curve_fit
 from scipy.signal import savgol_filter
+
+os.environ['PATH'] = os.environ['PATH'] + ':/Library/TeX/texbin'
 
 
 def file_id(filename):
