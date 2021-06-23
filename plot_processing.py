@@ -540,9 +540,23 @@ def morozumi_comparison(morozumi_axi, morozumi_as, experimental_file):
     freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(experimental_file,
                                                         delimiter=',',
                                                         unpack=True)
-    morozumi_axi_freqs, moro_axi_growth_rates = np.load(morozumi_axi,
-                                                        delimiter=',',
-                                                        unpack=True)
-    morozumi_as_freqs, moro_as_growth_rates = np.load(morozumi_as,
-                                                      delimiter=',',
-                                                      unpack=True)
+    morozumi_axi_freqs, moro_axi_growth_rates = np.loadtxt(morozumi_axi,
+                                                           delimiter=',',
+                                                           unpack=True)
+    morozumi_as_freqs, moro_as_growth_rates = np.loadtxt(morozumi_as,
+                                                         delimiter=',',
+                                                         unpack=True)
+    savgol_axi = savgol_filter(file1_axi, 101, 2)
+    savgol_as = savgol_filter(file1_as, 101, 2)
+
+    fig, ax = plt.subplots()
+    ax.plot(freqs, savgol_axi, label='experimental')
+    ax.plot(morozumi_axi_freqs, moro_axi_growth_rates, label='morozumi')
+    ax.set_xlim(0, 800)
+    ax.set_ylim(0, 50)
+    ax.legend()
+
+    fig1, ax1 = plt.subplots()
+    ax1.plot(freqs, savgol_as, label='experimental')
+    ax1.plot(morozumi_axi_freqs, moro_as_growth_rates, label='morozumi')
+    ax1.legend()
