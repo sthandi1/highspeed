@@ -386,7 +386,7 @@ def growth_rate(filenames, time_model=drop_equation):
     # file ID
 
     print("storing casename and Reynolds number\n\n")
-    casename, Re, We = file_id(filenames[0])
+    casename, Re, We = file_id(filenames[1])
 
     print("\nNow calculating FFTs\n\n")
     # calculating ffts
