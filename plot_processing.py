@@ -606,6 +606,7 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax.set_ylabel('$\\omega$ (1/s)', fontsize=14)
     ax.tick_params(axis='both', labelsize=12)
     fig.set_size_inches(6, 6)
+    fig.savefig(fname='morozumi_axi_comparison.pgf', bbox_inches='tight')
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs_5_22, savgol_as_5_22,
