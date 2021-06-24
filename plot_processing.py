@@ -437,7 +437,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax1.plot(freqs, savgol_file4_axi,
              label='$RR_G=6.3$, $\\mathrm{We}_\\mathrm{g}=11.6$')
     ax1.set_xlim(0, 6000)
-    ax1.set_ylim(0, 160)
+    ax1.set_ylim(-60, 60)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.grid()
@@ -446,9 +446,7 @@ def plotting_4file(file1, file2, file3, file4):
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
     print(fig1filename)
-    fig1.set_size_inches(6, 5.5)
-    fig1.savefig(fname='We_5_22_11_6_recess_comparison.pgf',
-                 bbox_inches='tight')
+
 
     # ASYMMETRIC PLOTS
 
