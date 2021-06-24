@@ -597,7 +597,7 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
             label='Morozumi and Fukai $\\mathrm{We}_\\mathrm{g}=22.9$',
             marker='s', markevery=10, markersize=7, color='black')
     ax.plot(morozumi_axi_52_7_freqs, moro_axi_52_7_growth_rates,
-            label='Morozumi and Fukai 52.7 data', marker='^', markevery=10,
+            label='Morozumi and Fukai $\\mathrm{We}_\\mathrm{g}=52.7$', marker='^', markevery=10,
             markersize=7, color='black')
     ax.set_xlim(0, 800)
     ax.set_ylim(0, 200)
