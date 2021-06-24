@@ -605,14 +605,19 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax.tick_params(axis='both', labelsize=12)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs_5_22, savgol_as_5_22, label='5.22 Experimental data')
-    ax1.plot(freqs_22_9, savgol_as_22_9, label='22.9 Experimental data')
+    ax1.plot(freqs_5_22, savgol_as_5_22, label='5.22 Experimental data',
+             color='black', linewidth=1)
+    ax1.plot(freqs_22_9, savgol_as_22_9, label='22.9 Experimental data',
+             color='black', linestyle='dotted', linewidth=1)
     ax1.plot(morozumi_as_5_22_freqs, moro_as_5_22_growth_rates,
-             label='5.22 Morozumi and Fukai data')
+             label='5.22 Morozumi and Fukai data', marker='o', markevery=10,
+             markersize=7, color='black')
     ax1.plot(morozumi_as_22_9_freqs, moro_as_22_9_growth_rates,
-             label='22.9 Morozumi and Fukai data')
+             label='22.9 Morozumi and Fukai data', marker='s', markevery=10,
+             markersize=7, color='black')
     ax1.plot(morozumi_as_52_7_freqs, moro_as_52_7_growth_rates,
-             label='52.7 Morozumi and Fukai data')
+             label='52.7 Morozumi and Fukai data', marker='^', markevery=10,
+             markersize=7, color='black')
     ax1.legend()
     ax1.set_xlim(0, 800)
     ax1.set_ylim(0, 200)
