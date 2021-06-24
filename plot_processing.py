@@ -538,6 +538,7 @@ def example_curve_fit(filename):
 
 def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
                         morozumi_axi_22_9, morozumi_as_22_9,
+                        morozumi_axi_52_7, morozumi_as_52_7,
                         experimental_file_5_22, experimental_file_22_9):
     # loading the 5.22 experimental file
     (freqs_5_22, _, exp_5_22_axi, _, _,
@@ -563,6 +564,14 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     (morozumi_as_22_9_freqs,
      moro_as_22_9_growth_rates) = np.loadtxt(morozumi_as_22_9,
                                              delimiter=',', unpack=True)
+    # loading the morozumi axisymmetric 52.7 data file
+    (morozumi_axi_52_7_freqs,
+     moro_axi_52_7_growth_rates) = np.loadtxt(morozumi_axi_52_7,
+                                              delimiter=',', unpack=True)
+    # loading the morozumi asymmteric 52.7 data file
+    (morozumi_as_52_7_freqs,
+     moro_as_52_7_growth_rates) = np.loadtxt(morozumi_as_52_7,
+                                             delimiter=',', unpack=True)
     # performing savgol filtering on both the axisymmetric and asymmetric 5.22
     # experimental files
     savgol_axi_5_22 = savgol_filter(exp_5_22_axi, 101, 2)
@@ -576,15 +585,18 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     # setting up the plots
     fig, ax = plt.subplots()
     ax.plot(freqs_5_22, savgol_axi_5_22, label='5.22 Experimental data',
-            marker='o', markevery=100, markersize=8, color='black')
+            color='black', linewidth=1)
     ax.plot(freqs_22_9, savgol_axi_22_9, label='22.9 Experimental data',
-            marker='s', markevery=100, markersize=8, color='black')
+            color='black', linestyle='dotted', linewidth=1)
     ax.plot(morozumi_axi_5_22_freqs, moro_axi_5_22_growth_rates,
             label='Morozumi and Fukai 5.22 data', marker='o', markevery=10,
-            markersize=6, color='black', linestyle='dashed')
+            markersize=7, color='black')
     ax.plot(morozumi_axi_22_9_freqs, moro_axi_22_9_growth_rates,
             label='Morozumi and Fukai 22.9 data', marker='s', markevery=10,
-            markersize=6, color='black', linestyle='dashed')
+            markersize=7, color='black')
+    ax.plot(morozumi_axi_52_7_freqs, moro_axi_52_7_growth_rates,
+            label='Morozumi and Fukai 52.7 data', marker='^', markevery=10,
+            markersize=7, color='black')
     ax.set_xlim(0, 800)
     ax.set_ylim(0, 200)
     ax.legend()
@@ -596,9 +608,11 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax1.plot(freqs_5_22, savgol_as_5_22, label='5.22 Experimental data')
     ax1.plot(freqs_22_9, savgol_as_22_9, label='22.9 Experimental data')
     ax1.plot(morozumi_as_5_22_freqs, moro_as_5_22_growth_rates,
-             label='Morozumi and Fukai data')
+             label='5.22 Morozumi and Fukai data')
     ax1.plot(morozumi_as_22_9_freqs, moro_as_22_9_growth_rates,
-             label='Morozumi and Fukai data')
+             label='22.9 Morozumi and Fukai data')
+    ax1.plot(morozumi_as_52_7_freqs, moro_as_52_7_growth_rates,
+             label='52.7 Morozumi and Fukai data')
     ax1.legend()
     ax1.set_xlim(0, 800)
     ax1.set_ylim(0, 200)
