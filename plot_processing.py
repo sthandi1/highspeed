@@ -600,11 +600,12 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
             label='Morozumi and Fukai $\\mathrm{We}_\\mathrm{g}=52.7$',
             marker='^', markevery=10, markersize=7, color='black')
     ax.set_xlim(0, 800)
-    ax.set_ylim(0, 200)
-    ax.legend()
-    ax.set_xlabel('$f$ (Hz)', fontsize=16)
-    ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
+    ax.set_ylim(0, 250)
+    ax.legend(fontsize=8)
+    ax.set_xlabel('$f$ (Hz)', fontsize=14)
+    ax.set_ylabel('$\\omega$ (1/s)', fontsize=14)
     ax.tick_params(axis='both', labelsize=12)
+    fig.set_size_inches(6, 6)
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs_5_22, savgol_as_5_22,
