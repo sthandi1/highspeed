@@ -536,22 +536,23 @@ def example_curve_fit(filename):
     ax.set_xlabel('$\\frac{a}{a}$')
 
 
-def morozumi_comparison(morozumi_axi, morozumi_as, experimental_file):
-    freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(experimental_file,
-                                                        delimiter=',',
-                                                        unpack=True)
-    morozumi_axi_freqs, moro_axi_growth_rates = np.loadtxt(morozumi_axi,
-                                                           delimiter=',',
-                                                           unpack=True)
-    morozumi_as_freqs, moro_as_growth_rates = np.loadtxt(morozumi_as,
-                                                         delimiter=',',
-                                                         unpack=True)
-    savgol_axi = savgol_filter(file1_axi, 101, 2)
-    savgol_as = savgol_filter(file1_as, 101, 2)
+def morozumi_comparison(morozumi_axi_5_22,
+                        morozumi_as_5_22, experimental_file_5_22):
+    (freqs_5_22, _, exp_5_22_axi, _, _,
+     exp_5_22_as, _) = np.loadtxt(experimental_file_5_22,
+                                  delimiter=',', unpack=True)
+    (morozumi_axi_5_22_freqs,
+     moro_axi_5_22_growth_rates) = np.loadtxt(morozumi_axi_5_22,
+                                              delimiter=',', unpack=True)
+    (morozumi_as_5_22_freqs,
+     moro_as_growth_rates) = np.loadtxt(morozumi_as_5_22,
+                                        delimiter=',', unpack=True)
+    savgol_axi_5_22 = savgol_filter(exp_5_22_axi, 101, 2)
+    savgol_as_5_22 = savgol_filter(exp_5_22_as, 101, 2)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, savgol_axi, label='Experimental data')
-    ax.plot(morozumi_axi_freqs, moro_axi_growth_rates,
+    ax.plot(freqs_5_22, savgol_axi_5_22, label='Experimental data')
+    ax.plot(morozumi_axi_5_22_freqs, moro_axi_5_22_growth_rates,
             label='Morozumi and Fukai data')
     ax.set_xlim(0, 800)
     ax.set_ylim(0, 50)
@@ -563,8 +564,8 @@ def morozumi_comparison(morozumi_axi, morozumi_as, experimental_file):
     fig.savefig(fname='morozumi_axi_comparison.pgf', bbox_inches='tight')
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, savgol_as, label='Experimental data')
-    ax1.plot(morozumi_as_freqs, moro_as_growth_rates,
+    ax1.plot(freqs_5_22, savgol_as_5_22, label='Experimental data')
+    ax1.plot(morozumi_as_5_22_freqs, moro_as_growth_rates,
              label='Morozumi and Fukai data')
     ax1.legend()
     ax1.set_xlim(0, 800)
