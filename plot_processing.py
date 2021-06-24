@@ -536,24 +536,51 @@ def example_curve_fit(filename):
     ax.set_xlabel('$\\frac{a}{a}$')
 
 
-def morozumi_comparison(morozumi_axi_5_22,
-                        morozumi_as_5_22, experimental_file_5_22):
+def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
+                        morozumi_axi_22_9, morozumi_as_22_9,
+                        experimental_file_5_22, experimental_file_22_9):
+    # loading the 5.22 experimental file
     (freqs_5_22, _, exp_5_22_axi, _, _,
      exp_5_22_as, _) = np.loadtxt(experimental_file_5_22,
                                   delimiter=',', unpack=True)
+    # loading the 22.9 experimental file
+    (freqs_22_9, _, exp_22_9_axi, _, _,
+     exp_22_9_as, _) = np.loadtxt(experimental_file_22_9,
+                                  delimiter=',', unpack=True)
+    # loading the morozumi axisymmetric 5.22 data file
     (morozumi_axi_5_22_freqs,
      moro_axi_5_22_growth_rates) = np.loadtxt(morozumi_axi_5_22,
                                               delimiter=',', unpack=True)
+    # loading the morozumi asymmteric 5.22 data file
     (morozumi_as_5_22_freqs,
      moro_as_growth_rates) = np.loadtxt(morozumi_as_5_22,
                                         delimiter=',', unpack=True)
+    # loading the morozumi axisymmetric 22.9 data file
+    (morozumi_axi_22_9_freqs,
+     moro_axi_22_9_growth_rates) = np.loadtxt(morozumi_axi_22_9,
+                                              delimiter=',', unpack=True)
+    # loading the morozumi asymmteric 22.9 data file
+    (morozumi_as_22_9_freqs,
+     moro_as_growth_rates) = np.loadtxt(morozumi_as_22_9,
+                                        delimiter=',', unpack=True)
+    # performing savgol filtering on both the axisymmetric and asymmetric 5.22
+    # experimental files
     savgol_axi_5_22 = savgol_filter(exp_5_22_axi, 101, 2)
     savgol_as_5_22 = savgol_filter(exp_5_22_as, 101, 2)
 
+    # performing savgol filtering on both the axisymmetric and asymmetric 22.9
+    # experimental files
+    savgol_axi_22_9 = savgol_filter(exp_22_9_axi, 101, 2)
+    savgol_as_22_9 = savgol_filter(exp_22_9_as, 101, 2)
+
+    # setting up the plots
     fig, ax = plt.subplots()
-    ax.plot(freqs_5_22, savgol_axi_5_22, label='Experimental data')
+    ax.plot(freqs_5_22, savgol_axi_5_22, label='5.22 Experimental data')
+    ax.plot(freqs_22_9, savgol_axi_22_9, label='22.9 Experimental data')
     ax.plot(morozumi_axi_5_22_freqs, moro_axi_5_22_growth_rates,
-            label='Morozumi and Fukai data')
+            label='Morozumi and Fukai 5.22 data')
+    ax.plot(morozumi_axi_22_9_freqs, moro_axi_22_9_growth_rates,
+            label='Morozumi and Fukai 22.9 data')
     ax.set_xlim(0, 800)
     ax.set_ylim(0, 50)
     ax.legend()
