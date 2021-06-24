@@ -561,8 +561,8 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
                                               delimiter=',', unpack=True)
     # loading the morozumi asymmteric 22.9 data file
     (morozumi_as_22_9_freqs,
-     moro_as_22_9growth_rates) = np.loadtxt(morozumi_as_22_9,
-                                            delimiter=',', unpack=True)
+     moro_as_22_9_growth_rates) = np.loadtxt(morozumi_as_22_9,
+                                             delimiter=',', unpack=True)
     # performing savgol filtering on both the axisymmetric and asymmetric 5.22
     # experimental files
     savgol_axi_5_22 = savgol_filter(exp_5_22_axi, 101, 2)
@@ -582,17 +582,18 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax.plot(morozumi_axi_22_9_freqs, moro_axi_22_9_growth_rates,
             label='Morozumi and Fukai 22.9 data')
     ax.set_xlim(0, 800)
-    ax.set_ylim(0, 50)
+    ax.set_ylim(0, 200)
     ax.legend()
     ax.set_xlabel('$f$ (Hz)', fontsize=16)
     ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax.tick_params(axis='both', labelsize=12)
-    fig.set_size_inches(6, 4)
-    fig.savefig(fname='morozumi_axi_comparison.pgf', bbox_inches='tight')
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs_5_22, savgol_as_5_22, label='Experimental data')
+    ax1.plot(freqs_5_22, savgol_as_5_22, label='5.22 Experimental data')
+    ax1.plot(freqs_22_9, savgol_as_22_9, label='22.9 Experimental data')
     ax1.plot(morozumi_as_5_22_freqs, moro_as_5_22_growth_rates,
+             label='Morozumi and Fukai data')
+    ax1.plot(morozumi_as_22_9_freqs, moro_as_22_9_growth_rates,
              label='Morozumi and Fukai data')
     ax1.legend()
     ax1.set_xlim(0, 800)
@@ -601,5 +602,3 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.tick_params(axis='both', labelsize=12)
-    fig1.set_size_inches(6, 4)
-    fig1.savefig(fname='morozumi_as_comparison.pgf', bbox_inches='tight')
