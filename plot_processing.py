@@ -581,10 +581,10 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
             marker='s', markevery=100, markersize=8, color='black')
     ax.plot(morozumi_axi_5_22_freqs, moro_axi_5_22_growth_rates,
             label='Morozumi and Fukai 5.22 data', marker='o', markevery=10,
-            markersize=8, color='black', linestyle='dashed')
+            markersize=6, color='black', linestyle='dashed')
     ax.plot(morozumi_axi_22_9_freqs, moro_axi_22_9_growth_rates,
             label='Morozumi and Fukai 22.9 data', marker='s', markevery=10,
-            markersize=8, color='black', linestyle='dashed')
+            markersize=6, color='black', linestyle='dashed')
     ax.set_xlim(0, 800)
     ax.set_ylim(0, 200)
     ax.legend()
