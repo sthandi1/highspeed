@@ -627,7 +627,7 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax1.legend()
     ax1.set_xlim(0, 800)
     ax1.set_ylim(0, 200)
-    ax1.legend()
+    ax1.legend(fontsize=8)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.tick_params(axis='both', labelsize=12)
