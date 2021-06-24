@@ -632,3 +632,4 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.tick_params(axis='both', labelsize=12)
     fig1.set_size_inches(6, 6)
+    fig1.savefig(fname='morozumi_as_comparison.pgf', bbox_inches='tight')
