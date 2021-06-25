@@ -446,7 +446,7 @@ def plotting_4file(file1, file2, file3, file4):
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
     print(fig1filename)
-    fig.set_size_inches(6, 4)
+    fig1.set_size_inches(6, 4)
 
     # ASYMMETRIC PLOTS
 
@@ -464,7 +464,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
     print(fig2filename)
-    fig.set_size_inches(6, 4)
+    fig2.set_size_inches(6, 4)
 
 
 def plotting_1file(file1):
