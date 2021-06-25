@@ -429,15 +429,15 @@ def plotting_4file(file1, file2, file3, file4):
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs, savgol_file1_axi,
-             label='$RR_G=8.7$, $\\mathrm{We}_\\mathrm{g}=5.22$')
+             label='$RR_G=1.5$')
     ax1.plot(freqs, savgol_file2_axi,
-             label='$RR_G=1.5$, $\\mathrm{We}_\\mathrm{g}=11.6$')
+             label='$RR_G=3.9$')
     ax1.plot(freqs, savgol_file3_axi,
-             label='$RR_G=3.9$, $\\mathrm{We}_\\mathrm{g}=11.6$')
+             label='$RR_G=6.3$')
     ax1.plot(freqs, savgol_file4_axi,
-             label='$RR_G=6.3$, $\\mathrm{We}_\\mathrm{g}=11.6$')
-    ax1.set_xlim(0, 6000)
-    ax1.set_ylim(-60, 60)
+             label='$RR_G=8.7$')
+    ax1.set_xlim(0, 1000)
+    ax1.set_ylim(-70, 60)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.grid()
@@ -446,7 +446,6 @@ def plotting_4file(file1, file2, file3, file4):
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
     print(fig1filename)
-
 
     # ASYMMETRIC PLOTS
 
@@ -598,7 +597,7 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
             label='Morozumi and Fukai $\\mathrm{We}_\\mathrm{g}=52.7$',
             marker='^', markevery=10, markersize=7, color='black')
     ax.set_xlim(0, 800)
-    ax.set_ylim(0, 220)
+    ax.set_ylim(-20, 220)
     ax.legend(fontsize=8)
     ax.set_xlabel('$f$ (Hz)', fontsize=14)
     ax.set_ylabel('$\\omega$ (1/s)', fontsize=14)
