@@ -446,6 +446,7 @@ def plotting_4file(file1, file2, file3, file4):
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
     print(fig1filename)
+    fig.set_size_inches(6, 4)
 
     # ASYMMETRIC PLOTS
 
@@ -454,8 +455,8 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.plot(freqs, savgol_file2_as, label='$RR_G=3.9$')
     ax2.plot(freqs, savgol_file3_as, label='$RR_G=6.3$')
     ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$')
-    ax2.set_xlim(0, 2000)
-    ax2.set_ylim(0, 140)
+    ax2.set_xlim(0, 700)
+    ax2.set_ylim(0, 60)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
     ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.grid()
@@ -463,6 +464,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
     print(fig2filename)
+    fig.set_size_inches(6, 4)
 
 
 def plotting_1file(file1):
@@ -596,7 +598,7 @@ def morozumi_comparison(morozumi_axi_5_22, morozumi_as_5_22,
     ax.plot(morozumi_axi_52_7_freqs, moro_axi_52_7_growth_rates,
             label='Morozumi and Fukai $\\mathrm{We}_\\mathrm{g}=52.7$',
             marker='^', markevery=10, markersize=7, color='black')
-    ax.set_xlim(0, 800)
+    ax.set_xlim(0, 1000)
     ax.set_ylim(-20, 220)
     ax.legend(fontsize=8)
     ax.set_xlabel('$f$ (Hz)', fontsize=14)
