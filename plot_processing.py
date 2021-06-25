@@ -447,6 +447,7 @@ def plotting_4file(file1, file2, file3, file4):
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
     print(fig1filename)
     fig1.set_size_inches(6, 4)
+    fig1.savefig(fname='2940_5_22_axi.pgf', bbox_inches='tight')
 
     # ASYMMETRIC PLOTS
 
@@ -465,6 +466,7 @@ def plotting_4file(file1, file2, file3, file4):
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
     print(fig2filename)
     fig2.set_size_inches(6, 4)
+    fig2.savefig(fname='2940_5_22_as.pgf', bbox_inches='tight')
 
 
 def plotting_1file(file1):
