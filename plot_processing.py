@@ -395,13 +395,13 @@ def plotting_4file(file1, file2, file3, file4):
     """
 
     freqs1, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
-                                                        unpack=True)
+                                                         unpack=True)
     freqs2, _, file2_axi, _, _, file2_as, _ = np.loadtxt(file2, delimiter=',',
-                                                        unpack=True)
+                                                         unpack=True)
     freqs3, _, file3_axi, _, _, file3_as, _ = np.loadtxt(file3, delimiter=',',
-                                                        unpack=True)
+                                                         unpack=True)
     freqs4, _, file4_axi, _, _, file4_as, _ = np.loadtxt(file4, delimiter=',',
-                                                        unpack=True)
+                                                         unpack=True)
 
     casename, Re, We = file_id(file1)
 
