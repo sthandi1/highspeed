@@ -333,6 +333,7 @@ def fft_checking(filename):
 
     print('Number of zero events:', zero_events)
     print("Percentage of total:", zero_events/len(jet_diameter)*100)
+    print('Number of frames:', len(frames))
 
 
 def fft_output(filename):
