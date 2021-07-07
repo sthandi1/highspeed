@@ -452,10 +452,10 @@ def plotting_4file(file1, file2, file3, file4):
     # ASYMMETRIC PLOTS
 
     fig2, ax2 = plt.subplots()
-    ax2.plot(freqs, savgol_file1_as, label='$RR_G=1.5$')
-    ax2.plot(freqs, savgol_file2_as, label='$RR_G=3.9$')
-    ax2.plot(freqs, savgol_file3_as, label='$RR_G=6.3$')
-    ax2.plot(freqs, savgol_file4_as, label='$RR_G=8.7$')
+    ax2.plot(freqs1, savgol_file1_as, label='$RR_G=1.5$')
+    ax2.plot(freqs2, savgol_file2_as, label='$RR_G=3.9$')
+    ax2.plot(freqs3, savgol_file3_as, label='$RR_G=6.3$')
+    ax2.plot(freqs4, savgol_file4_as, label='$RR_G=8.7$')
     ax2.set_xlim(0, 700)
     ax2.set_ylim(0, 60)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
