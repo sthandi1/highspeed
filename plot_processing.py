@@ -394,22 +394,22 @@ def plotting_4file(file1, file2, file3, file4):
     Main plotting function
     """
 
-    freqs, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
+    freqs1, _, file1_axi, _, _, file1_as, _ = np.loadtxt(file1, delimiter=',',
                                                         unpack=True)
-    freqs, _, file2_axi, _, _, file2_as, _ = np.loadtxt(file2, delimiter=',',
+    freqs2, _, file2_axi, _, _, file2_as, _ = np.loadtxt(file2, delimiter=',',
                                                         unpack=True)
-    freqs, _, file3_axi, _, _, file3_as, _ = np.loadtxt(file3, delimiter=',',
+    freqs3, _, file3_axi, _, _, file3_as, _ = np.loadtxt(file3, delimiter=',',
                                                         unpack=True)
-    freqs, _, file4_axi, _, _, file4_as, _ = np.loadtxt(file4, delimiter=',',
+    freqs4, _, file4_axi, _, _, file4_as, _ = np.loadtxt(file4, delimiter=',',
                                                         unpack=True)
 
     casename, Re, We = file_id(file1)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs, file1_axi, label='$RR_G=1.5$')
-    ax.plot(freqs, file2_axi, label='$RR_G=3.9$')
-    ax.plot(freqs, file3_axi, label='$RR_G=6.3$')
-    ax.plot(freqs, file4_axi, label='$RR_G=8.7$')
+    ax.plot(freqs1, file1_axi, label='$RR_G=1.5$')
+    ax.plot(freqs2, file2_axi, label='$RR_G=3.9$')
+    ax.plot(freqs3, file3_axi, label='$RR_G=6.3$')
+    ax.plot(freqs4, file4_axi, label='$RR_G=8.7$')
     ax.set_xlim(0, 1250)
     ax.set_ylim(0, 400)
     ax.set_title('Unfiltered data')
@@ -428,13 +428,13 @@ def plotting_4file(file1, file2, file3, file4):
     savgol_file4_as = savgol_filter(file4_as, 301, 2)
 
     fig1, ax1 = plt.subplots()
-    ax1.plot(freqs, savgol_file1_axi,
+    ax1.plot(freqs1, savgol_file1_axi,
              label='$RR_G=1.5$')
-    ax1.plot(freqs, savgol_file2_axi,
+    ax1.plot(freqs2, savgol_file2_axi,
              label='$RR_G=3.9$')
-    ax1.plot(freqs, savgol_file3_axi,
+    ax1.plot(freqs3, savgol_file3_axi,
              label='$RR_G=6.3$')
-    ax1.plot(freqs, savgol_file4_axi,
+    ax1.plot(freqs4, savgol_file4_axi,
              label='$RR_G=8.7$')
     ax1.set_xlim(0, 1000)
     ax1.set_ylim(-70, 60)
