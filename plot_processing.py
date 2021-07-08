@@ -436,7 +436,7 @@ def plotting_4file(file1, file2, file3, file4):
              label='$RR_G=6.3$')
     ax1.plot(freqs4, savgol_file4_axi,
              label='$RR_G=8.7$')
-    ax1.set_xlim(0, 5000)
+    ax1.set_xlim(0, 1000)
     ax1.set_ylim(0, 200)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
@@ -455,7 +455,7 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.plot(freqs3, savgol_file3_as, label='$RR_G=6.3$')
     ax2.plot(freqs4, savgol_file4_as, label='$RR_G=8.7$')
     ax2.set_xlim(0, 4000)
-    ax2.set_ylim(0, 120)
+    ax2.set_ylim(0, 200)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
     ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.grid()
