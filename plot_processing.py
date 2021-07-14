@@ -417,15 +417,15 @@ def plotting_4file(file1, file2, file3, file4):
     ax.set_ylabel('Growth rate (1/s)')
     ax.legend()
 
-    savgol_file1_axi = savgol_filter(file1_axi, 401, 2)
-    savgol_file2_axi = savgol_filter(file2_axi, 401, 2)
-    savgol_file3_axi = savgol_filter(file3_axi, 401, 2)
-    savgol_file4_axi = savgol_filter(file4_axi, 401, 2)
+    savgol_file1_axi = savgol_filter(file1_axi, 1001, 2)
+    savgol_file2_axi = savgol_filter(file2_axi, 1001, 2)
+    savgol_file3_axi = savgol_filter(file3_axi, 1001, 2)
+    savgol_file4_axi = savgol_filter(file4_axi, 1001, 2)
 
-    savgol_file1_as = savgol_filter(file1_as, 401, 2)
-    savgol_file2_as = savgol_filter(file2_as, 401, 2)
-    savgol_file3_as = savgol_filter(file3_as, 401, 2)
-    savgol_file4_as = savgol_filter(file4_as, 401, 2)
+    savgol_file1_as = savgol_filter(file1_as, 1001, 2)
+    savgol_file2_as = savgol_filter(file2_as, 1001, 2)
+    savgol_file3_as = savgol_filter(file3_as, 1001, 2)
+    savgol_file4_as = savgol_filter(file4_as, 1001, 2)
 
     fig1, ax1 = plt.subplots()
     ax1.plot(freqs1, savgol_file1_axi,
@@ -436,8 +436,8 @@ def plotting_4file(file1, file2, file3, file4):
              label='$RR_G=6.3$')
     ax1.plot(freqs4, savgol_file4_axi,
              label='$RR_G=8.7$')
-    ax1.set_xlim(0, 1000)
-    ax1.set_ylim(0, 200)
+    ax1.set_xlim(0, 3000)
+    ax1.set_ylim(0, 120)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.grid()
@@ -454,8 +454,8 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.plot(freqs2, savgol_file2_as, label='$RR_G=3.9$')
     ax2.plot(freqs3, savgol_file3_as, label='$RR_G=6.3$')
     ax2.plot(freqs4, savgol_file4_as, label='$RR_G=8.7$')
-    ax2.set_xlim(0, 4000)
-    ax2.set_ylim(0, 200)
+    ax2.set_xlim(0, 5000)
+    ax2.set_ylim(0, 120)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
     ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.grid()
@@ -463,7 +463,6 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
     print(fig2filename)
-
 
 
 def plotting_1file(file1):
