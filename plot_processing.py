@@ -436,8 +436,8 @@ def plotting_4file(file1, file2, file3, file4):
              label='$RR_G=6.3$')
     ax1.plot(freqs4, savgol_file4_axi,
              label='$RR_G=8.7$')
-    ax1.set_xlim(0, 3000)
-    ax1.set_ylim(0, 120)
+    ax1.set_xlim(0, 4000)
+    ax1.set_ylim(0, 150)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.grid()
@@ -446,6 +446,8 @@ def plotting_4file(file1, file2, file3, file4):
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
     fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
     print(fig1filename)
+    fig1.set_size_inches(6, 4)
+    fig1.savefig(fname=fig1filename, bbox_inches='tight')
 
     # ASYMMETRIC PLOTS
 
@@ -454,8 +456,8 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.plot(freqs2, savgol_file2_as, label='$RR_G=3.9$')
     ax2.plot(freqs3, savgol_file3_as, label='$RR_G=6.3$')
     ax2.plot(freqs4, savgol_file4_as, label='$RR_G=8.7$')
-    ax2.set_xlim(0, 5000)
-    ax2.set_ylim(0, 120)
+    ax2.set_xlim(0, 4000)
+    ax2.set_ylim(0, 160)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
     ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.grid()
@@ -463,6 +465,8 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.legend()
     fig2filename = str(Re) + '_' + str(We_underscored) + '_' + 'as.pgf'
     print(fig2filename)
+    fig2.set_size_inches(6, 4)
+    fig2.savefig(fname=fig2filename, bbox_inches='tight')
 
 
 def plotting_1file(file1):
