@@ -169,7 +169,7 @@ def f_model_clift(Re):
     return f
 
 
-def drop_equation(u_l, z_locations, weber_number):
+def drop_equation_old(u_l, z_locations, weber_number):
     # drop diameter
     d = 2e-3
     # viscosity of water
@@ -191,6 +191,33 @@ def drop_equation(u_l, z_locations, weber_number):
     numerator = (-u_l+2*A*u_g*z_locations
                  + np.sqrt((u_l-2*A*u_g*z_locations)**2
                            - 4*(A*u_g+g)*(A*z_locations**2-z_locations)))
+    denominator = (2*A*u_g+2*g)
+    t = numerator/denominator
+    return t
+
+
+def drop_equation(u_l, z_locations, weber_number):
+    # drop diameter
+    d = 2e-3
+    # viscosity of water
+    mu_l = 8.9e-4
+    # density of water
+    rho_l = 1000
+    # viscosity of air
+    mu_g = 1.825e-5
+    # density of air
+    rho_g = 1.225
+    # gravity
+    g = 9.81
+    # calculating the liquid reynolds number for extracting u_g
+    re_exp = rho_l*u_l*d/mu_l
+    # extracting u_g using the weber velocity function
+    u_g = weber_velocity(weber_number, re_exp)
+    tau = rho_l*d**2/(18*mu_g)
+    A = 0.0183*rho_g*d/(mu_g*tau)
+    numerator = (-u_l+2*A*u_g*z_locations
+                 + np.sqrt((u_l-2*A*u_g*z_locations)**2
+                           - 4*(A*u_g**2+g)*(A*z_locations**2-z_locations)))
     denominator = (2*A*u_g+2*g)
     t = numerator/denominator
     return t
