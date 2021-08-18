@@ -310,7 +310,6 @@ def plotting_measured_wavelength(file1, file2, file3, file4):
     wavelength = v/freqs
     wavenumber = 2*np.pi/wavelength
     savgol_control = savgol_filter(control, 101, 2)
-    savgol_control_2 = savgol_filter(control_2, 101, 2)
     savgol_control_3 = savgol_filter(control_3, 101, 2)
 
     fig, ax = plt.subplots()
