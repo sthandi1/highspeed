@@ -323,6 +323,7 @@ def plotting_measured_wavelength(file1, file2, file3, file4):
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax.grid()
+    fig.set_size_inches(6, 4)
     fig.savefig(fname='time_models.pgf', bbox_inches='tight')
 
 
