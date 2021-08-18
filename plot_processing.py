@@ -312,21 +312,17 @@ def plotting_measured_wavelength(file1, file2, file3, file4):
     savgol_control = savgol_filter(control, 101, 2)
     savgol_control_2 = savgol_filter(control_2, 101, 2)
     savgol_control_3 = savgol_filter(control_3, 101, 2)
-    savgol_control_4 = savgol_filter(control_4, 101, 2)
 
     fig, ax = plt.subplots()
     ax.plot(k*a, sqrt_w, label='Rayleigh', color='black', linestyle='solid')
     ax.plot(wavenumber*a, savgol_control, label='Morozumi and Fukai model')
-    ax.plot(wavenumber*a, savgol_control_2, label='Aerodynamic model')
     ax.plot(wavenumber*a, savgol_control_3, label='Arai and Amagai model')
-    ax.plot(wavenumber*a, savgol_control_4, label='Aerodynamic model fixed')
     ax.set_xlim(0, 3.5)
     ax.set_ylim(0, 100)
     ax.legend()
     ax.set_xlabel('ka', fontsize=16)
     ax.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax.grid()
-    fig.set_size_inches(6, 4.5)
     fig.savefig(fname='time_models.pgf', bbox_inches='tight')
 
 
