@@ -406,10 +406,10 @@ def plotting_4file(file1, file2, file3, file4):
     casename, Re, We = file_id(file1)
 
     fig, ax = plt.subplots()
-    ax.plot(freqs1, file1_axi,  label='$RR_G=8.7$, $\\mathrm{We}_\mathrm{g}=5.22$')
-    ax.plot(freqs2, file2_axi, label='$RR_G=1.5$, $\\mathrm{We}_\mathrm{g}=11.6$')
-    ax.plot(freqs3, file3_axi, label='$RR_G=3.9$, $\\mathrm{We}_\mathrm{g}=11.6$')
-    ax.plot(freqs4, file4_axi, label='$RR_G=6.3$, $\\mathrm{We}_\mathrm{g}=11.6$')
+    ax.plot(freqs1, file1_axi, label='$RR_G=1.5$')
+    ax.plot(freqs2, file2_axi, label='$RR_G=3.9$')
+    ax.plot(freqs3, file3_axi, label='$RR_G=6.3$')
+    ax.plot(freqs4, file4_axi, label='$RR_G=8.7$')
     ax.set_xlim(0, 1250)
     ax.set_ylim(0, 400)
     ax.set_title('Unfiltered data')
@@ -436,18 +436,18 @@ def plotting_4file(file1, file2, file3, file4):
              label='$RR_G=6.3$')
     ax1.plot(freqs4, savgol_file4_axi,
              label='$RR_G=8.7$')
-    ax1.set_xlim(0, 6000)
-    ax1.set_ylim(0, 170)
+    ax1.set_xlim(0, 1000)
+    ax1.set_ylim(-80, 70)
     ax1.set_xlabel('$f$ (Hz)', fontsize=16)
     ax1.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax1.grid()
     ax1.tick_params(axis='both', labelsize=12)
     ax1.legend()
     We_underscored = We.split('.')[0] + '_' + We.split('.')[1]
-    # fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
-    # print(fig1filename)
+    fig1filename = str(Re) + '_' + str(We_underscored) + '_' + 'axi.pgf'
+    print(fig1filename)
     fig1.set_size_inches(6, 4)
-    fig1.savefig(fname='We_5_22_11_6_recess_comparison.pgf', bbox_inches='tight')
+    fig1.savefig(fname=fig1filename, bbox_inches='tight')
 
     # ASYMMETRIC PLOTS
 
@@ -456,8 +456,8 @@ def plotting_4file(file1, file2, file3, file4):
     ax2.plot(freqs2, savgol_file2_as, label='$RR_G=3.9$')
     ax2.plot(freqs3, savgol_file3_as, label='$RR_G=6.3$')
     ax2.plot(freqs4, savgol_file4_as, label='$RR_G=8.7$')
-    ax2.set_xlim(0, 850)
-    ax2.set_ylim(0, 80)
+    ax2.set_xlim(0, 700)
+    ax2.set_ylim(0, 60)
     ax2.set_xlabel('$f$ (Hz)', fontsize=16)
     ax2.set_ylabel('$\\omega$ (1/s)', fontsize=16)
     ax2.grid()
