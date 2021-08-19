@@ -363,6 +363,24 @@ def fft_checking(filename):
     print('Number of frames:', len(frames))
 
 
+def file_path_maker(filepath, zlocs):
+    """
+    This function returns the filenames with relevant filepaths
+    """
+    files = []
+    for i in zlocs:
+        files.append(filepath + str(i) + '.csv')
+    return files
+
+
+def automatic_checking(files):
+    """
+    This function automatically runs fft_checking on all files
+    """
+    for i in range(10):
+        fft_checking(files[i])
+
+
 def fft_output(filename):
     """This is a backend function which produces the fft data for the given
     filename
