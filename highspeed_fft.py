@@ -613,9 +613,9 @@ def growth_rate(filenames, time_model=arai_time_model):
     model_amps = modelamps_r/diameter_a0[minimum_location]
 
     ax1.plot(modelling_ts, model_amps,
-             label='Curve fit ($A=A_0e^{\\omega t}$)')
+             label='Curve fit ($\xi = \xi_0e^{\\omega t}$)')
     ax1.set_xlabel("Modelled time (seconds)", fontsize=12)
-    ax1.set_ylabel('$\\frac{A}{A_0}$', fontsize=16)
+    ax1.set_ylabel('$\\frac{\xi}{\xi_0}$', fontsize=16)
     ax1.set_xlim(0, 0.0125)
     ax1.set_ylim(1, 3)
     ax1.grid()
